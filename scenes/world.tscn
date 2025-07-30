@@ -17,3 +17,9 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAA
 tile_set = SubResource("TileSet_e5uuo")
 
 [node name="MainTileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="HardBorder" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HardBorder"]
+polygon = PackedVector2Array(304, 0, 0, 0, -16, -16, 320, -16, 320, 336, -16, 336, -16, -16, 0, 0, 0, 320, 304, 320)
