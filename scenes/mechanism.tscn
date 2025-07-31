@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf4u1nsr04c5q"]
 
-[ext_resource type="Script" uid="uid://c0n2343m8bei4" path="res://scripts/mechanism.gd" id="1_5ep16"]
+[ext_resource type="Script" path="res://scenes/mechanism.gd" id="1_5ep16"]
 [ext_resource type="Shape2D" uid="uid://casvjues3g17a" path="res://assets/Polygons/TrianglePolygon.tres" id="1_28r5f"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_28r5f"]

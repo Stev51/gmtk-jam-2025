@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://be68vhiulircs"]
+[gd_scene load_steps=7 format=3 uid="uid://be68vhiulircs"]
 
 [ext_resource type="PackedScene" uid="uid://6eaf6tl17aio" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://jaq7puo13gso" path="res://scripts/main.gd" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://hsl6f3topqru" path="res://scenes/world.tscn" id="2_0wfyh"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://c84i7if3q5p8s" path="res://scenes/world.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://5ir7gkpmgxy5" path="res://scenes/box.tscn" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://cvv8r7xpjmgp6" path="res://scripts/place_marker.gd" id="4_jyhfs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
@@ -13,6 +14,9 @@ script = ExtResource("1_sugp2")
 
 [node name="World" parent="." instance=ExtResource("2_0wfyh")]
 position = Vector2(-320, -320)
+
+[node name="Box" parent="World" instance=ExtResource("3_tbgi4")]
+position = Vector2(224, 224)
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 

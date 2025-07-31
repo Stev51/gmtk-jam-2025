@@ -18,7 +18,7 @@ func _process(delta):
 	display_shape.color = state_to_color(state)
 
 func check_validity():
-	
+
 	if overlapping_player == true:
 		state = States.SOFT_INVALID
 	else:
