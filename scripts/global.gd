@@ -1,1 +1,3 @@
 extends Node
+
+enum States {VALID, SOFT_INVALID, HARD_INVALID, OUT_OF_BOUNDS}

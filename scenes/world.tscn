@@ -32,6 +32,8 @@ tile_set = SubResource("TileSet_rwgxs")
 [node name="MainTileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_4wyf3")
 
+[node name="Mechanisms" type="Node2D" parent="."]
+
 [node name="HardBorder" type="StaticBody2D" parent="."]
 visible = false
 
@@ -39,6 +41,7 @@ visible = false
 polygon = PackedVector2Array(0, 640, 640, 640, 640, 0, 0, 0, -64, -64, 704, -64, 704, 704, -64, 704, -64, -64, 0, 0)
 
 [node name="ValidMapArea" type="Area2D" parent="." groups=["valid_map_area"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ValidMapArea"]
 position = Vector2(320, 320)

@@ -30,6 +30,7 @@ window/stretch/mode="viewport"
 player=""
 mechanisms=""
 valid_map_area=""
+mechanism_selectors=""
 
 [input]
 

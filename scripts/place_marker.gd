@@ -14,9 +14,7 @@ const SIZE = Vector2.ONE * 64
 @onready var display_shape = $Polygon2D
 @onready var collision_area = $Area2D
 
-enum States {VALID, SOFT_INVALID, HARD_INVALID, OUT_OF_BOUNDS}
-
-var state = States.VALID
+var state = Global.States.VALID
 var overlapping_player = false
 var overlapping_mechanism = false
 var out_of_bounds = false
@@ -29,29 +27,37 @@ func _process(delta):
 
 func check_mechanism_overlaps():
 	overlapping_mechanism = false
+	if len(get_hovered_mechanisms()) > 0:
+		overlapping_mechanism = true
+
+func get_hovered_mechanisms():
+	var ret = []
 	for area in collision_area.get_overlapping_areas():
-		if area.is_in_group("mechanisms"):
-			overlapping_mechanism = true
+		if area.is_in_group("mechanism_selectors"):
+			ret.append(area.get_parent())
+	return ret
 
 func check_validity():
 	if out_of_bounds == true:
-		state = States.OUT_OF_BOUNDS
+		state = Global.States.OUT_OF_BOUNDS
 	elif overlapping_mechanism == true:
-		state = States.HARD_INVALID
-	elif overlapping_player == true or pos_dist > MAXIMUM_PLACEMENT_DISTANCE:
-		state = States.SOFT_INVALID
+		state = Global.States.HARD_INVALID
+	elif overlapping_player == true:
+		state = Global.States.SOFT_INVALID
+	elif pos_dist > MAXIMUM_PLACEMENT_DISTANCE:
+		state = Global.States.SOFT_INVALID
 	else:
-		state = States.VALID
+		state = Global.States.VALID
 
 func state_to_color():
 	match state:
-		States.VALID:
+		Global.States.VALID:
 			return GREEN
-		States.SOFT_INVALID:
+		Global.States.SOFT_INVALID:
 			return YELLOW
-		States.HARD_INVALID:
+		Global.States.HARD_INVALID:
 			return RED
-		States.OUT_OF_BOUNDS:
+		Global.States.OUT_OF_BOUNDS:
 			return TRANSPARENT
 		_:
 			return TRANSPARENT
