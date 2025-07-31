@@ -14,6 +14,13 @@ var x: int
 var y: int
 var node: Node2D
 
+# Variables to help with simulation
+var processed: bool
+var simulationResult: bool
+var newPosition: Vector2i
+var directionToMove: Util.Direction
+var pushOverload: int # Counter for when more than one thing tries to push the box
+
 func _init(field: Field, x: int, y:int, node: Node2D):
 	self.field = field
 	self.x = x
@@ -23,38 +30,66 @@ func _init(field: Field, x: int, y:int, node: Node2D):
 
 # Initial attempt to push
 # Used to determine what pushes what
-# Some collision types will not yet be calculated!
-func simulatePush(dir: Util.Direction) -> bool:
-	var newPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
+# As some collision types are not yet be calculated, do not trust return value of true!
+func simulatePush() -> bool:
+	if processed: return simulationResult
+	processed = true
+	
+	# To prevent recursive push calls, we temporarily set the result to fail
+	simulationResult = false
+	
+	newPosition = Util.offset(Vector2i(x, y), directionToMove)
 	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
 	
 	# Check we are on the map
-	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_WIDTH: return false
-	return true
-	
-	
-
-func push(dir: Util.Direction) -> bool:
-	var offset: Vector2i = Util.offset(Vector2i(x, y), dir)
-	#print("Attempt on box ", offset)
-	var objectInWay: Mechanism = field.getForegroundVector(offset)
-	if offset.x < 0 || offset.x >= Field.GRID_WIDTH || offset.y < 0 || offset.y >= Field.GRID_WIDTH: return false
+	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_WIDTH: 
+		simulationResult = false
+		return false
+	# Check if we can move into the next tile
 	if objectInWay != null:
-		if (objectInWay.push(dir)):
-			field.setForegroundVector(offset, self)
+		#print("object in way for ", getCoordinateVector(), " : ", objectInWay)
+		objectInWay.setToPush(directionToMove)
+		if objectInWay.simulatePush():
+			simulationResult = true
+		else:
+			simulationResult = false
+	else:
+		simulationResult = true
+	print("First pass: ", x, " ", y, " with result ", simulationResult)
+	return simulationResult
+
+func setToPush(dir: Util.Direction):
+	pushOverload += 1
+	if pushOverload > 1:
+		simulationResult = false
+		processed = true
+	else: directionToMove = dir
+
+# Note that we still have to perform checks
+# since result may have changed since our simulation
+# The propagation of these changes will *probably* not cause issues
+func push() -> bool:
+	print(x, " ", y, " : ", simulationResult)
+	if simulationResult == false: return false
+	var offset: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
+	if offset.x < 0 || offset.x >= Field.GRID_WIDTH || offset.y < 0 || offset.y >= Field.GRID_WIDTH: return false
+	var objectInWay: Mechanism = field.getForegroundVector(offset)
+	if objectInWay != null:
+		if (objectInWay.push()):
+			field.setFutureForegroundVector(offset, self)
 			field.setForegroundMechanism(self.x, self.y, null)
 			self.x = offset.x
 			self.y = offset.y
-			self.node.translate(Util.offset(Vector2i(0, 0), dir) * Field.SCALE)
+			self.node.translate(Util.offset(Vector2i(0, 0), directionToMove) * Field.SCALE)
 			return true
 		else:
 			return false
 	else:
-		field.setForegroundVector(offset, self)
+		field.setFutureForegroundVector(offset, self)
 		field.setForegroundMechanism(self.x, self.y, null)
 		self.x = offset.x
 		self.y = offset.y
-		self.node.translate(Util.offset(Vector2i(0, 0), dir) * Field.SCALE)
+		self.node.translate(Util.offset(Vector2i(0, 0), directionToMove) * Field.SCALE)
 		return true
 
 func update(currentCycle: int) -> void:
@@ -62,6 +97,9 @@ func update(currentCycle: int) -> void:
 
 func getNode() -> Node2D:
 	return node
+
+func getCoordinateVector() -> Vector2i:
+	return Vector2i(x, y)
 # Consider moving anything to custom resources
 # Walls and UI will be non-mechanisms, a different Node2D and Control respectively
 
