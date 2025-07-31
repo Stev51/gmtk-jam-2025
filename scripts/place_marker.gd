@@ -1,6 +1,7 @@
 extends Node2D
 
-const MAXIMUM_PLACEMENT_DISTANCE = 64 * 2.5
+@export var max_placement_distance_tiles = 2.5
+var MAXIMUM_PLACEMENT_DISTANCE = max_placement_distance_tiles * 64
 
 const TRANSPARENCY = 0.5
 const GREEN = Color(0, 1, 0, TRANSPARENCY)
