@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf4u1nsr04c5q"]
+[gd_scene load_steps=4 format=3 uid="uid://cf4u1nsr04c5q"]
 
 [ext_resource type="Script" uid="uid://c0n2343m8bei4" path="res://scenes/mechanism.gd" id="1_5ep16"]
-[ext_resource type="Shape2D" uid="uid://casvjues3g17a" path="res://assets/Polygons/TrianglePolygon.tres" id="1_28r5f"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_28r5f"]
 size = Vector2(64, 64)
@@ -22,26 +21,26 @@ shape = SubResource("RectangleShape2D_5ep16")
 
 [node name="Right Side" type="Area2D" parent="."]
 
-[node name="Right Collision Triangle" type="CollisionShape2D" parent="Right Side"]
-shape = ExtResource("1_28r5f")
+[node name="Right Collision Triangle" type="CollisionPolygon2D" parent="Right Side"]
+polygon = PackedVector2Array(0, 0, 32, 32, 32, -32)
 
 [node name="Bottom Side" type="Area2D" parent="."]
 rotation = 1.5708
 
-[node name="Bottom Collision Triangle" type="CollisionShape2D" parent="Bottom Side"]
-shape = ExtResource("1_28r5f")
+[node name="Bottom Collision Triangle" type="CollisionPolygon2D" parent="Bottom Side"]
+polygon = PackedVector2Array(0, 0, 32, 32, 32, -32)
 
 [node name="Left Side" type="Area2D" parent="."]
 rotation = 3.14159
 
-[node name="Left Collision Triangle" type="CollisionShape2D" parent="Left Side"]
-shape = ExtResource("1_28r5f")
+[node name="Left Collision Triangle" type="CollisionPolygon2D" parent="Left Side"]
+polygon = PackedVector2Array(0, 0, 32, 32, 32, -32)
 
 [node name="Top Side" type="Area2D" parent="."]
 rotation = -1.5708
 
-[node name="Top Collision Triangle" type="CollisionShape2D" parent="Top Side"]
-shape = ExtResource("1_28r5f")
+[node name="Top Collision Triangle" type="CollisionPolygon2D" parent="Top Side"]
+polygon = PackedVector2Array(0, 0, 32, 32, 32, -32)
 
 [node name="Active Area (undef)" type="Area2D" parent="."]
 
