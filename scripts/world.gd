@@ -39,14 +39,13 @@ func updateMechanisms() -> void:
 				if object[BACKGROUND] != null:
 					object[BACKGROUND].update(currentCycle)
 	
-	#print(map)
 	# Simulate movement
 	for x in map.size():
 		for y in map[x].size():
 			var holder = map[x][y]
 			if holder != null:
 				var object = holder[FOREGROUND]
-				if object != null:
+				if object != null && object.directionToMove != Util.Direction.NONE:
 					object.simulatePush()
 	
 	# Check if two objects are trying to move to the same position
@@ -145,6 +144,12 @@ func _ready():
 	addMechanism(Box.new(self, 1, 0), FOREGROUND)
 	addMechanism(Box.new(self, 2, 0), FOREGROUND)
 	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN, 2), BACKGROUND)
+	
+	addMechanism(Box.new(self, 5, 0), FOREGROUND)
+	addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT, 1), BACKGROUND)
+	addMechanism(Box.new(self, 8, 0), FOREGROUND)
+	addMechanism(Box.new(self, 7, 0), FOREGROUND)
+	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT, 2), BACKGROUND)
 	
 	addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	addMechanism(Box.new(self, 4, 3), FOREGROUND)

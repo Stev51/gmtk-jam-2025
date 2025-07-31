@@ -55,7 +55,6 @@ func simulatePush() -> bool:
 			simulationResult = false
 	else:
 		simulationResult = true
-	print("First pass: ", x, " ", y, " with result ", simulationResult)
 	return simulationResult
 
 func setToPush(dir: Util.Direction):
@@ -69,8 +68,8 @@ func setToPush(dir: Util.Direction):
 # since result may have changed since our simulation
 # The propagation of these changes will *probably* not cause issues
 func push() -> bool:
-	print(x, " ", y, " : ", simulationResult)
 	if simulationResult == false: return false
+	if directionToMove == Util.Direction.NONE: return false
 	var offset: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
 	if offset.x < 0 || offset.x >= Field.GRID_WIDTH || offset.y < 0 || offset.y >= Field.GRID_WIDTH: return false
 	var objectInWay: Mechanism = field.getForegroundVector(offset)
