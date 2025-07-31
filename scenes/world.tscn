@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://hsl6f3topqru"]
+[gd_scene load_steps=8 format=4 uid="uid://hsl6f3topqru"]
 
 [ext_resource type="Texture2D" uid="uid://cjocknw0gcrmi" path="res://assets/img/tile_bg_floor.png" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://dw0bs4wkgqd2" path="res://scripts/world.gd" id="1_rwgxs"]
@@ -48,3 +48,8 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ValidMapArea"]
 position = Vector2(320, 320)
 shape = SubResource("RectangleShape2D_nnsk1")
+
+[node name="MechanismClock" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="MechanismClock" to="." method="_on_mechanism_clock_timeout"]

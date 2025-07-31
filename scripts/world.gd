@@ -6,17 +6,15 @@ var map: Array = Array()
 
 const SCALE: int = 64
 const OFFSET: Vector2 = Vector2(SCALE / 2, SCALE / 2)
-func _physics_process(delta):
-	gameTime += 1
-	if gameTime % (5*60) == 0:
-		for x in map.size():
-			for y in map[x].size():
-				var object = map[x][y];
-				if object != null:
-					if object[FOREGROUND] != null:
-						object[FOREGROUND].update()
-					if object[BACKGROUND] != null:
-						object[BACKGROUND].update()
+func updateMechanisms():
+	for x in map.size():
+		for y in map[x].size():
+			var object = map[x][y];
+			if object != null:
+				if object[FOREGROUND] != null:
+					object[FOREGROUND].update()
+				if object[BACKGROUND] != null:
+					object[BACKGROUND].update()
 
 func getForegroundMechanism(x: int, y: int) -> Mechanism:
 	var mechs = map[x][y]
@@ -58,7 +56,7 @@ func getBackgroundVector(pos: Vector2i) -> Mechanism:
 func setBackgroundVector(pos: Vector2i, mech: Mechanism) -> Mechanism:
 	return setBackgroundMechanism(pos.x, pos.y, mech)
 
-func _enter_tree():
+func _ready():
 	map.resize(16)
 	for x in 16:
 		var column: Array = Array()
@@ -70,12 +68,15 @@ func _enter_tree():
 	addMechanism(Box.new(self, 2, 0), FOREGROUND)
 	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN), BACKGROUND)
 	drawMap();
+	
+	$MechanismClock.start()
 
 func addMechanism(mech: Mechanism, ground):
 	if ground == BACKGROUND:
 		self.setBackgroundMechanism(mech.x, mech.y, mech)
 	else:
 		self.setForegroundMechanism(mech.x, mech.y, mech)
+
 func drawMap():
 	for x in map.size():
 		for y in map[x].size():
@@ -85,3 +86,7 @@ func drawMap():
 			mech = getBackgroundMechanism(x, y)
 			if mech != null:
 				self.add_child(mech.getNode())
+
+
+func _on_mechanism_clock_timeout() -> void:
+	updateMechanisms()
