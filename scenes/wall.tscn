@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://culi0y4yunru0"]
+[gd_scene load_steps=3 format=3 uid="uid://culi0y4yunru0"]
+
+[ext_resource type="Texture2D" uid="uid://bdyl1g8msyfan" path="res://assets/img/factory_tileset.png" id="1_wykyb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvhfp"]
 size = Vector2(64, 64)
@@ -11,3 +13,7 @@ size = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_uvhfp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wykyb")
+region_enabled = true
+region_rect = Rect2(64, 95, 64, 64)
+region_filter_clip_enabled = true
