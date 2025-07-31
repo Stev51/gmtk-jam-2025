@@ -29,5 +29,7 @@ polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [node name="Camera" type="Camera2D" parent="."]
 
+[node name="Main Clock" type="Timer" parent="."]
+
 [connection signal="body_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_body_exited"]
