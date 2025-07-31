@@ -70,10 +70,10 @@ func _ready():
 	addMechanism(Box.new(self, 2, 0), FOREGROUND)
 	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN), BACKGROUND)
 	
-	addMechanism(Box.new(self, 5, 0), FOREGROUND)
-	addMechanism(Pusher.new(self, 5, 0, Util.Direction.UP), BACKGROUND)
-	
-	addMechanism(Pusher.new(self, 5, 5, Util.Direction.UP), BACKGROUND)
+	addMechanism(Box.new(self, 3, 3), FOREGROUND)
+	addMechanism(Box.new(self, 4, 3), FOREGROUND)
+	addMechanism(Box.new(self, 5, 3), FOREGROUND)
+	addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
 	
 	drawMap();
 	
