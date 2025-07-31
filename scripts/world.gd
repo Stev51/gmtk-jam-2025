@@ -4,9 +4,11 @@ enum {FOREGROUND, BACKGROUND}
 var gameTime: int = 0
 var map: Array = Array()
 
+const GRID_WIDTH: int = 16
+const GRID_HEIGHT: int = 16
 const SCALE: int = 64
 const OFFSET: Vector2 = Vector2(SCALE / 2, SCALE / 2)
-func updateMechanisms():
+func updateMechanisms() -> void:
 	for x in map.size():
 		for y in map[x].size():
 			var object = map[x][y];
@@ -57,16 +59,22 @@ func setBackgroundVector(pos: Vector2i, mech: Mechanism) -> Mechanism:
 	return setBackgroundMechanism(pos.x, pos.y, mech)
 
 func _ready():
-	map.resize(16)
-	for x in 16:
+	map.resize(GRID_WIDTH)
+	for x in GRID_WIDTH:
 		var column: Array = Array()
-		column.resize(16)
+		column.resize(GRID_HEIGHT)
 		map[x] = column
 	addMechanism(Box.new(self, 0, 0), FOREGROUND)
 	addMechanism(Pusher.new(self, 0, 0, Util.Direction.RIGHT), BACKGROUND)
 	addMechanism(Box.new(self, 1, 0), FOREGROUND)
 	addMechanism(Box.new(self, 2, 0), FOREGROUND)
 	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN), BACKGROUND)
+	
+	addMechanism(Box.new(self, 5, 0), FOREGROUND)
+	addMechanism(Pusher.new(self, 5, 0, Util.Direction.UP), BACKGROUND)
+	
+	addMechanism(Pusher.new(self, 5, 5, Util.Direction.UP), BACKGROUND)
+	
 	drawMap();
 	
 	$MechanismClock.start()

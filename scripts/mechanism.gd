@@ -23,9 +23,10 @@ func _init(field: Field, x: int, y:int, node: Node2D):
 
 func push(dir: Util.Direction) -> bool:
 	var offset: Vector2i = Util.offset(Vector2i(x, y), dir)
-	var object: Mechanism = field.getForegroundVector(offset)
-	if object != null:
-		if (object.push(dir)):
+	var objectInWay: Mechanism = field.getForegroundVector(offset)
+	if offset.x < 0 || offset.x >= Field.GRID_WIDTH || offset.y < 0 || offset.y >= Field.GRID_WIDTH: return false
+	if objectInWay != null:
+		if (objectInWay.push(dir)):
 			field.setForegroundVector(offset, self)
 			field.setForegroundMechanism(self.x, self.y, null)
 			self.x = offset.x
