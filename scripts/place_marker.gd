@@ -46,6 +46,8 @@ func check_validity():
 		state = Global.States.SOFT_INVALID
 	elif pos_dist > MAXIMUM_PLACEMENT_DISTANCE:
 		state = Global.States.SOFT_INVALID
+	elif overlapping_player == true:
+		state = Global.States.SOFT_INVALID
 	else:
 		state = Global.States.VALID
 
