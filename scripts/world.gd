@@ -1,7 +1,7 @@
 class_name Field extends Node2D
 
 enum {FOREGROUND, BACKGROUND}
-var gameTime: int = 0
+var currentCycle: int = 0
 var map: Array = Array()
 
 const GRID_WIDTH: int = 16
@@ -9,14 +9,15 @@ const GRID_HEIGHT: int = 16
 const SCALE: int = 64
 const OFFSET: Vector2 = Vector2(SCALE / 2, SCALE / 2)
 func updateMechanisms() -> void:
+	currentCycle += 1
 	for x in map.size():
 		for y in map[x].size():
 			var object = map[x][y];
 			if object != null:
 				if object[FOREGROUND] != null:
-					object[FOREGROUND].update()
+					object[FOREGROUND].update(currentCycle)
 				if object[BACKGROUND] != null:
-					object[BACKGROUND].update()
+					object[BACKGROUND].update(currentCycle)
 
 func getForegroundMechanism(x: int, y: int) -> Mechanism:
 	var mechs = map[x][y]
@@ -68,7 +69,7 @@ func _ready():
 	addMechanism(Pusher.new(self, 0, 0, Util.Direction.RIGHT), BACKGROUND)
 	addMechanism(Box.new(self, 1, 0), FOREGROUND)
 	addMechanism(Box.new(self, 2, 0), FOREGROUND)
-	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN), BACKGROUND)
+	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN, 1), BACKGROUND)
 	
 	addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	addMechanism(Box.new(self, 4, 3), FOREGROUND)

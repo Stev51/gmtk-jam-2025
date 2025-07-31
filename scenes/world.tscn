@@ -50,6 +50,5 @@ position = Vector2(320, 320)
 shape = SubResource("RectangleShape2D_nnsk1")
 
 [node name="MechanismClock" type="Timer" parent="."]
-wait_time = 5.0
 
 [connection signal="timeout" from="MechanismClock" to="." method="_on_mechanism_clock_timeout"]

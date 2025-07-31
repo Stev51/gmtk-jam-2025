@@ -21,6 +21,19 @@ func _init(field: Field, x: int, y:int, node: Node2D):
 	self.node = node
 	self.node.translate(Field.SCALE * Vector2(x, y) + Field.OFFSET)
 
+# Initial attempt to push
+# Used to determine what pushes what
+# Some collision types will not yet be calculated!
+func simulatePush(dir: Util.Direction) -> bool:
+	var newPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
+	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
+	
+	# Check we are on the map
+	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_WIDTH: return false
+	return true
+	
+	
+
 func push(dir: Util.Direction) -> bool:
 	var offset: Vector2i = Util.offset(Vector2i(x, y), dir)
 	#print("Attempt on box ", offset)
@@ -44,7 +57,7 @@ func push(dir: Util.Direction) -> bool:
 		self.node.translate(Util.offset(Vector2i(0, 0), dir) * Field.SCALE)
 		return true
 
-func update() -> void:
+func update(currentCycle: int) -> void:
 	pass
 
 func getNode() -> Node2D:
