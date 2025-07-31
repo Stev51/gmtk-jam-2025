@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://hsl6f3topqru"]
+[gd_scene load_steps=7 format=4 uid="uid://hsl6f3topqru"]
 
 [ext_resource type="Texture2D" uid="uid://cjocknw0gcrmi" path="res://assets/img/tile_bg_floor.png" id="1_nnsk1"]
 
@@ -20,6 +20,9 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_rwgxs")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnsk1"]
+size = Vector2(624, 624)
+
 [node name="World" type="Node2D"]
 
 [node name="BackgroundTileMapLayer" type="TileMapLayer" parent="."]
@@ -34,3 +37,9 @@ visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HardBorder"]
 polygon = PackedVector2Array(0, 640, 640, 640, 640, 0, 0, 0, -64, -64, 704, -64, 704, 704, -64, 704, -64, -64, 0, 0)
+
+[node name="ValidMapArea" type="Area2D" parent="." groups=["valid_map_area"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ValidMapArea"]
+position = Vector2(320, 320)
+shape = SubResource("RectangleShape2D_nnsk1")
