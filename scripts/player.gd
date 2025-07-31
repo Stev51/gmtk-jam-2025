@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 150
+@export var SPEED = 400
 
 func _physics_process(delta):
 	player_movement()
