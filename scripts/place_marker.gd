@@ -25,7 +25,7 @@ var pos_dist = 0
 func _process(delta):
 	check_mechanism_overlaps()
 	check_validity()
-	display_shape.color = state_to_color(state)
+	display_shape.color = state_to_color()
 
 func check_mechanism_overlaps():
 	overlapping_mechanism = false
@@ -43,7 +43,7 @@ func check_validity():
 	else:
 		state = States.VALID
 
-func state_to_color(state):
+func state_to_color():
 	match state:
 		States.VALID:
 			return GREEN
