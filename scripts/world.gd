@@ -22,6 +22,7 @@ func updateMechanisms() -> void:
 					object.processed = false
 					object.directionToMove = Util.Direction.NONE
 					object.pushOverload = 0
+					object.directPushByMech = false
 	futureMap.resize(GRID_WIDTH)
 	for x in GRID_WIDTH:
 		var column: Array = Array()
@@ -139,22 +140,24 @@ func _ready():
 		var column: Array = Array()
 		column.resize(GRID_HEIGHT)
 		map[x] = column
-	addMechanism(Box.new(self, 0, 0), FOREGROUND)
-	addMechanism(Pusher.new(self, 0, 0, Util.Direction.RIGHT, 1), BACKGROUND)
+	#addMechanism(Box.new(self, 0, 0), FOREGROUND)
+	#addMechanism(Pusher.new(self, 0, 0, Util.Direction.DOWN, 1), BACKGROUND)
+	addMechanism(Pusher.new(self, 1, 0, Util.Direction.RIGHT, 1), BACKGROUND)
+	addMechanism(Pusher.new(self, 2, 0, Util.Direction.RIGHT, 1), BACKGROUND)
 	addMechanism(Box.new(self, 1, 0), FOREGROUND)
 	addMechanism(Box.new(self, 2, 0), FOREGROUND)
-	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN, 2), BACKGROUND)
+	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN, 1), BACKGROUND)
 	
-	addMechanism(Box.new(self, 5, 0), FOREGROUND)
-	addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT, 1), BACKGROUND)
-	addMechanism(Box.new(self, 8, 0), FOREGROUND)
-	addMechanism(Box.new(self, 7, 0), FOREGROUND)
-	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT, 2), BACKGROUND)
+	#addMechanism(Box.new(self, 5, 0), FOREGROUND)
+	#addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT, 1), BACKGROUND)
+	#addMechanism(Box.new(self, 8, 0), FOREGROUND)
+	#addMechanism(Box.new(self, 7, 0), FOREGROUND)
+	#addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT, 1), BACKGROUND)
 	
-	addMechanism(Box.new(self, 3, 3), FOREGROUND)
-	addMechanism(Box.new(self, 4, 3), FOREGROUND)
-	addMechanism(Box.new(self, 5, 3), FOREGROUND)
-	addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
+	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
+	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
+	#addMechanism(Box.new(self, 5, 3), FOREGROUND)
+	#addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
 	
 	drawMap();
 	

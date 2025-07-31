@@ -16,7 +16,7 @@ func update(currentCycle: int):
 	self.node.play()
 	var object: Mechanism = field.getForegroundMechanism(self.x, self.y)
 	if (object != null):
-		object.setToPush(self.dir)
+		object.mechSetToPush(self.dir)
 
 func simulatePush() -> bool:
 	return false

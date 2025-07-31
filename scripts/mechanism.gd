@@ -20,6 +20,7 @@ var simulationResult: bool
 var newPosition: Vector2i
 var directionToMove: Util.Direction
 var pushOverload: int # Counter for when more than one thing tries to push the box
+var directPushByMech: bool # Flag for whether it is being directly pushed; makes push by pusher prioritize over push by block
 
 func _init(field: Field, x: int, y:int, node: Node2D):
 	self.field = field
@@ -47,9 +48,8 @@ func simulatePush() -> bool:
 		return false
 	# Check if we can move into the next tile
 	if objectInWay != null:
-		#print("object in way for ", getCoordinateVector(), " : ", objectInWay)
-		objectInWay.setToPush(directionToMove)
-		if objectInWay.simulatePush():
+		# Check that we can change the movement direction, and then attempt the push
+		if objectInWay.setToPush(directionToMove) && objectInWay.simulatePush():
 			simulationResult = true
 		else:
 			simulationResult = false
@@ -57,12 +57,25 @@ func simulatePush() -> bool:
 		simulationResult = true
 	return simulationResult
 
-func setToPush(dir: Util.Direction):
-	pushOverload += 1
+func setToPush(dir: Util.Direction) -> bool:
+	if directPushByMech == true: return false
+	if dir != directionToMove: pushOverload += 1
 	if pushOverload > 1:
 		simulationResult = false
 		processed = true
+		return false
 	else: directionToMove = dir
+	return true
+	
+func mechSetToPush(dir: Util.Direction) -> bool:
+	directPushByMech = true
+	if dir != directionToMove: pushOverload += 1
+	if pushOverload > 1:
+		simulationResult = false
+		processed = true
+		return false
+	else: directionToMove = dir
+	return true
 
 # Note that we still have to perform checks
 # since result may have changed since our simulation
