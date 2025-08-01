@@ -1,8 +1,81 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2y20gwuw10g4"]
+[gd_scene load_steps=12 format=3 uid="uid://b2y20gwuw10g4"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c5wrf"]
-size = Vector2(64, 64)
+[ext_resource type="Texture2D" uid="uid://dn88fsrs1bucd" path="res://assets/img/combiner.png" id="1_pnhmn"]
 
-[node name="Combiner" type="Sprite2D"]
-modulate = Color(0.14902, 0.34902, 1, 1)
-texture = SubResource("PlaceholderTexture2D_c5wrf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ascq"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inmo2"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 32, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq4hb"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 64, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq7as"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 96, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8e2g8"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 128, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6xh7"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 160, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3g67"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 192, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dbsf"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 224, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3m7yj"]
+atlas = ExtResource("1_pnhmn")
+region = Rect2(0, 256, 40, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8y0n4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ascq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_inmo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq4hb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq7as")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8e2g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6xh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3g67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dbsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3m7yj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Combiner" type="AnimatedSprite2D"]
+position = Vector2(8, 2.01948e-28)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_8y0n4")
+frame = 8
+frame_progress = 1.0

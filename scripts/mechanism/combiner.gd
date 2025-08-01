@@ -10,6 +10,7 @@ func _init(field: Field, x: int, y:int, direction: Util.Direction):
 	self.node.rotate(PI * dir / 2)
 
 func update(currentCycle: int):
+	self.node.play()
 	var mechOnTop: Mechanism = field.getForegroundMechanism(x, y)
 	if mechOnTop == null: return
 	if !mechOnTop.connectMech(dir):
