@@ -65,8 +65,8 @@ func check_push_pull_validity():
 				movable_state = Global.MovableStates.CANPULLSOUTH #valid to pull south
 	else:
 		movable_state = Global.MovableStates.NONE
-	print(top_mechanism_hovered)
-	print(movable_state)
+	#print(top_mechanism_hovered)
+	#print(movable_state)
 
 func get_top_mechanism():
 	for mech in get_hovered_mechanisms():
