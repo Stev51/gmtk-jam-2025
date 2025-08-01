@@ -17,6 +17,7 @@ func _process(delta):
 	place_marker.pos_dist = place_marker.position.distance_to(player_node.position)
 	place_marker.pos_dist_x = float(place_marker.position.x) - float(player_node.position.x)
 	place_marker.pos_dist_y = float(place_marker.position.y) - float(player_node.position.y)
+	cell_pos -= world_node.TILE_OFFSET
 
 func _input(event):
 
@@ -63,4 +64,4 @@ func place_new_mechanism():
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y)) #For now it is box
 
 func delete_top_mechanism():
-	world_node.deleteMechanism(place_marker.get_top_mechanism())
+	world_node.deleteMechanism(world_node.getForegroundVector(cell_pos))
