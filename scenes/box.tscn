@@ -1,14 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://5ir7gkpmgxy5"]
+[gd_scene load_steps=7 format=3 uid="uid://5ir7gkpmgxy5"]
 
 [ext_resource type="Texture2D" uid="uid://dv0a8f2cnshkr" path="res://assets/img/box/box.png" id="1_3inec"]
+[ext_resource type="Texture2D" uid="uid://dp1oiaybbgja7" path="res://assets/img/box/box-blue.png" id="1_telwu"]
+[ext_resource type="Texture2D" uid="uid://cetr7ctpargff" path="res://assets/img/box/box-green.png" id="3_brpd5"]
+[ext_resource type="Texture2D" uid="uid://cnk48xnlrsqte" path="res://assets/img/box/box-red.png" id="4_ry43h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dijgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_telwu")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3inec")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_brpd5")
+}],
+"loop": true,
+"name": &"green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ry43h")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3inec"]
 size = Vector2(27.4286, 27.4286)
 
-[node name="Box" type="Sprite2D"]
+[node name="Box" type="AnimatedSprite2D"]
 z_index = 1
 scale = Vector2(1.75, 1.75)
-texture = ExtResource("1_3inec")
+sprite_frames = SubResource("SpriteFrames_dijgj")
+animation = &"green"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

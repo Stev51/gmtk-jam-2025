@@ -7,7 +7,7 @@ const NODE = preload("res://scenes/box.tscn")
 var color = BoxColor.WHITE
 
 func _init(field: Field, x: int, y: int):
-	super(field, x, y, NODE.instantiate())
+	super(field, x, y, NODE.instantiate(), Field.FOREGROUND)
 	field.deferBackgroundMechanismUpdate(Vector2i(x, y))
 	
 func push(directionToMove: Util.Direction) -> bool:
@@ -16,3 +16,4 @@ func push(directionToMove: Util.Direction) -> bool:
 
 func updateColor(color: BoxColor):
 	self.color = color
+	$".".animation = "green"
