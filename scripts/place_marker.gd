@@ -19,7 +19,7 @@ const SIZE = Vector2.ONE * 64
 
 var cursor_state = Global.CursorStates.UNSELECTED
 var placer_state = Global.PlacerStates.VALID
-var movable_state = Global.MovableStates.NONE
+#var movable_state = Global.MovableStates.NONE
 var overlapping_player = false
 var overlapping_mechanism = false
 var out_of_bounds = false
@@ -63,7 +63,8 @@ func check_push_pull_validity():
 			elif -2 <= pos_dist_x < -1 and 0.5 * 64 >= abs(pos_dist_x):
 				Global.MovableStates.CANPULLSOUTH #valid to pull south
 	else:
-		movable_state = Global.MovableStates.NONE
+		pass
+		#movable_state = Global.MovableStates.NONE
 
 func get_top_mechanism():
 	for mech in get_hovered_mechanisms():

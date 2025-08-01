@@ -15,6 +15,7 @@ var field: Field
 var x: int
 var y: int
 var node: Node2D
+var ground: int
 
 func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 	self.field = field
