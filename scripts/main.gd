@@ -19,19 +19,31 @@ func _process(delta):
 
 func _input(event):
 	
-	if event is InputEventMouseButton and event.is_pressed(): #Mouse clicks
+	if event is InputEventKey and event.is_pressed(): #Key presses
 		
-		if event.button_index == MOUSE_BUTTON_LEFT: #Left click, place new mechanism
-			if place_marker.state == Global.PlacerStates.VALID:
-				place_new_mechanism()
-		
-		if event.button_index == MOUSE_BUTTON_RIGHT: #Right click, delete hovered mechanism
+		if event.keycode == KEY_E: #E key pressed
 			if place_marker.check_distance_validity():
-				for mek in place_marker.get_hovered_mechanisms():
-					mek.queue_free()
+				
+				var hovers = place_marker.get_hovered_mechanisms()
+				if len(hovers) > 0: #If hovering over a mechanism, delete it
+					
+					for mek in hovers:
+						mek.queue_free()
+					
+				else: #If not hovering, and inv item selected, place it
+					
+					if place_marker.cursor_state == Global.CursorStates.SELECTED and place_marker.placer_state == Global.PlacerStates.VALID:
+						place_new_mechanism()
+	
+	elif event is InputEventMouseButton and event.is_pressed(): #Mouse clicks
+		
+		if event.button_index == MOUSE_BUTTON_LEFT: #Left click
+			pass #PLACEHOLDER
+		
+		if event.button_index == MOUSE_BUTTON_RIGHT: #Right click
+			pass #PLACEHOLDER
 
 func place_new_mechanism():
 	
-	print(cell_pos)
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y), world_node.FOREGROUND) #For now it is box
 	world_node.drawMap()

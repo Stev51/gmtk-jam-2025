@@ -1,6 +1,8 @@
 extends Node
 
 enum GameStates {RUNNING, PAUSED}
-enum PlacerStates {VALID, SOFT_INVALID, HARD_INVALID, OUT_OF_BOUNDS}
+
+enum CursorStates {UNSELECTED, SELECTED}
+enum PlacerStates {VALID, SOFT_INVALID, HARD_INVALID}
 
 var game_state = GameStates.RUNNING
