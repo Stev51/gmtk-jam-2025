@@ -49,6 +49,10 @@ func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 func simulatePush(directionToMove: Util.Direction) -> bool:
 	if processed: return simulationResult
 	processed = true
+	# If we've already been pushed in the tick, can't get pushed again
+	if pushed:
+		simulationResult = false
+		return simulationResult
 	# If something tries to refer back to this mid simulation,
 	# we assume that this would succeed
 	simulationResult = true

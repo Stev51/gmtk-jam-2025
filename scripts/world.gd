@@ -120,8 +120,6 @@ func _ready():
 	addMechanism(Box.new(self, 7, 0))
 	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT))
 	
-	addMechanism(Painter.new(self, 7, 0, Box.BoxColor.BLUE))
-	
 	addMechanism(Box.new(self, 4, 4))
 	addMechanism(Box.new(self, 3, 4))
 	getForegroundMechanism(4, 4).connectMech(Util.Direction.LEFT)

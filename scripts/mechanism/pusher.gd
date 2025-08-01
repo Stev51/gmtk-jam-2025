@@ -15,6 +15,7 @@ func update(currentCycle: int):
 	if (object != null):
 		field.resetSimulation()
 		if object.simulatePush(self.dir): object.push(self.dir)
+		else: field.deferBackgroundMechanismUpdate(getCoordinateVector())
 
 func simulatePush(directionToMove: Util.Direction) -> bool:
 	return false
