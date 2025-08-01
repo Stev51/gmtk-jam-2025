@@ -16,4 +16,3 @@ func push(directionToMove: Util.Direction) -> bool:
 
 func updateColor(color: BoxColor):
 	self.color = color
-	
