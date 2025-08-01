@@ -84,6 +84,8 @@ func _ready():
 	addMechanism(Box.new(self, 7, 0))
 	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT))
 	
+	addMechanism(Painter.new(self, 7, 0))
+	
 	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 5, 3), FOREGROUND)
