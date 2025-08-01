@@ -17,12 +17,12 @@ var y: int
 var node: Node2D
 var ground: int
 
-func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
+func _init(field: Field, x: int, y:int, node: Node2D, ground: String):
 	self.field = field
 	self.x = x
 	self.y = y
-	self.ground = ground
 	self.node = node
+	self.node.add_to_group(ground)
 	self.node.translate(Field.SCALE * Vector2(x, y) + Field.OFFSET)
 
 	#Set groups n such

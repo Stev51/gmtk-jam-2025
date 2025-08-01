@@ -19,13 +19,13 @@ const SIZE = Vector2.ONE * 64
 
 var cursor_state = Global.CursorStates.UNSELECTED
 var placer_state = Global.PlacerStates.VALID
-#var movable_state = Global.MovableStates.NONE
+var movable_state = Global.MovableStates.NONE
 var overlapping_player = false
 var overlapping_mechanism = false
 var out_of_bounds = false
 var pos_dist = 0
-var pos_dist_x = 0
-var pos_dist_y = 0
+var pos_dist_x: float = 0.0
+var pos_dist_y: float = 0.0
 
 func _process(delta):
 	check_mechanism_overlaps()
@@ -42,36 +42,36 @@ func check_push_pull_validity():
 	#math for pushing and pulling
 	elif abs(pos_dist_x) > abs(pos_dist_y):
 		if sign(pos_dist_x) == 1:
-			if 1 >= pos_dist_x >= 0 and 0.5 * 64 >= abs(pos_dist_y):
+			if 1 >= pos_dist_x and pos_dist_x >= 0 and 0.5 * 64 >= absf(pos_dist_y):
 				Global.MovableStates.CANPUSHEAST #valid to push east
-			elif 2 >= pos_dist_x > 1 and 0.5 * 64 >= abs(pos_dist_y):
+			elif 2 >= pos_dist_x and pos_dist_x > 1 and 0.5 * 64 >= absf(pos_dist_y):
 				Global.MovableStates.CANPULLEAST #valid to pull east
 		if sign(pos_dist_x) == -1:
-			if -1 <= pos_dist_x <= 0 and 0.5 * 64 >= abs(pos_dist_y):
+			if -1 <= pos_dist_x and pos_dist_x <= 0 and 0.5 * 64 >= absf(pos_dist_y):
 				Global.MovableStates.CANPUSHWEST #valid to push west
-			elif -2 <= pos_dist_x < -1 and 0.5 * 64 >= abs(pos_dist_y):
+			elif -2 <= pos_dist_x and pos_dist_x < -1 and 0.5 * 64 >= absf(pos_dist_y):
 				Global.MovableStates.CANPULLWEST #valid to pull west
 	elif abs(pos_dist_x) < abs(pos_dist_y):
 		if sign(pos_dist_y) == 1:
-			if 1 >= pos_dist_y >= 0 and 0.5 * 64 >= abs(pos_dist_x):
+			if 1 >= pos_dist_y and pos_dist_y >= 0 and 0.5 * 64 >= absf(pos_dist_x):
 				Global.MovableStates.CANPUSHNORTH #valid to push north
-			elif 2 >= pos_dist_y > 1 and 0.5 * 64 >= abs(pos_dist_x):
+			elif 2 >= pos_dist_y and pos_dist_y > 1 and 0.5 * 64 >= absf(pos_dist_x):
 				Global.MovableStates.CANPULLNORTH #valid to pull north
 		if sign(pos_dist_y) == -1:
-			if -1 <= pos_dist_y <= 0 and 0.5 * 64 >= abs(pos_dist_x):
+			if -1 <= pos_dist_y and pos_dist_y <= 0 and 0.5 * 64 >= absf(pos_dist_x):
 				Global.MovableStates.CANPUSHSOUTH #valid to push south
-			elif -2 <= pos_dist_x < -1 and 0.5 * 64 >= abs(pos_dist_x):
+			elif -2 <= pos_dist_x and pos_dist_y < -1 and 0.5 * 64 >= absf(pos_dist_x):
 				Global.MovableStates.CANPULLSOUTH #valid to pull south
 	else:
-		pass
-		#movable_state = Global.MovableStates.NONE
+		#pass
+		movable_state = Global.MovableStates.NONE
 
 func get_top_mechanism():
 	for mech in get_hovered_mechanisms():
-		if mech.ground == FOREGROUND:
+		if mech.is_in_group("FOREGROUND"):
 			return mech
 	for mech in get_hovered_mechanisms():
-		if mech.ground == BACKGROUND:
+		if mech.is_in_group("BACKGROUND"):
 			return mech
 	return null
 

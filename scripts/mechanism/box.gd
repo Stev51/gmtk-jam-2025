@@ -13,7 +13,7 @@ const NODE = preload("res://scenes/box.tscn")
 var color = BoxColor.PURPLE
 
 func _init(field: Field, x: int, y: int):
-	super(field, x, y, NODE.instantiate(), Field.FOREGROUND)
+	super(field, x, y, NODE.instantiate(), "FOREGROUND")
 	field.deferBackgroundMechanismUpdate(Vector2i(x, y))
 
 func push(directionToMove: Util.Direction) -> bool:

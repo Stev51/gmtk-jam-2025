@@ -15,8 +15,8 @@ func _process(delta):
 	cell_pos = main_tile_map_layer.local_to_map(mouse_pos)
 	place_marker.position = main_tile_map_layer.map_to_local(cell_pos) + world_node.position
 	place_marker.pos_dist = place_marker.position.distance_to(player_node.position)
-	place_marker.pos_dist_x = place_marker.position.x - player_node.position.x
-	place_marker.pos_dist_y = place_marker.position.y - player_node.position.y
+	place_marker.pos_dist_x = float(place_marker.position.x) - float(player_node.position.x)
+	place_marker.pos_dist_y = float(place_marker.position.y) - float(player_node.position.y)
 
 func _input(event):
 
