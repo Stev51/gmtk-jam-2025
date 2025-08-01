@@ -47,7 +47,6 @@ size = Vector2(27.4286, 27.4286)
 z_index = 1
 scale = Vector2(1.75, 1.75)
 sprite_frames = SubResource("SpriteFrames_dijgj")
-animation = &"green"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

@@ -1,6 +1,12 @@
 class_name Box extends Mechanism
 
 enum BoxColor {WHITE, RED, BLUE, GREEN}
+const boxColorAnimation = {
+	BoxColor.WHITE: "white",
+	BoxColor.RED: "red",
+	BoxColor.BLUE: "blue",
+	BoxColor.GREEN: "green",
+}
 
 const NODE = preload("res://scenes/box.tscn")
 
@@ -11,9 +17,8 @@ func _init(field: Field, x: int, y: int):
 	field.deferBackgroundMechanismUpdate(Vector2i(x, y))
 	
 func push(directionToMove: Util.Direction) -> bool:
-	self.updateColor(Box.BoxColor.RED)
 	return super.push(directionToMove)
 
 func updateColor(color: BoxColor):
 	self.color = color
-	#$".".animation = "green"
+	self.node.animation = boxColorAnimation[color]
