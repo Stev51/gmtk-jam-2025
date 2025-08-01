@@ -15,7 +15,7 @@ const SIZE = Vector2.ONE * 64
 @onready var display_shape = $Polygon2D
 @onready var collision_area = $Area2D
 
-var cursor_state = Global.CursorStates.SELECTED
+var cursor_state = Global.CursorStates.UNSELECTED
 var placer_state = Global.PlacerStates.VALID
 var overlapping_player = false
 var overlapping_mechanism = false
