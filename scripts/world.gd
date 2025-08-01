@@ -124,14 +124,11 @@ func _ready():
 	
 	addMechanism(Box.new(self, 4, 4))
 	addMechanism(Box.new(self, 3, 4))
-	getForegroundMechanism(4, 4).connectedBoxes[Util.Direction.LEFT] = true
-	getForegroundMechanism(3, 4).connectedBoxes[Util.Direction.RIGHT] = true
+	getForegroundMechanism(4, 4).connectMech(Util.Direction.LEFT)
 	addMechanism(Box.new(self, 4, 3))
-	getForegroundMechanism(4, 4).connectedBoxes[Util.Direction.UP] = true
-	getForegroundMechanism(4, 3).connectedBoxes[Util.Direction.DOWN] = true
+	getForegroundMechanism(4, 4).connectMech(Util.Direction.UP)
 	addMechanism(Box.new(self, 3, 3))
-	getForegroundMechanism(3, 3).connectedBoxes[Util.Direction.DOWN] = true
-	getForegroundMechanism(3, 4).connectedBoxes[Util.Direction.UP] = true
+	getForegroundMechanism(3, 3).connectMech(Util.Direction.DOWN)
 	addMechanism(Pusher.new(self, 4, 4, Util.Direction.DOWN))
 	addMechanism(Pusher.new(self, 3, 5, Util.Direction.RIGHT))
 	

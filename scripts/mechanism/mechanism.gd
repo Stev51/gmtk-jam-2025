@@ -102,6 +102,16 @@ func push(directionToMove: Util.Direction) -> void:
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
 		if adjMech != null: adjMech.push(directionToMove)
 
+func connectMech(dir: Util.Direction) -> bool:
+	if connectedBoxes[dir]: return true
+	var mechToConnect: Mechanism = field.getForegroundVector(Util.offset(Vector2i(x, y), dir))
+	if mechToConnect != null:
+		connectedBoxes[dir] = true
+		mechToConnect.connectMech(Util.reverse(dir))
+		return true
+	else:
+		return false
+
 func update(currentCycle: int) -> void:
 	pass
 
