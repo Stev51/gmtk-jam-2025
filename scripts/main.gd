@@ -22,12 +22,13 @@ func _input(event):
 	if event is InputEventMouseButton and event.is_pressed(): #Mouse clicks
 		
 		if event.button_index == MOUSE_BUTTON_LEFT: #Left click, place new mechanism
-			if place_marker.state == Global.States.VALID:
+			if place_marker.state == Global.PlacerStates.VALID:
 				place_new_mechanism()
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT: #Right click, delete hovered mechanism
-			for mek in place_marker.get_hovered_mechanisms():
-				mek.queue_free()
+			if place_marker.check_distance_validity():
+				for mek in place_marker.get_hovered_mechanisms():
+					mek.queue_free()
 
 func place_new_mechanism():
 	
