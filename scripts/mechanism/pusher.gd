@@ -5,7 +5,7 @@ const NODE = preload("res://scenes/pusher.tscn")
 var dir: Util.Direction
 
 func _init(field: Field, x: int, y:int, direction: Util.Direction):
-	super(field, x, y, NODE.instantiate(), "BACKGROUND")
+	super(field, x, y, NODE.instantiate(), Field.BACKGROUND)
 	dir = direction
 	self.node.rotate(PI * dir / 2)
 

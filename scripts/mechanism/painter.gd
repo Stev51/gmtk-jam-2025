@@ -5,7 +5,7 @@ const NODE = preload("res://scenes/painter.tscn")
 var color: Box.BoxColor = Box.BoxColor.PURPLE
 
 func _init(field: Field, x: int, y:int, color: Box.BoxColor):
-	super(field, x, y, NODE.instantiate(), "BACKGROUND")
+	super(field, x, y, NODE.instantiate(), Field.BACKGROUND)
 	setColor(color)
 
 func setColor(color: Box.BoxColor):

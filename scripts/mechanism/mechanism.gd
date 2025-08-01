@@ -17,14 +17,21 @@ var y: int
 var node: Node2D
 var ground: int
 
-func _init(field: Field, x: int, y:int, node: Node2D, ground: String):
+func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 	self.field = field
 	self.x = x
 	self.y = y
 	self.node = node
-	self.node.add_to_group(ground)
+	self.ground = ground
 	self.node.translate(Field.SCALE * Vector2(x, y) + Field.OFFSET)
-
+	
+	if ground == Field.FOREGROUND:
+		self.node.add_to_group("FOREGROUND")
+	elif ground == Field.BACKGROUND:
+		self.node.add_to_group("BACKGROUND")
+	else:
+		push_error("Background type not recognized for Mekanism")
+		
 	#Set groups n such
 	self.node.add_to_group("mechanisms")
 	self.node.add_child(mek_selector_scene.instantiate())
