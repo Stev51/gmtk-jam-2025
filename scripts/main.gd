@@ -36,7 +36,7 @@ func _input(event):
 						place_new_mechanism()
 
 	elif event is InputEventMouseButton and event.is_pressed(): #Mouse clicks
-		var hovered = place_marker.get_top_mechanism() 
+		var hovered = place_marker.top_mechanism_hovered
 		if event.button_index == MOUSE_BUTTON_LEFT: #Left click
 			match place_marker.movable_state:
 				Global.MovableStates.CANPUSHNORTH:
