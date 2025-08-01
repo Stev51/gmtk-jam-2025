@@ -1,4 +1,7 @@
 extends Resource
 class_name Inventory
 
-@export var contents: Array[InventoryItem]
+@export var slots: Array[InventorySlot]
+
+func insert(item: InventoryItem):
+	pass

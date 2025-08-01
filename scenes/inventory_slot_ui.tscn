@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccaixgbsyxdnx"]
+
+[ext_resource type="Script" uid="uid://ccxp3f7ike5qo" path="res://inventory/inventory_slot_ui.gd" id="1_qng7r"]
+[ext_resource type="Texture2D" uid="uid://c3am23bibnbd7" path="res://assets/img/inv_slot.png" id="2_wrwq8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bxqf6"]
+font_color = Color(0, 0, 0, 1)
+outline_size = 3
+
+[node name="InventorySlotUI" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_qng7r")
+
+[node name="SlotBackground" type="Sprite2D" parent="."]
+texture = ExtResource("2_wrwq8")
+centered = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="ItemDisplay" type="Sprite2D" parent="CenterContainer/Panel"]
+
+[node name="Label" type="Label" parent="CenterContainer/Panel"]
+custom_minimum_size = Vector2(38, 23)
+layout_mode = 0
+offset_left = -17.0
+offset_top = 8.0
+offset_right = 21.0
+offset_bottom = 31.0
+text = "999"
+label_settings = SubResource("LabelSettings_bxqf6")
+horizontal_alignment = 2
