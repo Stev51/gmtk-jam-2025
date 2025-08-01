@@ -11,13 +11,14 @@ const OFFSET: Vector2 = Vector2(SCALE / 2, SCALE / 2)
 
 var mechQueue: Array = Array()
 var futureMechQueue: Array = Array()
+var toRenderMechs: Array = Array()
 
 func updateMechanisms() -> void:
 	currentCycle += 1
 	for mechPos in mechQueue:
 		var mech: Mechanism = getBackgroundVector(mechPos)
 		if mech != null: mech.update(currentCycle)
-	
+
 	mechQueue = futureMechQueue.duplicate()
 	futureMechQueue.clear()
 
@@ -30,6 +31,25 @@ func resetSimulation() -> void:
 				if object[FOREGROUND] != null:
 					object[FOREGROUND].processed = false
 					object[FOREGROUND].pushed = false
+
+var tickProgress: float
+func _process(delta: float):
+	if toRenderMechs.is_empty():
+		return
+	tickProgress += delta * 2 # bigger numbers means the "frame" is processed faster (ie boxes move faster)
+	var done: bool = false
+	if (tickProgress >= 1):
+		tickProgress = 1
+		done = true
+	for mech in toRenderMechs:
+		mech.render(tickProgress)
+
+	if done:
+		toRenderMechs.clear()
+		tickProgress = 0
+
+func addToRenderQueue(mech: Mechanism):
+	self.toRenderMechs.append(mech)
 
 func deferBackgroundMechanismUpdate(pos: Vector2i):
 	futureMechQueue.push_back(pos)
@@ -87,7 +107,7 @@ func _ready():
 	addMechanism(Box.new(self, 1, 0))
 	addMechanism(Box.new(self, 2, 0))
 	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN))
-	
+
 	addMechanism(Box.new(self, 5, 0))
 	addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT))
 	addMechanism(Box.new(self, 8, 0))
@@ -105,13 +125,16 @@ func _ready():
 	getForegroundMechanism(4, 3).connectedBoxes[Util.Direction.DOWN] = true
 	addMechanism(Pusher.new(self, 4, 4, Util.Direction.DOWN))
 	
+
+	addMechanism(Painter.new(self, 7, 0, Box.BoxColor.YELLOW))
+
 	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 5, 3), FOREGROUND)
 	#addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
-	
+
 	drawMap()
-	
+
 	$MechanismClock.start()
 
 func addMechanism(mech: Mechanism):
@@ -133,3 +156,6 @@ func drawMap():
 
 func _on_mechanism_clock_timeout() -> void:
 	updateMechanisms()
+
+static func toSceneCoord(x: int, y: int) -> Vector2:
+	return Vector2(x, y) * SCALE + OFFSET
