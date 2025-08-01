@@ -59,7 +59,7 @@ func simulatePush(directionToMove: Util.Direction) -> bool:
 	# we assume that this would succeed
 	simulationResult = true
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
-	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_WIDTH: return false
+	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT: return false
 	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
 	
 	if objectInWay != null && !objectInWay.simulatePush(directionToMove):
@@ -71,7 +71,7 @@ func simulatePush(directionToMove: Util.Direction) -> bool:
 		# so don't do that again
 		if dir == directionToMove || !connectedMechs[dir]: continue
 		var adjPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
-		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_WIDTH: continue
+		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_HEIGHT: continue
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
 		if !adjMech.simulatePush(directionToMove):
 			simulationResult = false
@@ -104,7 +104,7 @@ func push(directionToMove: Util.Direction) -> void:
 		if dir == directionToMove || !connectedMechs[dir]: continue
 		# Find position adjacent to where we used to be
 		var adjPosition: Vector2i = Util.offset(Util.offset(Vector2i(x, y), dir), Util.reverse(directionToMove))
-		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_WIDTH: continue
+		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_HEIGHT: continue
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
 		if adjMech != null: adjMech.push(directionToMove)
 

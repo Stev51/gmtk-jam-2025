@@ -5,10 +5,10 @@ enum QueuePos {PRE, POST}
 var currentCycle: int = 0
 var map: Array = Array()
 
-const GRID_WIDTH: int = 16
-const GRID_HEIGHT: int = 16
+const GRID_WIDTH: int = 32
+const GRID_HEIGHT: int = 32
 const SCALE: int = 64
-const OFFSET: Vector2 = Vector2(SCALE / 2, SCALE / 2)
+const OFFSET: Vector2 = Vector2(SCALE*-10 + (SCALE / 2), SCALE*-10 + (SCALE / 2))
 
 var mechQueue: Array = Array()
 var futureMechQueue: Array = Array()
@@ -115,29 +115,29 @@ func _ready():
 		map[x] = column
 	#addMechanism(Box.new(self, 0, 0), FOREGROUND)
 	#addMechanism(Pusher.new(self, 0, 0, Util.Direction.DOWN), BACKGROUND)
-	addMechanism(Pusher.new(self, 1, 0, Util.Direction.RIGHT))
-	addMechanism(Pusher.new(self, 2, 0, Util.Direction.RIGHT))
-	addMechanism(Box.new(self, 1, 0))
-	addMechanism(Box.new(self, 2, 0))
-	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 11, 10, Util.Direction.RIGHT))
+	addMechanism(Pusher.new(self, 12, 10, Util.Direction.RIGHT))
+	addMechanism(Box.new(self, 11, 10))
+	addMechanism(Box.new(self, 12, 10))
+	addMechanism(Pusher.new(self, 13, 10, Util.Direction.DOWN))
 
-	addMechanism(Box.new(self, 5, 0))
-	addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT))
-	addMechanism(Box.new(self, 8, 0))
-	addMechanism(Box.new(self, 7, 0))
-	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT))
+	addMechanism(Box.new(self, 15, 10))
+	addMechanism(Pusher.new(self, 15, 10, Util.Direction.RIGHT))
+	addMechanism(Box.new(self, 18, 10))
+	addMechanism(Box.new(self, 17, 10))
+	addMechanism(Pusher.new(self, 18, 10, Util.Direction.LEFT))
 	
-	addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN))
-	addMechanism(Pusher.new(self, 3, 4, Util.Direction.DOWN))
-	addMechanism(Pusher.new(self, 3, 5, Util.Direction.DOWN))
-	addMechanism(Pusher.new(self, 3, 6, Util.Direction.DOWN))
-	addMechanism(Combiner.new(self, 4, 4, Util.Direction.LEFT))
-	addMechanism(Cutter.new(self, 4, 5, Util.Direction.LEFT))
-	addMechanism(Box.new(self, 3, 3))
-	addMechanism(Box.new(self, 4, 4))
+	addMechanism(Pusher.new(self, 13, 13, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 13, 14, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 13, 15, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 13, 16, Util.Direction.DOWN))
+	addMechanism(Combiner.new(self, 14, 14, Util.Direction.LEFT))
+	addMechanism(Cutter.new(self, 14, 15, Util.Direction.LEFT))
+	addMechanism(Box.new(self, 13, 13))
+	addMechanism(Box.new(self, 14, 14))
 	
 
-	addMechanism(Painter.new(self, 7, 0, Box.BoxColor.YELLOW))
+	addMechanism(Painter.new(self, 17, 10, Box.BoxColor.YELLOW))
 
 	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
