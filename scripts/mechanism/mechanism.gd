@@ -24,7 +24,7 @@ func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 	self.ground = ground
 	self.node = node
 	self.node.translate(Field.SCALE * Vector2(x, y) + Field.OFFSET)
-	
+
 	#Set groups n such
 	self.node.add_to_group("mechanisms")
 	self.node.add_child(mek_selector_scene.instantiate())

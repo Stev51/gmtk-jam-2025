@@ -102,14 +102,14 @@ func check_validity():
 		placer_state = Global.PlacerStates.VALID
 
 func state_to_color():
-	
+
 	if out_of_bounds == true:
 		return TRANSPARENT
 	else:
-	
+
 		match cursor_state:
 			Global.CursorStates.SELECTED:
-				
+
 				match placer_state:
 					Global.PlacerStates.VALID:
 						return GREEN
@@ -119,7 +119,7 @@ func state_to_color():
 						return RED
 					_:
 						return TRANSPARENT
-			
+
 			Global.CursorStates.UNSELECTED:
 				return UNSELECTED
 			_:

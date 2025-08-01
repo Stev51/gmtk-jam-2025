@@ -7,4 +7,4 @@ func update_display(slot: InventorySlot):
 		item_visual.visible = false
 	else:
 		item_visual.visible = true
-		item_visual.texture = slot.item.texture
+		#item_visual.texture = slot.item.texture

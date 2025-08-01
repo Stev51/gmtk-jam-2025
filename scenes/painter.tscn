@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://q0c3q72efs5c"]
+[gd_scene load_steps=3 format=3 uid="uid://ddddvm8p5ihii"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3v0h"]
-size = Vector2(64, 64)
+[ext_resource type="Texture2D" uid="uid://cg5vqyug4ady" path="res://assets/img/painter.png" id="1_kp2s1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_di2xp"]
+atlas = ExtResource("1_kp2s1")
 
 [node name="Painter" type="Sprite2D"]
-texture = SubResource("PlaceholderTexture2D_i3v0h")
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_di2xp")
+vframes = 6

@@ -1,14 +1,20 @@
 class_name Painter extends Mechanism
 
-const NODE = preload("res://scenes/pusher.tscn")
+const NODE = preload("res://scenes/painter.tscn")
 
-func _init(field: Field, x: int, y:int):
+var color: Box.BoxColor = Box.BoxColor.PURPLE
+
+func _init(field: Field, x: int, y:int, color: Box.BoxColor):
 	super(field, x, y, NODE.instantiate(), Field.BACKGROUND)
-	
+	setColor(color)
+
+func setColor(color: Box.BoxColor):
+	self.color = color
+	self.node.frame = color
 func update(currentCycle: int):
 	var mech = field.getForegroundMechanism(x, y)
 	if is_instance_of(mech, Box):
-		mech.updateColor(Box.BoxColor.BLUE)
-	
+		mech.updateColor(color)
+
 func push(directionToMove: Util.Direction) -> bool:
 	return false

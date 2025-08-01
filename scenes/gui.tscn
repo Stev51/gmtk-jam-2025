@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://wfw6jdhk5dkq"]
+[gd_scene load_steps=4 format=3 uid="uid://cbhrw4c2sta6d"]
 
-[ext_resource type="Script" uid="uid://gp5n6rxl05m5" path="res://scripts/gui.gd" id="1_efmwq"]
+[ext_resource type="Script" path="res://scripts/gui.gd" id="1_efmwq"]
 [ext_resource type="Resource" uid="uid://bbsiqxqyr53rv" path="res://inventory/inventories/player_inventory.tres" id="2_mfius"]
-[ext_resource type="PackedScene" uid="uid://bvobd6w4fgins" path="res://scenes/inventory_ui.tscn" id="3_ynd5l"]
+[ext_resource type="PackedScene" uid="uid://bcklqkc1fkj3f" path="res://scenes/inventory_ui.tscn" id="3_ynd5l"]
 
 [node name="GUI" type="Control"]
 layout_mode = 3

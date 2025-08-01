@@ -17,7 +17,7 @@ func updateMechanisms() -> void:
 	for mechPos in mechQueue:
 		var mech: Mechanism = getBackgroundVector(mechPos)
 		if mech != null: mech.update(currentCycle)
-	
+
 	mechQueue = futureMechQueue.duplicate()
 	futureMechQueue.clear()
 
@@ -77,22 +77,22 @@ func _ready():
 	addMechanism(Box.new(self, 1, 0))
 	addMechanism(Box.new(self, 2, 0))
 	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN))
-	
+
 	addMechanism(Box.new(self, 5, 0))
 	addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT))
 	addMechanism(Box.new(self, 8, 0))
 	addMechanism(Box.new(self, 7, 0))
 	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT))
-	
-	addMechanism(Painter.new(self, 7, 0))
-	
+
+	addMechanism(Painter.new(self, 3, 1, Box.BoxColor.ORANGE))
+
 	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 5, 3), FOREGROUND)
 	#addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
-	
+
 	drawMap()
-	
+
 	$MechanismClock.start()
 
 func addMechanism(mech: Mechanism):

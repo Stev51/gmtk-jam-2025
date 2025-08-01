@@ -10,7 +10,7 @@ var mouse_pos = Vector2.ZERO
 var cell_pos = Vector2.ZERO
 
 func _process(delta):
-	
+
 	mouse_pos = main_tile_map_layer.get_local_mouse_position()
 	cell_pos = main_tile_map_layer.local_to_map(mouse_pos)
 	place_marker.position = main_tile_map_layer.map_to_local(cell_pos) + world_node.position
@@ -19,25 +19,25 @@ func _process(delta):
 	place_marker.pos_dist_y = place_marker.position.y - player_node.position.y
 
 func _input(event):
-	
+
 	if event is InputEventKey and event.is_pressed(): #Key presses
-		
+
 		if event.keycode == KEY_E: #E key pressed
 			if place_marker.check_distance_validity():
-				
+
 				var hovers = place_marker.get_hovered_mechanisms()
 				if len(hovers) > 0: #If hovering over a mechanism, delete it
-					
+
 					for mek in hovers:
 						mek.queue_free()
-					
+
 				else: #If not hovering, and inv item selected, place it
-					
+
 					if place_marker.cursor_state == Global.CursorStates.SELECTED and place_marker.placer_state == Global.PlacerStates.VALID:
 						place_new_mechanism()
-	
+
 	elif event is InputEventMouseButton and event.is_pressed(): #Mouse clicks
-		
+
 		if event.button_index == MOUSE_BUTTON_LEFT: #Left click
 			match place_marker.movable_state:
 				Global.MovableStates.CANPUSHNORTH:
@@ -48,7 +48,7 @@ func _input(event):
 					pass #PLACEHOLDER, push selected mech one tile down
 				Global.MovableStates.CANPUSHWEST:
 					pass #PLACEHOLDER. push selected mech one tile left
-		
+
 		if event.button_index == MOUSE_BUTTON_RIGHT: #Right click
 			match place_marker.movable_state:
 				Global.MovableStates.CANPULLNORTH:
@@ -61,6 +61,6 @@ func _input(event):
 					pass #PLACEHOLDER, push selected mech one tile right
 
 func place_new_mechanism():
-	
+
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y), world_node.FOREGROUND) #For now it is box
 	world_node.drawMap()
