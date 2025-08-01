@@ -163,8 +163,8 @@ func _ready():
 	
 	$MechanismClock.start()
 
-func addMechanism(mech: Mechanism, ground):
-	if ground == BACKGROUND:
+func addMechanism(mech: Mechanism):
+	if mech.ground == BACKGROUND:
 		self.setBackgroundMechanism(mech.x, mech.y, mech)
 	else:
 		self.setForegroundMechanism(mech.x, mech.y, mech)

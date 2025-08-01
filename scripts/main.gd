@@ -14,8 +14,9 @@ func _process(delta):
 	mouse_pos = main_tile_map_layer.get_local_mouse_position()
 	cell_pos = main_tile_map_layer.local_to_map(mouse_pos)
 	place_marker.position = main_tile_map_layer.map_to_local(cell_pos) + world_node.position
-	
 	place_marker.pos_dist = place_marker.position.distance_to(player_node.position)
+	place_marker.pos_dist_x = place_marker.position.x - player_node.position.x
+	place_marker.pos_dist_y = place_marker.position.y - player_node.position.y
 
 func _input(event):
 	
@@ -38,10 +39,26 @@ func _input(event):
 	elif event is InputEventMouseButton and event.is_pressed(): #Mouse clicks
 		
 		if event.button_index == MOUSE_BUTTON_LEFT: #Left click
-			pass #PLACEHOLDER
+			match place_marker.movable_state:
+				Global.MovableStates.CANPUSHNORTH:
+					pass #PLACEHOLDER, push selected mech one tile up
+				Global.MovableStates.CANPUSHEAST:
+					pass #PLACEHOLDER, push selected mech one tile right
+				Global.MovableStates.CANPUSHSOUTH:
+					pass #PLACEHOLDER, push selected mech one tile down
+				Global.MovableStates.CANPUSHWEST:
+					pass #PLACEHOLDER. push selected mech one tile left
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT: #Right click
-			pass #PLACEHOLDER
+			match place_marker.movable_state:
+				Global.MovableStates.CANPULLNORTH:
+					pass #PLACEHOLDER, push selected mech one tile down
+				Global.MovableStates.CANPULLEAST:
+					pass #PLACEHOLDER, push selected mech one tile left
+				Global.MovableStates.CANPULLSOUTH:
+					pass #PLACEHOLDER, push selected mech one tile up
+				Global.MovableStates.CANPULLWEST:
+					pass #PLACEHOLDER, push selected mech one tile right
 
 func place_new_mechanism():
 	

@@ -24,10 +24,11 @@ var directionToMove: Util.Direction
 var pushOverload: int # Counter for when more than one thing tries to push the box
 var directPushByMech: bool # Flag for whether it is being directly pushed; makes push by pusher prioritize over push by block
 
-func _init(field: Field, x: int, y:int, node: Node2D):
+func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 	self.field = field
 	self.x = x
 	self.y = y
+	self.ground = ground
 	self.node = node
 	self.node.translate(Field.SCALE * Vector2(x, y) + Field.OFFSET)
 	
