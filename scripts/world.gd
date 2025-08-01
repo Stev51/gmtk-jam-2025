@@ -9,90 +9,20 @@ const GRID_HEIGHT: int = 16
 const SCALE: int = 64
 const OFFSET: Vector2 = Vector2(SCALE / 2, SCALE / 2)
 
-# For usage in simulation
-var futureMap: Array = Array()
+var mechQueue: Array = Array()
+var futureMechQueue: Array = Array()
+
 func updateMechanisms() -> void:
-	# Clear old simulation results
-	for x in map.size():
-		for y in map[x].size():
-			var holder = map[x][y]
-			if holder != null:
-				var object = holder[FOREGROUND]
-				if object != null:
-					object.processed = false
-					object.directionToMove = Util.Direction.NONE
-					object.pushOverload = 0
-					object.directPushByMech = false
-	futureMap.resize(GRID_WIDTH)
-	for x in GRID_WIDTH:
-		var column: Array = Array()
-		column.resize(GRID_HEIGHT)
-		futureMap[x] = column
-	
-	# Propagate updates in new cycle
 	currentCycle += 1
-	for x in map.size():
-		for y in map[x].size():
-			var object = map[x][y];
-			if object != null:
-				if object[FOREGROUND] != null:
-					object[FOREGROUND].update(currentCycle)
-				if object[BACKGROUND] != null:
-					object[BACKGROUND].update(currentCycle)
+	for mechPos in mechQueue:
+		var mech: Mechanism = getBackgroundVector(mechPos)
+		if mech != null: mech.update(currentCycle)
 	
-	# Simulate movement
-	for x in map.size():
-		for y in map[x].size():
-			var holder = map[x][y]
-			if holder != null:
-				var object = holder[FOREGROUND]
-				if object != null && object.directionToMove != Util.Direction.NONE:
-					object.simulatePush()
-	
-	# Check if two objects are trying to move to the same position
-	var newMap: Array = Array()
-	newMap.resize(GRID_WIDTH)
-	for x in GRID_WIDTH:
-		var column: Array = Array()
-		column.resize(GRID_HEIGHT)
-		newMap[x] = column
-		for y in GRID_HEIGHT:
-			newMap[x][y] = Array()
-	
-	for x in map.size():
-		for y in map[x].size():
-			var holder = map[x][y]
-			if holder != null:
-				var object = map[x][y][FOREGROUND]
-				if object != null && object.simulationResult == true:
-					newMap[object.newPosition.x][object.newPosition.y].append(object)
-	
-	for x in newMap.size():
-		for y in newMap[x].size():
-			if newMap[x][y].size() > 1:
-				for object in newMap[x][y]:
-					object.simulationResult = false
-	
-	# Process new cycle changes
-	for x in map.size():
-		for y in map[x].size():
-			var holder = map[x][y]
-			if holder != null:
-				var object = map[x][y][FOREGROUND]
-				if object != null:
-					object.push()
-	
-	for x in map.size():
-		for y in map[x].size():
-			if futureMap[x][y] != null:
-				setForegroundMechanism(x, y, futureMap[x][y])
+	mechQueue = futureMechQueue.duplicate()
+	futureMechQueue.clear()
 
-
-func setFutureForegroundMechanism(x: int, y: int, mech: Mechanism):
-	futureMap[x][y] = mech
-	
-func setFutureForegroundVector(pos: Vector2i, mech: Mechanism):
-	setFutureForegroundMechanism(pos.x, pos.y, mech)
+func deferBackgroundMechanismUpdate(pos: Vector2i):
+	futureMechQueue.push_back(pos)
 
 func getForegroundMechanism(x: int, y: int) -> Mechanism:
 	var mechs = map[x][y]
@@ -141,18 +71,18 @@ func _ready():
 		column.resize(GRID_HEIGHT)
 		map[x] = column
 	#addMechanism(Box.new(self, 0, 0), FOREGROUND)
-	#addMechanism(Pusher.new(self, 0, 0, Util.Direction.DOWN, 1), BACKGROUND)
-	addMechanism(Pusher.new(self, 1, 0, Util.Direction.RIGHT, 1), BACKGROUND)
-	addMechanism(Pusher.new(self, 2, 0, Util.Direction.RIGHT, 1), BACKGROUND)
+	#addMechanism(Pusher.new(self, 0, 0, Util.Direction.DOWN), BACKGROUND)
+	addMechanism(Pusher.new(self, 1, 0, Util.Direction.RIGHT), BACKGROUND)
+	addMechanism(Pusher.new(self, 2, 0, Util.Direction.RIGHT), BACKGROUND)
 	addMechanism(Box.new(self, 1, 0), FOREGROUND)
 	addMechanism(Box.new(self, 2, 0), FOREGROUND)
-	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN, 1), BACKGROUND)
+	addMechanism(Pusher.new(self, 3, 0, Util.Direction.DOWN), BACKGROUND)
 	
-	#addMechanism(Box.new(self, 5, 0), FOREGROUND)
-	#addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT, 1), BACKGROUND)
-	#addMechanism(Box.new(self, 8, 0), FOREGROUND)
-	#addMechanism(Box.new(self, 7, 0), FOREGROUND)
-	#addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT, 1), BACKGROUND)
+	addMechanism(Box.new(self, 5, 0), FOREGROUND)
+	addMechanism(Pusher.new(self, 5, 0, Util.Direction.RIGHT), BACKGROUND)
+	addMechanism(Box.new(self, 8, 0), FOREGROUND)
+	addMechanism(Box.new(self, 7, 0), FOREGROUND)
+	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT), BACKGROUND)
 	
 	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
