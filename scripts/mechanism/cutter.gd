@@ -10,10 +10,11 @@ func _init(field: Field, x: int, y:int, direction: Util.Direction):
 	self.node.rotate(PI * dir / 2)
 
 func update(currentCycle: int):
+	self.node.play()
 	var mechOnTop: Mechanism = field.getForegroundMechanism(x, y)
 	if mechOnTop == null: return
 	if !mechOnTop.disconnectMech(dir):
 		field.deferBackgroundMechanismUpdate(getCoordinateVector())
 
-func simulatePush(directionToMove: Util.Direction, privilegedPush: bool = false) -> bool:
+func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 	return false
