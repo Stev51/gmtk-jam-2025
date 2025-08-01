@@ -43,7 +43,7 @@ func _init(field: Field, x: int, y:int, node: Node2D, ground: int, queuePosition
 	elif ground == Field.BACKGROUND:
 		self.node.add_to_group("BACKGROUND")
 	else:
-		push_error("Background type not recognized for Mekanism")
+		push_error("Background type not recognized for Mechanism")
 	#Set groups n such
 	self.node.add_to_group("mechanisms")
 	self.node.add_child(mek_selector_scene.instantiate())
