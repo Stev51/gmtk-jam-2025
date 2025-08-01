@@ -58,8 +58,9 @@ func simulatePush() -> bool:
 	return simulationResult
 
 func setToPush(dir: Util.Direction) -> bool:
+	if dir == directionToMove: return true
 	if directPushByMech == true: return false
-	if dir != directionToMove: pushOverload += 1
+	pushOverload += 1
 	if pushOverload > 1:
 		simulationResult = false
 		processed = true
