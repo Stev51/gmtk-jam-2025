@@ -16,9 +16,6 @@ func _init(field: Field, x: int, y: int):
 	super(field, x, y, NODE.instantiate(), Field.FOREGROUND)
 	field.deferBackgroundMechanismUpdate(Vector2i(x, y))
 
-func push(directionToMove: Util.Direction) -> bool:
-	return super.push(directionToMove)
-
 func updateColor(color: BoxColor):
 	self.color = color
 	self.node.frame = color

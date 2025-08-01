@@ -1,6 +1,6 @@
-class_name Pusher extends Mechanism
+class_name Combiner extends Mechanism
 
-const NODE = preload("res://scenes/pusher.tscn")
+const NODE = preload("res://scenes/painter.tscn")
 
 var dir: Util.Direction
 
@@ -10,11 +10,7 @@ func _init(field: Field, x: int, y:int, direction: Util.Direction):
 	self.node.rotate(PI * dir / 2)
 
 func update(currentCycle: int):
-	self.node.play()
-	var object: Mechanism = field.getForegroundMechanism(self.x, self.y)
-	if (object != null):
-		field.resetSimulation()
-		if object.simulatePush(self.dir): object.push(self.dir)
+	pass
 
 func simulatePush(directionToMove: Util.Direction) -> bool:
 	return false

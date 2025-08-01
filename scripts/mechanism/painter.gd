@@ -16,5 +16,5 @@ func update(currentCycle: int):
 	if is_instance_of(mech, Box):
 		mech.updateColor(color)
 
-func push(directionToMove: Util.Direction) -> bool:
+func simulatePush(directionToMove: Util.Direction) -> bool:
 	return false

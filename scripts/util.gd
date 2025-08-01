@@ -1,5 +1,5 @@
 class_name Util extends Object
-enum Direction {RIGHT, DOWN, LEFT, UP, NONE}
+enum Direction {RIGHT, DOWN, LEFT, UP}
 
 static func offset(vect: Vector2i, dir: Direction) -> Vector2i:
 	match dir:
@@ -13,3 +13,16 @@ static func offset(vect: Vector2i, dir: Direction) -> Vector2i:
 			return vect + Vector2i(-1, 0)
 		_:
 			return vect
+
+static func reverse(dir: Direction) -> Direction:
+	match dir:
+		Direction.UP:
+			return Direction.DOWN
+		Direction.DOWN:
+			return Direction.UP
+		Direction.LEFT:
+			return Direction.RIGHT
+		Direction.RIGHT:
+			return Direction.LEFT
+		_:
+			return dir

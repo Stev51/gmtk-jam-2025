@@ -16,6 +16,14 @@ var x: int
 var y: int
 var node: Node2D
 var ground: int
+# Stores whether connected to boxes in each of the cardinal directions
+var connectedBoxes: Array[bool] = [false, false, false, false]
+
+# Used when simulating pushes
+var simulationResult: bool
+var processed: bool = false
+# Used to determine if the connected block has already been pushed
+var pushed: bool = false
 
 func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 	self.field = field
@@ -36,30 +44,59 @@ func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 	self.node.add_to_group("mechanisms")
 	self.node.add_child(mek_selector_scene.instantiate())
 
-func push(directionToMove: Util.Direction) -> bool:
-	if directionToMove == Util.Direction.NONE: return false
+func simulatePush(directionToMove: Util.Direction) -> bool:
+	if processed: return simulationResult
+	processed = true
+	# If something tries to refer back to this mid simulation,
+	# we assume that this would succeed
+	simulationResult = true
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
 	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_WIDTH: return false
 	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
+	
+	if objectInWay != null && !objectInWay.simulatePush(directionToMove):
+		simulationResult = false
+		return simulationResult
+	
+	for dir in Util.Direction.size():
+		# We've already propagated simulation in the direction we're moving
+		# so don't do that again
+		if dir == directionToMove || !connectedBoxes[dir]: continue
+		var adjPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
+		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_WIDTH: continue
+		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
+		if !adjMech.simulatePush(directionToMove):
+			simulationResult = false
+			return simulationResult
+	
+	simulationResult = true
+	return simulationResult
+
+# Should only be run if simulation succeeds
+func push(directionToMove: Util.Direction) -> void:
+	if pushed: return
+	pushed = true
+	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
+	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
 	if objectInWay != null:
-		if (objectInWay.push(directionToMove)):
-			field.setForegroundVector(newPosition, self)
-			field.setForegroundMechanism(self.x, self.y, null)
-			field.deferBackgroundMechanismUpdate(newPosition)
-			self.x = newPosition.x
-			self.y = newPosition.y
-			self.node.translate(Util.offset(Vector2i(0, 0), directionToMove) * Field.SCALE)
-			return true
-		else:
-			return false
-	else:
-		field.setForegroundVector(newPosition, self)
-		field.setForegroundMechanism(self.x, self.y, null)
-		field.deferBackgroundMechanismUpdate(newPosition)
-		self.x = newPosition.x
-		self.y = newPosition.y
-		self.node.translate(Util.offset(Vector2i(0, 0), directionToMove) * Field.SCALE)
-		return true
+		objectInWay.push(directionToMove)
+		
+	field.setForegroundVector(newPosition, self)
+	field.setForegroundMechanism(self.x, self.y, null)
+	field.deferBackgroundMechanismUpdate(newPosition)
+	self.x = newPosition.x
+	self.y = newPosition.y
+	self.node.translate(Util.offset(Vector2i(0, 0), directionToMove) * Field.SCALE)
+	
+	for dir in Util.Direction.size():
+		# We've already propagated simulation in the direction we're moving
+		# so don't do that again
+		if dir == directionToMove || !connectedBoxes[dir]: continue
+		# Find position adjacent to where we used to be
+		var adjPosition: Vector2i = Util.offset(Util.offset(Vector2i(x, y), dir), Util.reverse(directionToMove))
+		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_WIDTH: continue
+		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
+		if adjMech != null: adjMech.push(directionToMove)
 
 func update(currentCycle: int) -> void:
 	pass

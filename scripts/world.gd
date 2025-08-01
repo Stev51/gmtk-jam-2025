@@ -21,6 +21,16 @@ func updateMechanisms() -> void:
 	mechQueue = futureMechQueue.duplicate()
 	futureMechQueue.clear()
 
+# Resets simulation state for all components on the grid.
+# Used to determine whether a push can successfully occur
+func resetSimulation() -> void:
+	for x in map:
+		for object in x:
+			if (object != null):
+				if object[FOREGROUND] != null:
+					object[FOREGROUND].processed = false
+					object[FOREGROUND].pushed = false
+
 func deferBackgroundMechanismUpdate(pos: Vector2i):
 	futureMechQueue.push_back(pos)
 
@@ -84,7 +94,16 @@ func _ready():
 	addMechanism(Box.new(self, 7, 0))
 	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT))
 	
-	addMechanism(Painter.new(self, 7, 0, Box.BoxColor.PURPLE))
+	addMechanism(Painter.new(self, 7, 0, Box.BoxColor.BLUE))
+	
+	addMechanism(Box.new(self, 4, 4))
+	addMechanism(Box.new(self, 3, 4))
+	getForegroundMechanism(4, 4).connectedBoxes[Util.Direction.LEFT] = true
+	getForegroundMechanism(3, 4).connectedBoxes[Util.Direction.RIGHT] = true
+	addMechanism(Box.new(self, 4, 3))
+	getForegroundMechanism(4, 4).connectedBoxes[Util.Direction.UP] = true
+	getForegroundMechanism(4, 3).connectedBoxes[Util.Direction.DOWN] = true
+	addMechanism(Pusher.new(self, 4, 4, Util.Direction.DOWN))
 	
 	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
 	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
