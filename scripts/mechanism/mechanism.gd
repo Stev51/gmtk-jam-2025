@@ -62,9 +62,9 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 	# If something tries to refer back to this mid simulation,
 	# we assume that this would succeed
 	simulationResult = true
-	
+
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
-	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT: 
+	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT:
 		simulationResult = false
 		return simulationResult
 	if pushType == PushType.NORMAL && !field.inPlayerMap(newPosition):
@@ -74,24 +74,23 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 		simulationResult = false
 		return simulationResult
 	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
-	
 	if objectInWay != null && !objectInWay.simulatePush(directionToMove, pushType):
 		simulationResult = false
 		return simulationResult
-	
+
 	for dir in Util.Direction.size():
 		# We've already propagated simulation in the direction we're moving
 		# so don't do that again
 		if dir == directionToMove || !connectedMechs[dir]: continue
-		
+
 		var adjPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
 		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_HEIGHT: continue
-		
+
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
 		if !adjMech.simulatePush(directionToMove, pushType):
 			simulationResult = false
 			return simulationResult
-	
+
 	simulationResult = true
 	return simulationResult
 
@@ -103,7 +102,7 @@ func push(directionToMove: Util.Direction) -> void:
 	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
 	if objectInWay != null:
 		objectInWay.push(directionToMove)
-		
+
 	field.setForegroundVector(newPosition, self)
 	field.setForegroundMechanism(self.x, self.y, null)
 	field.deferBackgroundMechanismUpdate(newPosition)
@@ -112,7 +111,7 @@ func push(directionToMove: Util.Direction) -> void:
 	self.y = newPosition.y
 	self.newPos = Field.toSceneCoord(self.x, self.y)
 	field.addToRenderQueue(self)
-	
+
 	for dir in Util.Direction.size():
 		# We've already propagated simulation in the direction we're moving
 		# so don't do that again

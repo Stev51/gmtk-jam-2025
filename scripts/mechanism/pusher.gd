@@ -15,7 +15,7 @@ func update(currentCycle: int):
 	var object: Mechanism = field.getForegroundMechanism(self.x, self.y)
 	if (object != null):
 		field.resetSimulation()
-		if object.simulatePush(self.dir, privileged): 
+		if object.simulatePush(self.dir, privileged):
 			self.node.play()
 			object.push(self.dir)
 		else: field.deferBackgroundMechanismUpdate(getCoordinateVector())
