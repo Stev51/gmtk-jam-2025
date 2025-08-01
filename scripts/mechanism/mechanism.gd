@@ -27,6 +27,7 @@ var simulationResult: bool
 var processed: bool = false
 # Used to determine if the connected block has already been pushed
 var pushed: bool = false
+enum PushType {INPUT, NORMAL, OUTPUT}
 
 func _init(field: Field, x: int, y:int, node: Node2D, ground: int, queuePosition: Field.QueuePos = Field.QueuePos.PRE):
 	self.field = field
@@ -47,7 +48,7 @@ func _init(field: Field, x: int, y:int, node: Node2D, ground: int, queuePosition
 	self.node.add_to_group("mechanisms")
 	self.node.add_child(mek_selector_scene.instantiate())
 
-func simulatePush(directionToMove: Util.Direction, privilegedPush: bool = false) -> bool:
+func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 	if processed: return simulationResult
 	processed = true
 	# If we've already been pushed in the tick, can't get pushed again
@@ -55,22 +56,26 @@ func simulatePush(directionToMove: Util.Direction, privilegedPush: bool = false)
 		simulationResult = false
 		return simulationResult
 	# If we're not in the play area and the attempt is not privileged, then stop
-	if !privilegedPush && !field.inPlayerMap(getCoordinateVector()):
+	if pushType == PushType.NORMAL && !field.inPlayerMap(getCoordinateVector()):
 		simulationResult = false
 		return simulationResult
 	# If something tries to refer back to this mid simulation,
 	# we assume that this would succeed
 	simulationResult = true
+	
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
 	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT: 
 		simulationResult = false
 		return simulationResult
-	if !privilegedPush && !field.inPlayerMap(newPosition):
+	if pushType == PushType.NORMAL && !field.inPlayerMap(newPosition):
+		simulationResult = false
+		return simulationResult
+	if pushType == PushType.INPUT && newPosition.x > Field.PLAYER_MAP_END.x:
 		simulationResult = false
 		return simulationResult
 	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
 	
-	if objectInWay != null && !objectInWay.simulatePush(directionToMove, privilegedPush):
+	if objectInWay != null && !objectInWay.simulatePush(directionToMove, pushType):
 		simulationResult = false
 		return simulationResult
 	
@@ -83,7 +88,7 @@ func simulatePush(directionToMove: Util.Direction, privilegedPush: bool = false)
 		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_HEIGHT: continue
 		
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
-		if !adjMech.simulatePush(directionToMove, privilegedPush):
+		if !adjMech.simulatePush(directionToMove, pushType):
 			simulationResult = false
 			return simulationResult
 	
