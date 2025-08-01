@@ -1,6 +1,7 @@
 class_name Field extends Node2D
 
 enum {FOREGROUND, BACKGROUND}
+enum QueuePos {PRE, POST}
 var currentCycle: int = 0
 var map: Array = Array()
 
@@ -24,7 +25,13 @@ func updateMechanisms() -> void:
 	currentCycle += 1
 	for mechPos in mechQueue:
 		var mech: Mechanism = getBackgroundVector(mechPos)
-		if mech != null: mech.update(currentCycle)
+		if mech != null && mech.queuePosition == QueuePos.PRE: 
+			mech.update(currentCycle)
+
+	for mechPos in mechQueue:
+		var mech: Mechanism = getBackgroundVector(mechPos)
+		if mech != null && mech.queuePosition == QueuePos.POST: 
+			mech.update(currentCycle)
 
 	mechQueue = futureMechQueue.duplicate()
 	futureMechQueue.clear()
@@ -120,15 +127,14 @@ func _ready():
 	addMechanism(Box.new(self, 7, 0))
 	addMechanism(Pusher.new(self, 8, 0, Util.Direction.LEFT))
 	
-	addMechanism(Box.new(self, 4, 4))
-	addMechanism(Box.new(self, 3, 4))
-	getForegroundMechanism(4, 4).connectMech(Util.Direction.LEFT)
-	addMechanism(Box.new(self, 4, 3))
-	getForegroundMechanism(4, 4).connectMech(Util.Direction.UP)
+	addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 3, 4, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 3, 5, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 3, 6, Util.Direction.DOWN))
+	addMechanism(Combiner.new(self, 4, 4, Util.Direction.LEFT))
+	addMechanism(Cutter.new(self, 4, 5, Util.Direction.LEFT))
 	addMechanism(Box.new(self, 3, 3))
-	getForegroundMechanism(3, 3).connectMech(Util.Direction.DOWN)
-	addMechanism(Pusher.new(self, 4, 4, Util.Direction.DOWN))
-	addMechanism(Pusher.new(self, 3, 5, Util.Direction.RIGHT))
+	addMechanism(Box.new(self, 4, 4))
 	
 
 	addMechanism(Painter.new(self, 7, 0, Box.BoxColor.YELLOW))

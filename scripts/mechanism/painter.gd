@@ -11,6 +11,7 @@ func _init(field: Field, x: int, y:int, color: Box.BoxColor):
 func setColor(color: Box.BoxColor):
 	self.color = color
 	self.node.frame = color
+
 func update(currentCycle: int):
 	var mech = field.getForegroundMechanism(x, y)
 	if is_instance_of(mech, Box):

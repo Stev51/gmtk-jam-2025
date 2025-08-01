@@ -16,8 +16,9 @@ var x: int
 var y: int
 var node: Node2D
 var ground: int
+var queuePosition: Field.QueuePos
 # Stores whether connected to boxes in each of the cardinal directions
-var connectedBoxes: Array[bool] = [false, false, false, false]
+var connectedMechs: Array[bool] = [false, false, false, false]
 
 # Used when simulating pushes
 var simulationResult: bool
@@ -28,12 +29,13 @@ var pushed: bool = false
 var oldPos: Vector2
 var newPos: Vector2
 
-func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
+func _init(field: Field, x: int, y:int, node: Node2D, ground: int, queuePosition: Field.QueuePos = Field.QueuePos.PRE):
 	self.field = field
 	self.x = x
 	self.y = y
 	self.node = node
 	self.ground = ground
+	self.queuePosition = queuePosition
 	self.node.position = Field.toSceneCoord(x, y)
 
 	if ground == Field.FOREGROUND:
@@ -67,7 +69,7 @@ func simulatePush(directionToMove: Util.Direction) -> bool:
 	for dir in Util.Direction.size():
 		# We've already propagated simulation in the direction we're moving
 		# so don't do that again
-		if dir == directionToMove || !connectedBoxes[dir]: continue
+		if dir == directionToMove || !connectedMechs[dir]: continue
 		var adjPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
 		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_WIDTH: continue
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
@@ -99,22 +101,28 @@ func push(directionToMove: Util.Direction) -> void:
 	for dir in Util.Direction.size():
 		# We've already propagated simulation in the direction we're moving
 		# so don't do that again
-		if dir == directionToMove || !connectedBoxes[dir]: continue
+		if dir == directionToMove || !connectedMechs[dir]: continue
 		# Find position adjacent to where we used to be
 		var adjPosition: Vector2i = Util.offset(Util.offset(Vector2i(x, y), dir), Util.reverse(directionToMove))
 		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_WIDTH: continue
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
 		if adjMech != null: adjMech.push(directionToMove)
 
-func connectMech(dir: Util.Direction) -> bool:
-	if connectedBoxes[dir]: return true
+func updateMechConnection(newState: bool, dir: Util.Direction) -> bool:
+	if connectedMechs[dir] == newState: return true
 	var mechToConnect: Mechanism = field.getForegroundVector(Util.offset(Vector2i(x, y), dir))
 	if mechToConnect != null:
-		connectedBoxes[dir] = true
-		mechToConnect.connectMech(Util.reverse(dir))
+		connectedMechs[dir] = newState
+		mechToConnect.updateMechConnection(newState, Util.reverse(dir))
 		return true
 	else:
 		return false
+
+func connectMech(dir: Util.Direction) -> bool:
+	return updateMechConnection(true, dir)
+
+func disconnectMech(dir: Util.Direction) -> bool:
+	return updateMechConnection(false, dir)
 
 func update(currentCycle: int) -> void:
 	pass
