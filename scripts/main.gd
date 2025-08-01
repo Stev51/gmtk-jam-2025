@@ -6,13 +6,13 @@ extends Node2D
 @onready var player_node = $Player
 @onready var place_marker = $PlaceMarker
 
-# TEMP #
-var mechanism_scene = preload("res://scenes/mechanism.tscn")
+var mouse_pos = Vector2.ZERO
+var cell_pos = Vector2.ZERO
 
 func _process(delta):
 	
-	var mouse_pos = main_tile_map_layer.get_local_mouse_position()
-	var cell_pos = main_tile_map_layer.local_to_map(mouse_pos)
+	mouse_pos = main_tile_map_layer.get_local_mouse_position()
+	cell_pos = main_tile_map_layer.local_to_map(mouse_pos)
 	place_marker.position = main_tile_map_layer.map_to_local(cell_pos) + world_node.position
 	
 	place_marker.pos_dist = place_marker.position.distance_to(player_node.position)
@@ -32,7 +32,5 @@ func _input(event):
 
 func place_new_mechanism():
 	
-	var new_mek = mechanism_scene.instantiate()
-	
-	mechanisms_parent_node.add_child(new_mek)
-	new_mek.position = place_marker.position - world_node.position
+	print(cell_pos)
+	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y), world_node.FOREGROUND) #For now it is box
