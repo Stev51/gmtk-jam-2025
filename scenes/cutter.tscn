@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://cmrg1s1bs8"]
+[gd_scene load_steps=2 format=3 uid="uid://cmrg1s1bs8"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p3ibc"]
+size = Vector2(64, 64)
 
 [node name="Cutter" type="Sprite2D"]
+modulate = Color(1, 0.27451, 0.32549, 1)
+texture = SubResource("PlaceholderTexture2D_p3ibc")

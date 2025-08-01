@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://b2y20gwuw10g4"]
+[gd_scene load_steps=2 format=3 uid="uid://b2y20gwuw10g4"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c5wrf"]
+size = Vector2(64, 64)
 
 [node name="Combiner" type="Sprite2D"]
+modulate = Color(0.14902, 0.34902, 1, 1)
+texture = SubResource("PlaceholderTexture2D_c5wrf")
