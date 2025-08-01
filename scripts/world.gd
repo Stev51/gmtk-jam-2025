@@ -14,6 +14,13 @@ var futureMechQueue: Array = Array()
 var toRenderMechs: Array = Array()
 
 func updateMechanisms() -> void:
+	# Reset push state of all boxes
+	for x in map:
+		for object in x:
+			if (object != null):
+				if object[FOREGROUND] != null:
+					object[FOREGROUND].pushed = false
+	
 	currentCycle += 1
 	for mechPos in mechQueue:
 		var mech: Mechanism = getBackgroundVector(mechPos)
@@ -30,7 +37,6 @@ func resetSimulation() -> void:
 			if (object != null):
 				if object[FOREGROUND] != null:
 					object[FOREGROUND].processed = false
-					object[FOREGROUND].pushed = false
 
 var tickProgress: float
 func _process(delta: float):
@@ -123,7 +129,11 @@ func _ready():
 	addMechanism(Box.new(self, 4, 3))
 	getForegroundMechanism(4, 4).connectedBoxes[Util.Direction.UP] = true
 	getForegroundMechanism(4, 3).connectedBoxes[Util.Direction.DOWN] = true
+	addMechanism(Box.new(self, 3, 3))
+	getForegroundMechanism(3, 3).connectedBoxes[Util.Direction.DOWN] = true
+	getForegroundMechanism(3, 4).connectedBoxes[Util.Direction.UP] = true
 	addMechanism(Pusher.new(self, 4, 4, Util.Direction.DOWN))
+	addMechanism(Pusher.new(self, 3, 5, Util.Direction.RIGHT))
 	
 
 	addMechanism(Painter.new(self, 7, 0, Box.BoxColor.YELLOW))

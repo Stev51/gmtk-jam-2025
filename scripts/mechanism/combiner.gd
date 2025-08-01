@@ -1,6 +1,6 @@
 class_name Combiner extends Mechanism
 
-const NODE = preload("res://scenes/painter.tscn")
+const NODE = preload("res://scenes/combiner.tscn")
 
 var dir: Util.Direction
 
