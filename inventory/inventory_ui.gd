@@ -18,5 +18,5 @@ func close():
 	is_open = false
 
 func update_slots():
-	for i in range(min(inventory.contents.size(), slots.size())):
-		slots[i].update_display(inventory.contents[i])
+	for i in range(min(inventory.slots.size(), slots.size())):
+		slots[i].update_display(inventory.slots[i])
