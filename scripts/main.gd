@@ -28,8 +28,7 @@ func _input(event):
 				var hovers = place_marker.get_hovered_mechanisms()
 				if len(hovers) > 0: #If hovering over a mechanism, delete it
 
-					for mek in hovers:
-						mek.queue_free()
+					delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
 
@@ -61,6 +60,7 @@ func _input(event):
 					pass #PLACEHOLDER, push selected mech one tile right
 
 func place_new_mechanism():
+	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y)) #For now it is box
 
-	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y), world_node.FOREGROUND) #For now it is box
-	world_node.drawMap()
+func delete_top_mechanism():
+	world_node.deleteMechanism(place_marker.get_top_mechanism())
