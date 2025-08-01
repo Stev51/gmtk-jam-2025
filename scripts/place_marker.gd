@@ -14,7 +14,7 @@ const SIZE = Vector2.ONE * 64
 @onready var display_shape = $Polygon2D
 @onready var collision_area = $Area2D
 
-var state = Global.States.VALID
+var state = Global.PlacerStates.VALID
 var overlapping_player = false
 var overlapping_mechanism = false
 var out_of_bounds = false
@@ -39,30 +39,33 @@ func get_hovered_mechanisms():
 
 func check_validity():
 	if out_of_bounds == true:
-		state = Global.States.OUT_OF_BOUNDS
+		state = Global.PlacerStates.OUT_OF_BOUNDS
 	elif overlapping_mechanism == true:
-		state = Global.States.HARD_INVALID
+		state = Global.PlacerStates.HARD_INVALID
 	elif overlapping_player == true:
-		state = Global.States.SOFT_INVALID
-	elif pos_dist > MAXIMUM_PLACEMENT_DISTANCE:
-		state = Global.States.SOFT_INVALID
+		state = Global.PlacerStates.SOFT_INVALID
+	elif not check_distance_validity():
+		state = Global.PlacerStates.SOFT_INVALID
 	elif overlapping_player == true:
-		state = Global.States.SOFT_INVALID
+		state = Global.PlacerStates.SOFT_INVALID
 	else:
-		state = Global.States.VALID
+		state = Global.PlacerStates.VALID
 
 func state_to_color():
 	match state:
-		Global.States.VALID:
+		Global.PlacerStates.VALID:
 			return GREEN
-		Global.States.SOFT_INVALID:
+		Global.PlacerStates.SOFT_INVALID:
 			return YELLOW
-		Global.States.HARD_INVALID:
+		Global.PlacerStates.HARD_INVALID:
 			return RED
-		Global.States.OUT_OF_BOUNDS:
+		Global.PlacerStates.OUT_OF_BOUNDS:
 			return TRANSPARENT
 		_:
 			return TRANSPARENT
+
+func check_distance_validity():
+	return pos_dist <= MAXIMUM_PLACEMENT_DISTANCE
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
