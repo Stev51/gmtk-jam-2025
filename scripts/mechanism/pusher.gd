@@ -7,7 +7,7 @@ var dir: Util.Direction
 func _init(field: Field, x: int, y:int, direction: Util.Direction):
 	super(field, x, y, NODE.instantiate())
 	dir = direction
-	self.node.rotate(PI * (dir + 3) / 2)
+	self.node.rotate(PI * dir / 2)
 
 func update(currentCycle: int):
 	self.node.play()
