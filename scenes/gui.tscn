@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://wfw6jdhk5dkq"]
+[gd_scene load_steps=3 format=3 uid="uid://wfw6jdhk5dkq"]
+
+[ext_resource type="Script" uid="uid://gp5n6rxl05m5" path="res://scripts/gui.gd" id="1_efmwq"]
+[ext_resource type="Resource" uid="uid://bbsiqxqyr53rv" path="res://inventory/inventories/player_inventory.tres" id="2_mfius"]
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -7,5 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_efmwq")
+PlayerInventory = ExtResource("2_mfius")
 
 [node name="Camera" type="Camera2D" parent="."]
