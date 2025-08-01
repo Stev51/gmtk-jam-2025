@@ -8,7 +8,8 @@ var map: Array = Array()
 const GRID_WIDTH: int = 32
 const GRID_HEIGHT: int = 32
 const SCALE: int = 64
-const OFFSET: Vector2 = Vector2(SCALE*-10 + (SCALE / 2), SCALE*-10 + (SCALE / 2))
+const TILE_OFFSET: Vector2i = Vector2i(-10, -10)
+const OFFSET: Vector2 = Vector2(SCALE*TILE_OFFSET.x + (SCALE / 2), SCALE*TILE_OFFSET.y + (SCALE / 2))
 
 const PLAYER_MAP_START = Vector2i(10, 10)
 const PLAYER_MAP_END = Vector2i(19, 19)
@@ -26,7 +27,7 @@ func updateMechanisms() -> void:
 					object[FOREGROUND].pushed = false
 	
 	currentCycle += 1
-	if (currentCycle % 5 == 0):
+	if (currentCycle % 2 == 0):
 		$IOHandler.spawnInput(self)
 	for mechPos in mechQueue:
 		var mech: Mechanism = getBackgroundVector(mechPos)
@@ -149,6 +150,7 @@ func _ready():
 	addMechanism(Box.new(self, 1, 15))
 	addMechanism(Box.new(self, 2, 15))
 	getForegroundMechanism(2, 15).connectMech(Util.Direction.LEFT)
+	addMechanism(Pusher.new(self, 19, 15, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
 	
 
 	addMechanism(Painter.new(self, 17, 10, Box.BoxColor.YELLOW))
