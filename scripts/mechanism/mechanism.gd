@@ -17,21 +17,23 @@ var y: int
 var node: Node2D
 var ground: int
 
+var oldPos: Vector2
+var newPos: Vector2
+
 func _init(field: Field, x: int, y:int, node: Node2D, ground: int):
 	self.field = field
 	self.x = x
 	self.y = y
 	self.node = node
 	self.ground = ground
-	self.node.translate(Field.SCALE * Vector2(x, y) + Field.OFFSET)
-	
+	self.node.position = Field.toSceneCoord(x, y)
+
 	if ground == Field.FOREGROUND:
 		self.node.add_to_group("FOREGROUND")
 	elif ground == Field.BACKGROUND:
 		self.node.add_to_group("BACKGROUND")
 	else:
 		push_error("Background type not recognized for Mekanism")
-		
 	#Set groups n such
 	self.node.add_to_group("mechanisms")
 	self.node.add_child(mek_selector_scene.instantiate())
@@ -46,9 +48,11 @@ func push(directionToMove: Util.Direction) -> bool:
 			field.setForegroundVector(newPosition, self)
 			field.setForegroundMechanism(self.x, self.y, null)
 			field.deferBackgroundMechanismUpdate(newPosition)
+			self.oldPos = Field.toSceneCoord(self.x, self.y)
 			self.x = newPosition.x
 			self.y = newPosition.y
-			self.node.translate(Util.offset(Vector2i(0, 0), directionToMove) * Field.SCALE)
+			self.newPos = Field.toSceneCoord(self.x, self.y)
+			field.addToRenderQueue(self)
 			return true
 		else:
 			return false
@@ -56,13 +60,18 @@ func push(directionToMove: Util.Direction) -> bool:
 		field.setForegroundVector(newPosition, self)
 		field.setForegroundMechanism(self.x, self.y, null)
 		field.deferBackgroundMechanismUpdate(newPosition)
+		self.oldPos = Field.toSceneCoord(self.x, self.y)
 		self.x = newPosition.x
 		self.y = newPosition.y
-		self.node.translate(Util.offset(Vector2i(0, 0), directionToMove) * Field.SCALE)
+		self.newPos = Field.toSceneCoord(self.x, self.y)
+		field.addToRenderQueue(self)
 		return true
 
 func update(currentCycle: int) -> void:
 	pass
+
+func render(delta: float) -> void:
+	self.node.position = self.oldPos.lerp(self.newPos, delta)
 
 func getNode() -> Node2D:
 	return node
