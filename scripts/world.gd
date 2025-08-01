@@ -10,6 +10,9 @@ const GRID_HEIGHT: int = 32
 const SCALE: int = 64
 const OFFSET: Vector2 = Vector2(SCALE*-10 + (SCALE / 2), SCALE*-10 + (SCALE / 2))
 
+const PLAYER_MAP_START = Vector2i(10, 10)
+const PLAYER_MAP_END = Vector2i(19, 19)
+
 var mechQueue: Array = Array()
 var futureMechQueue: Array = Array()
 var toRenderMechs: Array = Array()
@@ -23,6 +26,8 @@ func updateMechanisms() -> void:
 					object[FOREGROUND].pushed = false
 	
 	currentCycle += 1
+	if (currentCycle % 5 == 0):
+		$IOHandler.spawnInput(self)
 	for mechPos in mechQueue:
 		var mech: Mechanism = getBackgroundVector(mechPos)
 		if mech != null && mech.queuePosition == QueuePos.PRE: 
@@ -44,6 +49,10 @@ func resetSimulation() -> void:
 			if (object != null):
 				if object[FOREGROUND] != null:
 					object[FOREGROUND].processed = false
+
+func inPlayerMap(pos: Vector2i) -> bool:
+	return (pos.x >= PLAYER_MAP_START.x && pos.x <= PLAYER_MAP_END.x
+			&& pos.y >= PLAYER_MAP_START.y && pos.y <= PLAYER_MAP_END.y)
 
 var tickProgress: float
 func _process(delta: float):
@@ -115,7 +124,7 @@ func _ready():
 		map[x] = column
 	#addMechanism(Box.new(self, 0, 0), FOREGROUND)
 	#addMechanism(Pusher.new(self, 0, 0, Util.Direction.DOWN), BACKGROUND)
-	addMechanism(Pusher.new(self, 11, 10, Util.Direction.RIGHT))
+	addMechanism(Pusher.new(self, 11, 10, Util.Direction.UP))
 	addMechanism(Pusher.new(self, 12, 10, Util.Direction.RIGHT))
 	addMechanism(Box.new(self, 11, 10))
 	addMechanism(Box.new(self, 12, 10))
@@ -136,6 +145,13 @@ func _ready():
 	addMechanism(Box.new(self, 13, 13))
 	addMechanism(Box.new(self, 14, 14))
 	
+	
+	for x in 10: addMechanism(Pusher.new(self, x, 15, Util.Direction.RIGHT, true))
+	addMechanism(Box.new(self, 1, 15))
+	addMechanism(Box.new(self, 2, 15))
+	getForegroundMechanism(2, 15).connectMech(Util.Direction.LEFT)
+	addMechanism(Pusher.new(self, 10, 15, Util.Direction.UP))
+	
 
 	addMechanism(Painter.new(self, 17, 10, Box.BoxColor.YELLOW))
 
@@ -144,8 +160,6 @@ func _ready():
 	#addMechanism(Box.new(self, 5, 3), FOREGROUND)
 	#addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
 
-	drawMap()
-
 	$MechanismClock.start()
 
 func addMechanism(mech: Mechanism):
@@ -153,6 +167,7 @@ func addMechanism(mech: Mechanism):
 		self.setBackgroundMechanism(mech.x, mech.y, mech)
 	else:
 		self.setForegroundMechanism(mech.x, mech.y, mech)
+	self.add_child(mech.getNode())
 
 func deleteMechanism(mech: Mechanism):
 	for x in map.size():
@@ -166,16 +181,6 @@ func deleteMechanism(mech: Mechanism):
 	
 	mech.getNode().queue_free()
 	mech.queue_free()
-
-func drawMap():
-	for x in map.size():
-		for y in map[x].size():
-			var mech: Mechanism = getForegroundMechanism(x, y)
-			if mech != null:
-				self.add_child(mech.getNode())
-			mech = getBackgroundMechanism(x, y)
-			if mech != null:
-				self.add_child(mech.getNode())
 
 
 func _on_mechanism_clock_timeout() -> void:

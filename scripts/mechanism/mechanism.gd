@@ -14,6 +14,8 @@ var mek_selector_scene = preload("res://scenes/mechanism_selector_area.tscn")
 var field: Field
 var x: int
 var y: int
+var oldPos: Vector2
+var newPos: Vector2
 var node: Node2D
 var ground: int
 var queuePosition: Field.QueuePos
@@ -25,9 +27,6 @@ var simulationResult: bool
 var processed: bool = false
 # Used to determine if the connected block has already been pushed
 var pushed: bool = false
-
-var oldPos: Vector2
-var newPos: Vector2
 
 func _init(field: Field, x: int, y:int, node: Node2D, ground: int, queuePosition: Field.QueuePos = Field.QueuePos.PRE):
 	self.field = field
@@ -48,21 +47,30 @@ func _init(field: Field, x: int, y:int, node: Node2D, ground: int, queuePosition
 	self.node.add_to_group("mechanisms")
 	self.node.add_child(mek_selector_scene.instantiate())
 
-func simulatePush(directionToMove: Util.Direction) -> bool:
+func simulatePush(directionToMove: Util.Direction, privilegedPush: bool = false) -> bool:
 	if processed: return simulationResult
 	processed = true
 	# If we've already been pushed in the tick, can't get pushed again
 	if pushed:
 		simulationResult = false
 		return simulationResult
+	# If we're not in the play area and the attempt is not privileged, then stop
+	if !privilegedPush && !field.inPlayerMap(getCoordinateVector()):
+		simulationResult = false
+		return simulationResult
 	# If something tries to refer back to this mid simulation,
 	# we assume that this would succeed
 	simulationResult = true
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
-	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT: return false
+	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT: 
+		simulationResult = false
+		return simulationResult
+	if !privilegedPush && !field.inPlayerMap(newPosition):
+		simulationResult = false
+		return simulationResult
 	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
 	
-	if objectInWay != null && !objectInWay.simulatePush(directionToMove):
+	if objectInWay != null && !objectInWay.simulatePush(directionToMove, privilegedPush):
 		simulationResult = false
 		return simulationResult
 	
@@ -70,10 +78,12 @@ func simulatePush(directionToMove: Util.Direction) -> bool:
 		# We've already propagated simulation in the direction we're moving
 		# so don't do that again
 		if dir == directionToMove || !connectedMechs[dir]: continue
+		
 		var adjPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
 		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_HEIGHT: continue
+		
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
-		if !adjMech.simulatePush(directionToMove):
+		if !adjMech.simulatePush(directionToMove, privilegedPush):
 			simulationResult = false
 			return simulationResult
 	
