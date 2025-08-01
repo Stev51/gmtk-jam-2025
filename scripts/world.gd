@@ -159,7 +159,7 @@ func _ready():
 	#addMechanism(Box.new(self, 5, 3), FOREGROUND)
 	#addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
 	
-	drawMap();
+	drawMap()
 	
 	$MechanismClock.start()
 

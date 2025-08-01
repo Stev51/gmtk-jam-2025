@@ -34,3 +34,4 @@ func place_new_mechanism():
 	
 	print(cell_pos)
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y), world_node.FOREGROUND) #For now it is box
+	world_node.drawMap()

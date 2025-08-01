@@ -9,6 +9,8 @@ class_name Mechanism
 #detect box collision -> link outgoing signals; clock signal -> perform operation on linked object;
 #hands uncollide -> unlink; box uncollide -> unlink
 
+var mek_selector_scene = preload("res://scenes/mechanism_selector_area.tscn")
+
 var field: Field
 var x: int
 var y: int
@@ -28,6 +30,10 @@ func _init(field: Field, x: int, y:int, node: Node2D):
 	self.y = y
 	self.node = node
 	self.node.translate(Field.SCALE * Vector2(x, y) + Field.OFFSET)
+	
+	#Set groups n such
+	self.node.add_to_group("mechanisms")
+	self.node.add_child(mek_selector_scene.instantiate())
 
 # Initial attempt to push
 # Used to determine what pushes what

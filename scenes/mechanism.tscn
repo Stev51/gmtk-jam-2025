@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf4u1nsr04c5q"]
+[gd_scene load_steps=4 format=3 uid="uid://cf4u1nsr04c5q"]
 
 [ext_resource type="Script" uid="uid://im47c6ar1u68" path="res://scripts/mechanism.gd" id="1_28r5f"]
 
@@ -8,10 +8,7 @@ size = Vector2(64, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ep16"]
 size = Vector2(64, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro5d4"]
-size = Vector2(48, 48)
-
-[node name="Mechanism" type="Node2D"]
+[node name="Mechanism" type="Node2D" groups=["mechanisms"]]
 script = ExtResource("1_28r5f")
 
 [node name="Mechanism Sprite" type="Sprite2D" parent="."]
@@ -54,9 +51,3 @@ polygon = PackedVector2Array(0, 0, 32, 32, 32, -32)
 visible = false
 
 [node name="Active Area Collision Polygon" type="CollisionPolygon2D" parent="Active Area (undef)"]
-
-[node name="SelectorArea" type="Area2D" parent="." groups=["mechanism_selectors"]]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectorArea"]
-shape = SubResource("RectangleShape2D_ro5d4")
