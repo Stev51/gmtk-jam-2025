@@ -25,7 +25,8 @@ var simulationResult: bool
 var processed: bool = false
 # Used to determine if the connected block has already been pushed
 var pushed: bool = false
-enum PushType {INPUT, NORMAL, OUTPUT}
+# PLAYER type is usually ignored but can be read by child classes
+enum PushType {INPUT, NORMAL, PLAYER, OUTPUT}
 
 func _init(field: Field, x: int, y:int, node: Node2D, ground: int, item: InventoryItem, queuePosition: Field.QueuePos = Field.QueuePos.PRE):
 	self.field = field
@@ -55,7 +56,7 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 		simulationResult = false
 		return simulationResult
 	# If we're not in the play area and the attempt is not privileged, then stop
-	if pushType == PushType.NORMAL && !field.inPlayerMap(getCoordinateVector()):
+	if (pushType == PushType.NORMAL || pushType == PushType.PLAYER) && !field.inPlayerMap(getCoordinateVector()):
 		simulationResult = false
 		return simulationResult
 	# If something tries to refer back to this mid simulation,
@@ -66,7 +67,7 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT:
 		simulationResult = false
 		return simulationResult
-	if pushType == PushType.NORMAL && !field.inPlayerMap(newPosition):
+	if (pushType == PushType.NORMAL || pushType == PushType.PLAYER) && !field.inPlayerMap(newPosition):
 		simulationResult = false
 		return simulationResult
 	if pushType == PushType.INPUT && newPosition.x > Field.PLAYER_MAP_END.x:
@@ -123,7 +124,7 @@ func push(directionToMove: Util.Direction) -> void:
 
 func playerPush(directionToMove: Util.Direction) -> void:
 	field.resetSimulation()
-	if simulatePush(directionToMove, PushType.NORMAL):
+	if simulatePush(directionToMove, PushType.PLAYER):
 		push(directionToMove)
 
 func updateMechConnection(newState: bool, dir: Util.Direction) -> bool:
