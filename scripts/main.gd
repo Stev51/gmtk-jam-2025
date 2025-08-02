@@ -30,8 +30,9 @@ func _input(event):
 				var hovers = place_marker.get_hovered_mechanisms()
 				if len(hovers) > 0: #If hovering over a mechanism, delete it and give the player the item
 
-					collect_top_mechanism()
-					#delete_top_mechanism()
+					if gui_node.is_player_inv_free(): #If there's no room, don't do anything
+						collect_top_mechanism()
+						#delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
 

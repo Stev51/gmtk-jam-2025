@@ -21,3 +21,7 @@ func insert(item: InventoryItem):
 	
 	# Once done, signal GUI update
 	update_inv.emit()
+
+func are_there_empty_slots():
+	var empty_slots = slots.filter(func(slot): return slot.item == null)
+	return not empty_slots.is_empty()
