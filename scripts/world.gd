@@ -27,22 +27,23 @@ func updateMechanisms() -> void:
 			if (object != null):
 				if object[FOREGROUND] != null:
 					object[FOREGROUND].pushed = false
-	
+
 	currentCycle += 1
-	if (currentCycle % 2 == 0):
+	if (currentCycle % 4 == 0):
 		$IOHandler.spawnInput(self)
-	for mechPos in mechQueue:
-		var mech: Mechanism = getBackgroundVector(mechPos)
-		if mech != null && mech.queuePosition == QueuePos.PRE: 
-			mech.update(currentCycle)
 
-	for mechPos in mechQueue:
-		var mech: Mechanism = getBackgroundVector(mechPos)
-		if mech != null && mech.queuePosition == QueuePos.POST: 
-			mech.update(currentCycle)
-
-	mechQueue = futureMechQueue.duplicate()
-	futureMechQueue.clear()
+	if currentCycle % 2 == 0:
+		for mechPos in mechQueue:
+			var mech: Mechanism = getBackgroundVector(mechPos)
+			if mech != null && mech.queuePosition == QueuePos.PRE:
+				mech.update(currentCycle)
+	else:
+		for mechPos in mechQueue:
+			var mech: Mechanism = getBackgroundVector(mechPos)
+			if mech != null && mech.queuePosition == QueuePos.POST:
+				mech.update(currentCycle)
+		mechQueue = futureMechQueue
+		futureMechQueue = Array()
 
 # Resets simulation state for all components on the grid.
 # Used to determine whether a push can successfully occur
@@ -125,7 +126,7 @@ func _ready():
 		var column: Array = Array()
 		column.resize(GRID_HEIGHT)
 		map[x] = column
-	
+
 	addMechanism(Pusher.new(self, 11, 10, Util.Direction.UP))
 	addMechanism(Pusher.new(self, 12, 10, Util.Direction.RIGHT))
 	addMechanism(Box.new(self, 11, 10))
@@ -137,7 +138,7 @@ func _ready():
 	addMechanism(Box.new(self, 18, 10))
 	addMechanism(Box.new(self, 17, 10))
 	addMechanism(Pusher.new(self, 18, 10, Util.Direction.LEFT))
-	
+
 	addMechanism(Pusher.new(self, 13, 13, Util.Direction.DOWN))
 	addMechanism(Pusher.new(self, 13, 14, Util.Direction.DOWN))
 	addMechanism(Pusher.new(self, 13, 15, Util.Direction.DOWN))
@@ -146,14 +147,14 @@ func _ready():
 	addMechanism(Cutter.new(self, 14, 15, Util.Direction.LEFT))
 	addMechanism(Box.new(self, 13, 13))
 	addMechanism(Box.new(self, 14, 14))
-	
-	
+
+
 	for x in 10: addMechanism(Pusher.new(self, x, 15, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
 	addMechanism(Box.new(self, 1, 15))
 	addMechanism(Box.new(self, 2, 15))
 	getForegroundMechanism(2, 15).connectMech(Util.Direction.LEFT)
 	addMechanism(Pusher.new(self, 19, 15, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
-	
+
 
 	addMechanism(Painter.new(self, 17, 10, Box.BoxColor.YELLOW))
 
@@ -167,7 +168,7 @@ func addMechanism(mech: Mechanism):
 	self.add_child(mech.getNode())
 
 func deleteMechanism(mech: Mechanism):
-	
+
 	for x in map.size():
 		for y in map[x].size():
 			var object = map[x][y]
@@ -176,7 +177,7 @@ func deleteMechanism(mech: Mechanism):
 					setForegroundMechanism(x, y, null)
 				if object[BACKGROUND] == mech:
 					setBackgroundMechanism(x, y, null)
-	
+
 	if mech:
 		mech.getNode().queue_free()
 		mech.queue_free()
@@ -192,7 +193,7 @@ func get_mech_from_node(node):
 	if node == null:
 		return	null
 	var node_pos = main_tile_map_layer.local_to_map(node.position) - TILE_OFFSET
-	
+
 	if node.is_in_group("FOREGROUND"):
 		return getForegroundMechanism(node_pos.x, node_pos.y)
 	elif node.is_in_group("BACKGROUND"):
