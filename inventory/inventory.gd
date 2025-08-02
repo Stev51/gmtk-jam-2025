@@ -24,6 +24,7 @@ func insert(item: InventoryItem):
 	
 	# Once done, signal GUI update
 	update_inv.emit()
+	check_selection_state()
 
 func subtract_item(index, count):
 	
@@ -36,6 +37,7 @@ func subtract_item(index, count):
 		slot.item = null
 	
 	update_inv.emit()
+	check_selection_state()
 
 func are_there_empty_slots():
 	var empty_slots = slots.filter(func(slot): return slot.item == null)

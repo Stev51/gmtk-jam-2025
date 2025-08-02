@@ -67,9 +67,13 @@ func _input(event):
 
 func place_new_mechanism():
 	
-	var selected_mek = gui_node.get_selected_item()
-	if selected_mek != null:
-		#place that shit
+	var selected_item = gui_node.get_selected_item()
+	if selected_item != null:
+		
+		var mek_type = selected_item.placed_mech
+		var created_mek = mek_type.new(world_node, cell_pos.x, cell_pos.y)
+		world_node.addMechanism(created_mek)
+		
 		gui_node.remove_selected_item()
 	
 	#world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y))
