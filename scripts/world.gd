@@ -165,6 +165,8 @@ func _ready():
 	addMechanism(Cutter.new(self, 14, 15, Util.Direction.LEFT))
 	addMechanism(Box.new(self, 13, 13))
 	addMechanism(Box.new(self, 14, 14))
+	
+	addMechanism(Blocker.new(self, 13, 17))
 
 
 	for x in 10: addMechanism(Pusher.new(self, x, 15, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
