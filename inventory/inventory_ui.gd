@@ -37,18 +37,15 @@ func change_selection(index: int):
 		inventory.selected = false
 		inventory.selection_index = null
 		
-		Global.inv_deselect.emit()
-		
 	else:
 		
 		inventory.selected = true
 		inventory.selection_index = index
 		
 		inventory.slots[inventory.selection_index].selected = true
-		
-		Global.inv_select.emit()
 	
 	update_slots()
+	inventory.check_selection_state()
 
 func _input(event):
 	if event.is_action_pressed("ui_one"):

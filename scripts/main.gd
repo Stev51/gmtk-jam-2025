@@ -66,7 +66,13 @@ func _input(event):
 					hovered.playerPush(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
 
 func place_new_mechanism():
-	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y)) #For now it is box
+	
+	var selected_mek = gui_node.get_selected_item()
+	if selected_mek != null:
+		#place that shit
+		gui_node.remove_selected_item()
+	
+	#world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y))
 
 func delete_top_mechanism():
 	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
