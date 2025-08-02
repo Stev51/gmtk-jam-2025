@@ -27,6 +27,8 @@ func updateMechanisms() -> void:
 			if (object != null):
 				if object[FOREGROUND] != null:
 					object[FOREGROUND].pushed = false
+				if object[BACKGROUND] != null:
+					object[BACKGROUND].pushed = false
 
 	currentCycle += 1
 	if (currentCycle % 4 == 0):
