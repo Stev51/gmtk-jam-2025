@@ -46,24 +46,24 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT: #Left click
 			match place_marker.movable_state:
 				Global.MovableStates.CANPUSHNORTH:
-					hovered.push(Util.Direction.UP) #PLACEHOLDER, push selected mech one tile up
+					hovered.playerPush(Util.Direction.UP) #PLACEHOLDER, push selected mech one tile up
 				Global.MovableStates.CANPUSHEAST:
-					hovered.push(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
+					hovered.playerPush(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
 				Global.MovableStates.CANPUSHSOUTH:
-					hovered.push(Util.Direction.DOWN) #PLACEHOLDER, push selected mech one tile down
+					hovered.playerPush(Util.Direction.DOWN) #PLACEHOLDER, push selected mech one tile down
 				Global.MovableStates.CANPUSHWEST:
-					hovered.push(Util.Direction.LEFT) #PLACEHOLDER. push selected mech one tile left
+					hovered.playerPush(Util.Direction.LEFT) #PLACEHOLDER. push selected mech one tile left
 
 		if event.button_index == MOUSE_BUTTON_RIGHT: #Right click
 			match place_marker.movable_state:
 				Global.MovableStates.CANPULLNORTH:
-					hovered.push(Util.Direction.DOWN) #PLACEHOLDER, push selected mech one tile down
+					hovered.playerPush(Util.Direction.DOWN) #PLACEHOLDER, push selected mech one tile down
 				Global.MovableStates.CANPULLEAST:
-					hovered.push(Util.Direction.LEFT) #PLACEHOLDER, push selected mech one tile left
+					hovered.playerPush(Util.Direction.LEFT) #PLACEHOLDER, push selected mech one tile left
 				Global.MovableStates.CANPULLSOUTH:
-					hovered.push(Util.Direction.UP) #PLACEHOLDER, push selected mech one tile up
+					hovered.playerPush(Util.Direction.UP) #PLACEHOLDER, push selected mech one tile up
 				Global.MovableStates.CANPULLWEST:
-					hovered.push(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
+					hovered.playerPush(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
 
 func place_new_mechanism():
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y)) #For now it is box

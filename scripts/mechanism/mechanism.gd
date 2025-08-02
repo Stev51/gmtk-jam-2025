@@ -119,6 +119,11 @@ func push(directionToMove: Util.Direction) -> void:
 		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
 		if adjMech != null: adjMech.push(directionToMove)
 
+func playerPush(directionToMove: Util.Direction) -> void:
+	field.resetSimulation()
+	if simulatePush(directionToMove, PushType.NORMAL):
+		push(directionToMove)
+
 func updateMechConnection(newState: bool, dir: Util.Direction) -> bool:
 	if connectedMechs[dir] == newState: return true
 	var mechToConnect: Mechanism = field.getForegroundVector(Util.offset(Vector2i(x, y), dir))
