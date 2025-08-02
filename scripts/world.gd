@@ -184,14 +184,15 @@ func addMechanism(mech: Mechanism):
 	self.add_child(mech.getNode())
 
 func deleteMechanism(mech: Mechanism):
-
 	for x in map.size():
 		for y in map[x].size():
 			var object = map[x][y]
 			if object != null:
 				if object[FOREGROUND] == mech:
+					for dir in Util.Direction.size(): mech.disconnectMech(dir)
 					setForegroundMechanism(x, y, null)
 				if object[BACKGROUND] == mech:
+					for dir in Util.Direction.size(): mech.disconnectMech(dir)
 					setBackgroundMechanism(x, y, null)
 
 	if mech:
