@@ -187,7 +187,8 @@ static func toSceneCoord(x: int, y: int) -> Vector2:
 	return Vector2(x, y) * SCALE + OFFSET
 
 func get_mech_from_node(node):
-	
+	if node == null:
+		return	null
 	var node_pos = main_tile_map_layer.local_to_map(node.position) - TILE_OFFSET
 	
 	if node.is_in_group("FOREGROUND"):

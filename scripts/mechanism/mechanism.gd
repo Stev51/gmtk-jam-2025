@@ -4,11 +4,6 @@ class_name Mechanism
 @export var properties : TileEntityProperties
 # Walls can be non-mechanisms with TileEntityproperties
 
-# Old notes from Trent:
-#Methods needed: detect player hands collision -> link incoming signals; push/pull signal -> move;
-#detect box collision -> link outgoing signals; clock signal -> perform operation on linked object;
-#hands uncollide -> unlink; box uncollide -> unlink
-
 var mek_selector_scene = preload("res://scenes/mechanism_selector_area.tscn")
 
 var field: Field
@@ -152,10 +147,3 @@ func getNode() -> Node2D:
 func getCoordinateVector() -> Vector2i:
 	return Vector2i(x, y)
 # Consider moving anything to custom resources
-# Walls and UI will be non-mechanisms, a different Node2D and Control respectively
-
-#Properties needed: walkable; movable (pickup-able/shovable) (i.e. false for in/out conveyors);
-
-#Methods needed: detect player hands collision -> link incoming signals; push/pull signal -> move;
-#detect box collision -> link outgoing signals; clock signal -> perform operation on linked object;
-#hands uncollide -> unlink; box uncollide -> unlink

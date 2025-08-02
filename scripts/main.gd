@@ -40,28 +40,30 @@ func _input(event):
 						place_new_mechanism()
 
 	elif event is InputEventMouseButton and event.is_pressed(): #Mouse clicks
-
+		var hovered = world_node.get_mech_from_node(place_marker.get_top_mechanism())
+		if hovered == null:
+			return null
 		if event.button_index == MOUSE_BUTTON_LEFT: #Left click
 			match place_marker.movable_state:
 				Global.MovableStates.CANPUSHNORTH:
-					pass #PLACEHOLDER, push selected mech one tile up
+					hovered.push(Util.Direction.UP) #PLACEHOLDER, push selected mech one tile up
 				Global.MovableStates.CANPUSHEAST:
-					pass #PLACEHOLDER, push selected mech one tile right
+					hovered.push(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
 				Global.MovableStates.CANPUSHSOUTH:
-					pass #PLACEHOLDER, push selected mech one tile down
+					hovered.push(Util.Direction.DOWN) #PLACEHOLDER, push selected mech one tile down
 				Global.MovableStates.CANPUSHWEST:
-					pass #PLACEHOLDER. push selected mech one tile left
+					hovered.push(Util.Direction.LEFT) #PLACEHOLDER. push selected mech one tile left
 
 		if event.button_index == MOUSE_BUTTON_RIGHT: #Right click
 			match place_marker.movable_state:
 				Global.MovableStates.CANPULLNORTH:
-					pass #PLACEHOLDER, push selected mech one tile down
+					hovered.push(Util.Direction.DOWN) #PLACEHOLDER, push selected mech one tile down
 				Global.MovableStates.CANPULLEAST:
-					pass #PLACEHOLDER, push selected mech one tile left
+					hovered.push(Util.Direction.LEFT) #PLACEHOLDER, push selected mech one tile left
 				Global.MovableStates.CANPULLSOUTH:
-					pass #PLACEHOLDER, push selected mech one tile up
+					hovered.push(Util.Direction.UP) #PLACEHOLDER, push selected mech one tile up
 				Global.MovableStates.CANPULLWEST:
-					pass #PLACEHOLDER, push selected mech one tile right
+					hovered.push(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
 
 func place_new_mechanism():
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y)) #For now it is box
