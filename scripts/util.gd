@@ -26,3 +26,29 @@ static func reverse(dir: Direction) -> Direction:
 			return Direction.LEFT
 		_:
 			return dir
+
+static func rotate(dir: Direction) -> Direction:
+	match dir:
+		Direction.UP:
+			return Direction.RIGHT
+		Direction.RIGHT:
+			return Direction.DOWN
+		Direction.DOWN:
+			return Direction.LEFT
+		Direction.LEFT:
+			return Direction.UP
+		_:
+			return dir
+
+static func rotate_counterclockwise(dir: Direction) -> Direction:
+	match dir:
+		Direction.UP:
+			return Direction.LEFT
+		Direction.LEFT:
+			return Direction.DOWN
+		Direction.DOWN:
+			return Direction.RIGHT
+		Direction.RIGHT:
+			return Direction.UP
+		_:
+			return dir
