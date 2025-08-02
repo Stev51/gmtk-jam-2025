@@ -74,8 +74,6 @@ animations = [{
 }]
 
 [node name="Combiner" type="AnimatedSprite2D"]
-position = Vector2(8, 2.01948e-28)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8y0n4")
-frame = 8
-frame_progress = 1.0
+offset = Vector2(4, 0)

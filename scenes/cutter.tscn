@@ -2,45 +2,48 @@
 
 [ext_resource type="Texture2D" uid="uid://cc6s0g5d3cux5" path="res://assets/img/cutter.png" id="1_actp3"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_actp3"]
+atlas = ExtResource("1_actp3")
+region = Rect2(0, 0, 35, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_pcbcd"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 32, 35, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kg5or"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(0, 64, 35, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hubnq"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 64, 32, 32)
+region = Rect2(0, 96, 35, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6xvym"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 96, 32, 32)
+region = Rect2(0, 128, 35, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2n6h4"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 128, 32, 32)
+region = Rect2(0, 160, 35, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vnj5j"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 160, 32, 32)
+region = Rect2(0, 192, 35, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ah71n"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 192, 32, 32)
+region = Rect2(0, 224, 35, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1frsn"]
 atlas = ExtResource("1_actp3")
-region = Rect2(0, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ecxus"]
-atlas = ExtResource("1_actp3")
-region = Rect2(0, 256, 32, 32)
+region = Rect2(0, 256, 35, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lj48m"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_actp3")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pcbcd")
 }, {
@@ -66,10 +69,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_1frsn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ecxus")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pcbcd")
+"texture": SubResource("AtlasTexture_actp3")
 }],
 "loop": false,
 "name": &"default",
@@ -77,7 +77,6 @@ animations = [{
 }]
 
 [node name="Cutter" type="AnimatedSprite2D"]
-scale = Vector2(2.1, 2.1)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_lj48m")
-frame = 9
-frame_progress = 1.0
+offset = Vector2(1.5, 0)
