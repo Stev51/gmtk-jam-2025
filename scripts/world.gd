@@ -31,8 +31,9 @@ func updateMechanisms() -> void:
 					object[BACKGROUND].pushed = false
 
 	currentCycle += 1
-	if (currentCycle % 4 == 0):
+	if (currentCycle % 10 == 0):
 		$IOHandler.spawnInput(self)
+	for y in 5: deleteMechanismAtPos(Vector2i(25, 13 + y), FOREGROUND)
 
 	if currentCycle % 2 == 0:
 		for mechPos in mechQueue:
@@ -144,39 +145,9 @@ func _ready():
 		var column: Array = Array()
 		column.resize(GRID_HEIGHT)
 		map[x] = column
-	
-	addMechanism(Pusher.new(self, 11, 10, Util.Direction.RIGHT))
-	addMechanism(Pusher.new(self, 12, 10, Util.Direction.RIGHT))
-	addMechanism(Box.new(self, 11, 10))
-	addMechanism(Box.new(self, 12, 10))
-	addMechanism(Pusher.new(self, 13, 10, Util.Direction.DOWN))
-
-	addMechanism(Box.new(self, 15, 10))
-	addMechanism(Pusher.new(self, 15, 10, Util.Direction.RIGHT))
-	addMechanism(Box.new(self, 18, 10))
-	addMechanism(Box.new(self, 17, 10))
-	addMechanism(Pusher.new(self, 18, 10, Util.Direction.LEFT))
-
-	addMechanism(Pusher.new(self, 13, 13, Util.Direction.DOWN))
-	addMechanism(Pusher.new(self, 13, 14, Util.Direction.DOWN))
-	addMechanism(Pusher.new(self, 13, 15, Util.Direction.DOWN))
-	addMechanism(Pusher.new(self, 13, 16, Util.Direction.DOWN))
-	addMechanism(Combiner.new(self, 14, 14, Util.Direction.LEFT))
-	addMechanism(Cutter.new(self, 14, 15, Util.Direction.LEFT))
-	addMechanism(Box.new(self, 13, 13))
-	addMechanism(Box.new(self, 14, 14))
-	
-	addMechanism(Blocker.new(self, 13, 17))
-
 
 	for x in 10: addMechanism(Pusher.new(self, x, 15, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
-	addMechanism(Box.new(self, 1, 15))
-	addMechanism(Box.new(self, 2, 15))
-	getForegroundMechanism(2, 15).connectMech(Util.Direction.LEFT)
-	addMechanism(Pusher.new(self, 19, 15, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
-
-
-	addMechanism(Painter.new(self, 17, 10, Box.BoxColor.YELLOW))
+	for x in 10: addMechanism(Pusher.new(self, x + 19, 15, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
 
 	$MechanismClock.start()
 
@@ -187,19 +158,31 @@ func addMechanism(mech: Mechanism):
 		self.setForegroundMechanism(mech.x, mech.y, mech)
 	self.add_child(mech.getNode())
 
+func deleteMechanismAtPos(pos: Vector2i, ground: int):
+	var container = map[pos.x][pos.y]
+	if container == null: return
+	var object = container[ground]
+	if object == null: return
+	
+	var mech = getMechanismVector(pos, ground)
+	if mech:
+		for dir in Util.Direction.size(): mech.disconnectMech(dir)
+		mech.getNode().queue_free()
+		mech.queue_free()
+	setMechanismVector(pos, null, ground)
+
 func deleteMechanism(mech: Mechanism):
 	for x in map.size():
 		for y in map[x].size():
 			var object = map[x][y]
 			if object != null:
 				if object[FOREGROUND] == mech:
-					for dir in Util.Direction.size(): mech.disconnectMech(dir)
 					setForegroundMechanism(x, y, null)
 				if object[BACKGROUND] == mech:
-					for dir in Util.Direction.size(): mech.disconnectMech(dir)
 					setBackgroundMechanism(x, y, null)
 
 	if mech:
+		for dir in Util.Direction.size(): mech.disconnectMech(dir)
 		mech.getNode().queue_free()
 		mech.queue_free()
 
