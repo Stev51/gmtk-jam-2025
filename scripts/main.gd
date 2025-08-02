@@ -6,6 +6,8 @@ extends Node2D
 @onready var player_node = $Player
 @onready var place_marker = $PlaceMarker
 
+@onready var player_inventory = $GUI.player_inventory
+
 var mouse_pos = Vector2.ZERO
 var cell_pos = Vector2.ZERO
 
@@ -26,8 +28,9 @@ func _input(event):
 			if place_marker.check_distance_validity():
 
 				var hovers = place_marker.get_hovered_mechanisms()
-				if len(hovers) > 0: #If hovering over a mechanism, delete it
+				if len(hovers) > 0: #If hovering over a mechanism, delete it and give the player the item
 
+					#collect_top_mechanism()
 					delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
@@ -64,3 +67,6 @@ func place_new_mechanism():
 
 func delete_top_mechanism():
 	world_node.deleteMechanism(place_marker.get_top_mechanism())
+
+func collect_top_mechanism():
+	player_inventory.insert(place_marker.get_top_mechanism().item)

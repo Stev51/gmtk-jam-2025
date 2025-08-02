@@ -1,3 +1,3 @@
 extends Control
 
-@export var PlayerInventory: Inventory
+@export var player_inventory: Inventory

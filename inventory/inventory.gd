@@ -4,4 +4,4 @@ class_name Inventory
 @export var slots: Array[InventorySlot]
 
 func insert(item: InventoryItem):
-	pass
+	print(item.name)

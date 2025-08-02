@@ -1,12 +1,13 @@
 class_name Pusher extends Mechanism
 
 const NODE = preload("res://scenes/pusher.tscn")
+const ITEM = preload("res://inventory/items/test_item.tres")
 
 var dir: Util.Direction
 var privileged: bool
 
 func _init(field: Field, x: int, y:int, direction: Util.Direction, privileged: bool = false):
-	super(field, x, y, NODE.instantiate(), Field.BACKGROUND, Field.QueuePos.POST)
+	super(field, x, y, NODE.instantiate(), Field.BACKGROUND, ITEM, Field.QueuePos.POST)
 	dir = direction
 	self.node.rotate(PI * dir / 2)
 	self.privileged = privileged

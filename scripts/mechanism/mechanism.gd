@@ -18,6 +18,7 @@ var oldPos: Vector2
 var newPos: Vector2
 var node: Node2D
 var ground: int
+var item: InventoryItem
 var queuePosition: Field.QueuePos
 # Stores whether connected to boxes in each of the cardinal directions
 var connectedMechs: Array[bool] = [false, false, false, false]
@@ -28,12 +29,13 @@ var processed: bool = false
 # Used to determine if the connected block has already been pushed
 var pushed: bool = false
 
-func _init(field: Field, x: int, y:int, node: Node2D, ground: int, queuePosition: Field.QueuePos = Field.QueuePos.PRE):
+func _init(field: Field, x: int, y:int, node: Node2D, ground: int, item: InventoryItem, queuePosition: Field.QueuePos = Field.QueuePos.PRE):
 	self.field = field
 	self.x = x
 	self.y = y
 	self.node = node
 	self.ground = ground
+	self.item = item
 	self.queuePosition = queuePosition
 	self.node.position = Field.toSceneCoord(x, y)
 
