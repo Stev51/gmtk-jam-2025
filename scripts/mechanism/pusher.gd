@@ -6,7 +6,7 @@ const ITEM = preload("res://inventory/items/pusher_item.tres")
 var dir: Util.Direction
 var privileged: Mechanism.PushType
 
-func _init(field: Field, x: int, y:int, direction: Util.Direction, privileged: Mechanism.PushType = Mechanism.PushType.NORMAL):
+func _init(field: Field, x: int, y:int, direction: Util.Direction = Global.DEFAULT_DIRECTION, privileged: Mechanism.PushType = Mechanism.PushType.NORMAL):
 	super(field, x, y, NODE.instantiate(), Field.BACKGROUND, ITEM, Field.QueuePos.POST)
 
 	dir = direction

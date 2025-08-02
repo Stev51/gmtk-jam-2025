@@ -5,7 +5,7 @@ const ITEM = preload("res://inventory/items/painter_item.tres")
 
 var color: Box.BoxColor = Box.BoxColor.PURPLE
 
-func _init(field: Field, x: int, y:int, color: Box.BoxColor):
+func _init(field: Field, x: int, y:int, color: Box.BoxColor = Box.BoxColor.PURPLE):
 	super(field, x, y, NODE.instantiate(), Field.BACKGROUND, ITEM)
 	setColor(color)
 

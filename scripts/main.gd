@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var gui_node = $GUI
+@onready var gui_node = $Player/GUI
 @onready var world_node = $World
 @onready var main_tile_map_layer = $World/MainTileMapLayer
 @onready var mechanisms_parent_node = $World/Mechanisms
