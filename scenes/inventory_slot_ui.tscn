@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c3am23bibnbd7" path="res://assets/img/inv_slot.png" id="2_wrwq8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bxqf6"]
+font_size = 24
 font_color = Color(0, 0, 0, 1)
 outline_size = 3
 
@@ -29,12 +30,12 @@ layout_mode = 2
 [node name="ItemDisplay" type="Sprite2D" parent="CenterContainer/Panel"]
 
 [node name="Label" type="Label" parent="CenterContainer/Panel"]
-custom_minimum_size = Vector2(38, 23)
+custom_minimum_size = Vector2(41, 34)
 layout_mode = 0
 offset_left = -17.0
-offset_top = 8.0
-offset_right = 21.0
-offset_bottom = 31.0
+offset_top = 1.0
+offset_right = 24.0
+offset_bottom = 35.0
 text = "999"
 label_settings = SubResource("LabelSettings_bxqf6")
 horizontal_alignment = 2
