@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cwu4lcg06dqqg" path="res://scripts/mechanism/box.gd" id="1_3jotf"]
 [ext_resource type="Script" uid="uid://dph3jhuv06vye" path="res://inventory/inventory_item.gd" id="2_3333x"]
-[ext_resource type="Texture2D" uid="uid://dv0a8f2cnshkr" path="res://assets/img/box/box.png" id="3_l112i"]
+[ext_resource type="Texture2D" uid="uid://cl5ev0ar2mox2" path="res://assets/img/items/box_item.png" id="3_3jotf"]
 
 [resource]
 script = ExtResource("2_3333x")
 name = "Box"
-texture = ExtResource("3_l112i")
+texture = ExtResource("3_3jotf")
 placed_mech = ExtResource("1_3jotf")
 metadata/_custom_type_script = "uid://dph3jhuv06vye"

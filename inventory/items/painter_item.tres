@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cs3rqldutb7sk" path="res://scripts/mechanism/painter.gd" id="1_37fag"]
 [ext_resource type="Script" uid="uid://dph3jhuv06vye" path="res://inventory/inventory_item.gd" id="2_dgyt5"]
-[ext_resource type="Texture2D" uid="uid://cg5vqyug4ady" path="res://assets/img/painter.png" id="3_atmsw"]
+[ext_resource type="Texture2D" uid="uid://bthcfqjga0ggc" path="res://assets/img/items/painter_item.png" id="3_37fag"]
 
 [resource]
 script = ExtResource("2_dgyt5")
 name = "Painter"
-texture = ExtResource("3_atmsw")
+texture = ExtResource("3_37fag")
 placed_mech = ExtResource("1_37fag")
 metadata/_custom_type_script = "uid://dph3jhuv06vye"

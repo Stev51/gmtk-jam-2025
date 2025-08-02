@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://by0ja1e8oqd6o" path="res://scripts/mechanism/cutter.gd" id="1_ru325"]
 [ext_resource type="Script" uid="uid://dph3jhuv06vye" path="res://inventory/inventory_item.gd" id="2_wlqtn"]
-[ext_resource type="Texture2D" uid="uid://cc6s0g5d3cux5" path="res://assets/img/cutter.png" id="3_vk8e1"]
+[ext_resource type="Texture2D" uid="uid://cdjggkvsifggs" path="res://assets/img/items/cutter_item.png" id="3_ru325"]
 
 [resource]
 script = ExtResource("2_wlqtn")
 name = "Cutter"
-texture = ExtResource("3_vk8e1")
+texture = ExtResource("3_ru325")
 placed_mech = ExtResource("1_ru325")
 metadata/_custom_type_script = "uid://dph3jhuv06vye"

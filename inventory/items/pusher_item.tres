@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://kp7hudwun0i7" path="res://scripts/mechanism/pusher.gd" id="1_klkld"]
 [ext_resource type="Script" uid="uid://dph3jhuv06vye" path="res://inventory/inventory_item.gd" id="2_opvag"]
-[ext_resource type="Texture2D" uid="uid://ckt3ht6w0n3hg" path="res://assets/img/player.png" id="3_7jdnw"]
+[ext_resource type="Texture2D" uid="uid://bmwmcf7pn2u3s" path="res://assets/img/items/pusher_item.png" id="3_klkld"]
 
 [resource]
 script = ExtResource("2_opvag")
 name = "Pusher"
-texture = ExtResource("3_7jdnw")
+texture = ExtResource("3_klkld")
 placed_mech = ExtResource("1_klkld")
 metadata/_custom_type_script = "uid://dph3jhuv06vye"
