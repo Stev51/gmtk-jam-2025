@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://dlx841sn8778a"]
+
+[ext_resource type="Script" path="res://scripts/mechanism/blocker.gd" id="1_od7aj"]
+[ext_resource type="Script" uid="uid://dph3jhuv06vye" path="res://inventory/inventory_item.gd" id="2_kwebx"]
+[ext_resource type="Texture2D" uid="uid://dtrfh65l3xa2m" path="res://assets/img/items/blocker_item.png" id="3_ffsof"]
+
+[resource]
+script = ExtResource("2_kwebx")
+name = "Blocker"
+texture = ExtResource("3_ffsof")
+placed_mech = ExtResource("1_od7aj")
+metadata/_custom_type_script = "uid://dph3jhuv06vye"
