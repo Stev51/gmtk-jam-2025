@@ -1,7 +1,7 @@
 class_name Pusher extends Mechanism
 
 const NODE = preload("res://scenes/pusher.tscn")
-const ITEM = preload("res://inventory/items/test_item.tres")
+const ITEM = preload("res://inventory/items/pusher_item.tres")
 
 var dir: Util.Direction
 var privileged: Mechanism.PushType

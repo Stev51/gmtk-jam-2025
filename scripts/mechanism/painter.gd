@@ -1,7 +1,7 @@
 class_name Painter extends Mechanism
 
 const NODE = preload("res://scenes/painter.tscn")
-const ITEM = preload("res://inventory/items/test_item.tres")
+const ITEM = preload("res://inventory/items/painter_item.tres")
 
 var color: Box.BoxColor = Box.BoxColor.PURPLE
 

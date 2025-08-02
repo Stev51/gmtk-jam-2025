@@ -1,7 +1,7 @@
 class_name Combiner extends Mechanism
 
 const NODE = preload("res://scenes/combiner.tscn")
-const ITEM = preload("res://inventory/items/test_item.tres")
+const ITEM = preload("res://inventory/items/combiner_item.tres")
 
 var dir: Util.Direction
 

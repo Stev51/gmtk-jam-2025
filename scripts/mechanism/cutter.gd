@@ -1,7 +1,7 @@
 class_name Cutter extends Mechanism
 
 const NODE = preload("res://scenes/cutter.tscn")
-const ITEM = preload("res://inventory/items/test_item.tres")
+const ITEM = preload("res://inventory/items/cutter_item.tres")
 
 var dir: Util.Direction
 

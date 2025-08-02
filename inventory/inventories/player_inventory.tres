@@ -1,31 +1,41 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=12 format=3 uid="uid://bbsiqxqyr53rv"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=17 format=3 uid="uid://bbsiqxqyr53rv"]
 
 [ext_resource type="Script" uid="uid://61qtp4yecd6c" path="res://inventory/inv_slot.gd" id="2_8rf0j"]
 [ext_resource type="Script" uid="uid://8yw4a31pekos" path="res://inventory/inventory.gd" id="3_22j7m"]
+[ext_resource type="Resource" uid="uid://4mmmjg0jaf0i" path="res://inventory/items/box_item.tres" id="3_84qvq"]
+[ext_resource type="Resource" uid="uid://b4g76ggvk3mtt" path="res://inventory/items/combiner_item.tres" id="4_g4t3a"]
+[ext_resource type="Resource" uid="uid://c42mbpne8e7la" path="res://inventory/items/cutter_item.tres" id="5_05iwv"]
+[ext_resource type="Resource" uid="uid://dkql14l3a3obm" path="res://inventory/items/painter_item.tres" id="6_vow7e"]
+[ext_resource type="Resource" uid="uid://dj14u68m5ir8u" path="res://inventory/items/pusher_item.tres" id="7_4vi8i"]
 
 [sub_resource type="Resource" id="Resource_8rf0j"]
 script = ExtResource("2_8rf0j")
-amount = 0
+item = ExtResource("3_84qvq")
+amount = 99
 metadata/_custom_type_script = "uid://61qtp4yecd6c"
 
 [sub_resource type="Resource" id="Resource_23tb2"]
 script = ExtResource("2_8rf0j")
-amount = 0
+item = ExtResource("4_g4t3a")
+amount = 99
 metadata/_custom_type_script = "uid://61qtp4yecd6c"
 
 [sub_resource type="Resource" id="Resource_segta"]
 script = ExtResource("2_8rf0j")
-amount = 0
+item = ExtResource("5_05iwv")
+amount = 99
 metadata/_custom_type_script = "uid://61qtp4yecd6c"
 
 [sub_resource type="Resource" id="Resource_22j7m"]
 script = ExtResource("2_8rf0j")
-amount = 0
+item = ExtResource("6_vow7e")
+amount = 99
 metadata/_custom_type_script = "uid://61qtp4yecd6c"
 
 [sub_resource type="Resource" id="Resource_646ag"]
 script = ExtResource("2_8rf0j")
-amount = 0
+item = ExtResource("7_4vi8i")
+amount = 99
 metadata/_custom_type_script = "uid://61qtp4yecd6c"
 
 [sub_resource type="Resource" id="Resource_84qvq"]

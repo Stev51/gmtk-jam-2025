@@ -9,7 +9,7 @@ enum BoxColor {PURPLE, RED, ORANGE, YELLOW, GREEN, BLUE}
 #}
 
 const NODE = preload("res://scenes/box.tscn")
-const ITEM = preload("res://inventory/items/test_item.tres")
+const ITEM = preload("res://inventory/items/box_item.tres")
 
 var color = BoxColor.PURPLE
 
