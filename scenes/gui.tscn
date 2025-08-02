@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbhrw4c2sta6d"]
+[gd_scene load_steps=4 format=3 uid="uid://cbhrw4c2sta6d"]
 
 [ext_resource type="Script" uid="uid://gp5n6rxl05m5" path="res://scripts/gui.gd" id="1_efmwq"]
+[ext_resource type="Resource" uid="uid://bbsiqxqyr53rv" path="res://inventory/inventories/player_inventory.tres" id="2_mfius"]
 [ext_resource type="PackedScene" uid="uid://bcklqkc1fkj3f" path="res://scenes/inventory_ui.tscn" id="3_ynd5l"]
 
 [node name="GUI" type="Control"]
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_efmwq")
+player_inventory = ExtResource("2_mfius")
 
 [node name="Camera" type="Camera2D" parent="."]
 

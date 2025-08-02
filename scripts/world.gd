@@ -18,6 +18,8 @@ var mechQueue: Array = Array()
 var futureMechQueue: Array = Array()
 var toRenderMechs: Array = Array()
 
+@onready var main_tile_map_layer = $MainTileMapLayer
+
 func updateMechanisms() -> void:
 	# Reset push state of all boxes
 	for x in map:
@@ -183,3 +185,14 @@ func _on_mechanism_clock_timeout() -> void:
 
 static func toSceneCoord(x: int, y: int) -> Vector2:
 	return Vector2(x, y) * SCALE + OFFSET
+
+func get_mech_from_node(node):
+	
+	var node_pos = main_tile_map_layer.local_to_map(node.position) - TILE_OFFSET
+	
+	if node.is_in_group("FOREGROUND"):
+		return getForegroundMechanism(node_pos.x, node_pos.y)
+	elif node.is_in_group("BACKGROUND"):
+		return getBackgroundMechanism(node_pos.x, node_pos.y)
+	else:
+		return null

@@ -31,7 +31,7 @@ func _process(delta):
 	check_mechanism_overlaps()
 	if cursor_state == Global.CursorStates.SELECTED:
 		check_validity()
-	if cursor_state == Global.CursorStates.UNSELECTED:
+	elif cursor_state == Global.CursorStates.UNSELECTED:
 		check_push_pull_validity()
 	display_shape.color = state_to_color()
 

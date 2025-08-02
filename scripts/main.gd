@@ -1,12 +1,11 @@
 extends Node2D
 
+@onready var gui_node = $GUI
 @onready var world_node = $World
 @onready var main_tile_map_layer = $World/MainTileMapLayer
 @onready var mechanisms_parent_node = $World/Mechanisms
 @onready var player_node = $Player
 @onready var place_marker = $PlaceMarker
-
-@onready var player_inventory = $GUI.player_inventory
 
 var mouse_pos = Vector2.ZERO
 var cell_pos = Vector2.ZERO
@@ -31,8 +30,8 @@ func _input(event):
 				var hovers = place_marker.get_hovered_mechanisms()
 				if len(hovers) > 0: #If hovering over a mechanism, delete it and give the player the item
 
-					#collect_top_mechanism()
-					delete_top_mechanism()
+					collect_top_mechanism()
+					#delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
 
@@ -70,4 +69,6 @@ func delete_top_mechanism():
 	world_node.deleteMechanism(world_node.getForegroundVector(cell_pos))
 
 func collect_top_mechanism():
-	player_inventory.insert(place_marker.get_top_mechanism().item)
+	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
+	if mek_obj != null:
+		gui_node.add_to_player_inv(mek_obj.item)
