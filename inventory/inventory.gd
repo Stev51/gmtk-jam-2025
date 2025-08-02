@@ -5,6 +5,9 @@ signal update_inv
 
 @export var slots: Array[InventorySlot]
 
+var selected: bool = false
+var selection_index = null
+
 func insert(item: InventoryItem):
 	
 	# Find slots that already have item type

@@ -3,3 +3,5 @@ class_name InventorySlot
 
 @export var item: InventoryItem
 @export var amount: int
+
+var selected: bool = false

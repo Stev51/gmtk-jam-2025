@@ -1,5 +1,8 @@
 extends Node
 
+signal inv_select
+signal inv_deselect
+
 enum GameStates {RUNNING, PAUSED}
 
 enum CursorStates {UNSELECTED, SELECTED}
