@@ -119,6 +119,22 @@ func getBackgroundVector(pos: Vector2i) -> Mechanism:
 func setBackgroundVector(pos: Vector2i, mech: Mechanism) -> Mechanism:
 	return setBackgroundMechanism(pos.x, pos.y, mech)
 
+func getMechanism(x: int, y: int, ground: int) -> Mechanism:
+	if ground == FOREGROUND: return getForegroundMechanism(x, y)
+	else: return getBackgroundMechanism(x, y)
+
+func getMechanismVector(pos: Vector2i, ground: int) -> Mechanism:
+	if ground == FOREGROUND: return getForegroundMechanism(pos.x, pos.y)
+	else: return getBackgroundMechanism(pos.x, pos.y)
+
+func setMechanism(x: int, y: int, mech: Mechanism, ground: int):
+	if ground == FOREGROUND: setForegroundMechanism(x, y, mech)
+	else: setBackgroundMechanism(x, y, mech)
+
+func setMechanismVector(pos: Vector2i, mech: Mechanism, ground: int):
+	if ground == FOREGROUND: setForegroundMechanism(pos.x, pos.y, mech)
+	else: setBackgroundMechanism(pos.x, pos.y, mech)
+
 func _ready():
 	map.resize(GRID_WIDTH)
 	for x in GRID_WIDTH:
@@ -126,7 +142,7 @@ func _ready():
 		column.resize(GRID_HEIGHT)
 		map[x] = column
 	
-	addMechanism(Pusher.new(self, 11, 10, Util.Direction.UP))
+	addMechanism(Pusher.new(self, 11, 10, Util.Direction.RIGHT))
 	addMechanism(Pusher.new(self, 12, 10, Util.Direction.RIGHT))
 	addMechanism(Box.new(self, 11, 10))
 	addMechanism(Box.new(self, 12, 10))

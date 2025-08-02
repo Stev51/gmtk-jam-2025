@@ -16,6 +16,3 @@ func update(currentCycle: int):
 	if mechOnTop == null: return
 	if !mechOnTop.connectMech(dir):
 		field.deferBackgroundMechanismUpdate(getCoordinateVector())
-
-func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
-	return false

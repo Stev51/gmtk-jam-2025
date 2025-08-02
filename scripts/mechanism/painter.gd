@@ -17,6 +17,3 @@ func update(currentCycle: int):
 	var mech = field.getForegroundMechanism(x, y)
 	if is_instance_of(mech, Box):
 		mech.updateColor(color)
-
-func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
-	return false

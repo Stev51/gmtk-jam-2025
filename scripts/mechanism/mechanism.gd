@@ -59,7 +59,7 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 	# If something tries to refer back to this mid simulation,
 	# we assume that this would succeed
 	simulationResult = true
-
+	
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
 	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT:
 		simulationResult = false
@@ -70,7 +70,7 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 	if pushType == PushType.INPUT && newPosition.x > Field.PLAYER_MAP_END.x:
 		simulationResult = false
 		return simulationResult
-	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
+	var objectInWay: Mechanism = field.getMechanismVector(newPosition, ground)
 	if objectInWay != null && !objectInWay.simulatePush(directionToMove, pushType):
 		simulationResult = false
 		return simulationResult
@@ -83,7 +83,7 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 		var adjPosition: Vector2i = Util.offset(Vector2i(x, y), dir)
 		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_HEIGHT: continue
 
-		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
+		var adjMech: Mechanism = field.getMechanismVector(adjPosition, ground)
 		if !adjMech.simulatePush(directionToMove, pushType):
 			simulationResult = false
 			return simulationResult
@@ -96,13 +96,13 @@ func push(directionToMove: Util.Direction) -> void:
 	if pushed: return
 	pushed = true
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
-	var objectInWay: Mechanism = field.getForegroundVector(newPosition)
+	var objectInWay: Mechanism = field.getMechanismVector(newPosition, ground)
 	if objectInWay != null:
 		objectInWay.push(directionToMove)
 
-	field.setForegroundVector(newPosition, self)
-	field.setForegroundMechanism(self.x, self.y, null)
-	field.deferBackgroundMechanismUpdate(newPosition)
+	field.setMechanismVector(newPosition, self, ground)
+	field.setMechanism(self.x, self.y, null, ground)
+	if ground == Field.FOREGROUND: field.deferBackgroundMechanismUpdate(newPosition)
 	self.oldPos = Field.toSceneCoord(self.x, self.y)
 	self.x = newPosition.x
 	self.y = newPosition.y
@@ -116,7 +116,7 @@ func push(directionToMove: Util.Direction) -> void:
 		# Find position adjacent to where we used to be
 		var adjPosition: Vector2i = Util.offset(Util.offset(Vector2i(x, y), dir), Util.reverse(directionToMove))
 		if adjPosition.x < 0 || adjPosition.x >= Field.GRID_WIDTH || adjPosition.y < 0 || adjPosition.y >= Field.GRID_HEIGHT: continue
-		var adjMech: Mechanism = field.getForegroundVector(adjPosition)
+		var adjMech: Mechanism = field.getMechanismVector(adjPosition, ground)
 		if adjMech != null: adjMech.push(directionToMove)
 
 func playerPush(directionToMove: Util.Direction) -> void:

@@ -21,6 +21,3 @@ func update(currentCycle: int):
 			self.node.play()
 			object.push(self.dir)
 		else: field.deferBackgroundMechanismUpdate(getCoordinateVector())
-
-func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
-	return false
