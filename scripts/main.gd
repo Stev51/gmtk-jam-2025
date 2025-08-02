@@ -19,6 +19,7 @@ func _process(delta):
 	place_marker.pos_dist = place_marker.position.distance_to(player_node.position)
 	place_marker.pos_dist_x = float(place_marker.position.x) - float(player_node.position.x)
 	place_marker.pos_dist_y = float(place_marker.position.y) - float(player_node.position.y)
+	cell_pos -= world_node.TILE_OFFSET
 
 func _input(event):
 
@@ -34,6 +35,7 @@ func _input(event):
 					delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
+					place_new_mechanism()
 
 					if place_marker.cursor_state == Global.CursorStates.SELECTED and place_marker.placer_state == Global.PlacerStates.VALID:
 						place_new_mechanism()
