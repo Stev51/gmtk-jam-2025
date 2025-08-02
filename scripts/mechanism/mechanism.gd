@@ -163,7 +163,11 @@ func getCoordinateVector() -> Vector2i:
 	return Vector2i(x, y)
 # Consider moving anything to custom resources
 
+# this is so scuffed
 func rotate_dir():
+	var mech = self
 	if "dir" in self:
 		self.dir = Util.rotate(self.dir)
 		self.node.rotate(PI/2)
+	elif mech as Painter:
+		mech.setColor((mech.color + 1) % Box.BoxColor.size())
