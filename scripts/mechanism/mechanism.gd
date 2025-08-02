@@ -15,8 +15,10 @@ var node: Node2D
 var ground: int
 var item: InventoryItem
 var queuePosition: Field.QueuePos
+const CONNECTOR = preload("res://scenes/connector.tscn")
 # Stores whether connected to boxes in each of the cardinal directions
 var connectedMechs: Array[bool] = [false, false, false, false]
+var connectorNodes: Array[Node] = [null, null, null, null]
 
 # Used when simulating pushes
 var simulationResult: bool
@@ -129,6 +131,13 @@ func updateMechConnection(newState: bool, dir: Util.Direction) -> bool:
 	var mechToConnect: Mechanism = field.getForegroundVector(Util.offset(Vector2i(x, y), dir))
 	if mechToConnect != null:
 		connectedMechs[dir] = newState
+		if (newState):
+			var connector: Node = CONNECTOR.instantiate()
+			connector.rotate(PI * dir / 2)
+			self.node.add_child(connector)
+			self.connectorNodes[dir] = connector
+		else:
+			self.connectorNodes[dir].queue_free()
 		mechToConnect.updateMechConnection(newState, Util.reverse(dir))
 		return true
 	else:

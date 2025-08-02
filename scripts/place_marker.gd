@@ -28,6 +28,16 @@ var pos_dist_x: float = 0.0
 var pos_dist_y: float = 0.0
 var top_mechanism_hovered = null
 
+func _ready():
+	Global.inv_select.connect(inv_select)
+	Global.inv_deselect.connect(inv_deselect)
+
+func inv_select():
+	cursor_state = Global.CursorStates.SELECTED
+
+func inv_deselect():
+	cursor_state = Global.CursorStates.UNSELECTED
+
 func _process(delta):
 	check_mechanism_overlaps()
 	if cursor_state == Global.CursorStates.SELECTED:

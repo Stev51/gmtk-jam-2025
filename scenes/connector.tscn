@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4so2yri3ejjm"]
+
+[ext_resource type="Texture2D" uid="uid://bs6ws0ntcrkoj" path="res://assets/img/connector.png" id="1_ti7c2"]
+
+[node name="Connector" type="Sprite2D"]
+show_behind_parent = true
+scale = Vector2(1.143, 1.143)
+texture = ExtResource("1_ti7c2")
+offset = Vector2(8, 0)

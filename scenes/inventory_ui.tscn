@@ -43,29 +43,37 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/v_separation = 64
 
+[node name="InventorySlot0" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
+layout_mode = 2
+
 [node name="InventorySlot1" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
+index = 1
 
 [node name="InventorySlot2" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
+index = 2
 
 [node name="InventorySlot3" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
+index = 3
 
 [node name="InventorySlot4" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
+index = 4
 
 [node name="InventorySlot5" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
+index = 5
 
 [node name="InventorySlot6" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
+index = 6
 
 [node name="InventorySlot7" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
+index = 7
 
 [node name="InventorySlot8" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
-
-[node name="InventorySlot9" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
-layout_mode = 2
+index = 8

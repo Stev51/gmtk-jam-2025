@@ -5,6 +5,9 @@ signal update_inv
 
 @export var slots: Array[InventorySlot]
 
+var selected: bool = false
+var selection_index = null
+
 func insert(item: InventoryItem):
 	
 	# Find slots that already have item type
@@ -21,7 +24,36 @@ func insert(item: InventoryItem):
 	
 	# Once done, signal GUI update
 	update_inv.emit()
+	check_selection_state()
+
+func subtract_item(index, count):
+	
+	var slot = slots[index]
+	
+	slot.amount -= count
+	
+	if slot.amount <= 0:
+		slot.amount = 0
+		slot.item = null
+	
+	update_inv.emit()
+	check_selection_state()
 
 func are_there_empty_slots():
 	var empty_slots = slots.filter(func(slot): return slot.item == null)
 	return not empty_slots.is_empty()
+
+func get_selected_item():
+	if selected == true:
+		var slot = slots[selection_index]
+		return slot.item
+	else:
+		return null
+
+func check_selection_state():
+	if selected == false:
+		Global.inv_deselect.emit()
+	elif get_selected_item() == null:
+		Global.inv_deselect.emit()
+	else:
+		Global.inv_select.emit()
