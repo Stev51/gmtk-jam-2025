@@ -29,9 +29,7 @@ polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="GUI" parent="." instance=ExtResource("5_tbgi4")]
+[node name="GUI" parent="Player" instance=ExtResource("5_tbgi4")]
 z_index = 9
 
 [node name="Main Clock" type="Timer" parent="."]

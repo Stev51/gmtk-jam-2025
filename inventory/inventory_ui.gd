@@ -48,7 +48,15 @@ func change_selection(index: int):
 	inventory.check_selection_state()
 
 func _input(event):
-	if event.is_action_pressed("ui_one"):
+	
+	if event.is_action_pressed("inv_toggle"):
+		
+		if is_open == true:
+			close()
+		else:
+			open()
+	
+	elif event.is_action_pressed("ui_one"):
 		change_selection(0)
 	elif event.is_action_pressed("ui_two"):
 		change_selection(1)
