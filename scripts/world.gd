@@ -167,6 +167,7 @@ func addMechanism(mech: Mechanism):
 	self.add_child(mech.getNode())
 
 func deleteMechanism(mech: Mechanism):
+	
 	for x in map.size():
 		for y in map[x].size():
 			var object = map[x][y]
@@ -176,8 +177,9 @@ func deleteMechanism(mech: Mechanism):
 				if object[BACKGROUND] == mech:
 					setBackgroundMechanism(x, y, null)
 	
-	mech.getNode().queue_free()
-	mech.queue_free()
+	if mech:
+		mech.getNode().queue_free()
+		mech.queue_free()
 
 
 func _on_mechanism_clock_timeout() -> void:
