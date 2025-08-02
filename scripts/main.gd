@@ -35,7 +35,6 @@ func _input(event):
 					delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
-					place_new_mechanism()
 
 					if place_marker.cursor_state == Global.CursorStates.SELECTED and place_marker.placer_state == Global.PlacerStates.VALID:
 						place_new_mechanism()

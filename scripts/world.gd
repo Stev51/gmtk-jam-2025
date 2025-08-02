@@ -65,7 +65,7 @@ func _process(delta: float):
 		tickProgress = 1
 		done = true
 	for mech in toRenderMechs:
-		mech.render(tickProgress)
+		if mech != null: mech.render(tickProgress)
 
 	if done:
 		toRenderMechs.clear()
