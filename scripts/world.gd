@@ -8,7 +8,8 @@ var map: Array = Array()
 const GRID_WIDTH: int = 32
 const GRID_HEIGHT: int = 32
 const SCALE: int = 64
-const OFFSET: Vector2 = Vector2(SCALE*-10 + (SCALE / 2), SCALE*-10 + (SCALE / 2))
+const TILE_OFFSET: Vector2i = Vector2i(-10, -10)
+const OFFSET: Vector2 = Vector2(SCALE*TILE_OFFSET.x + (SCALE / 2), SCALE*TILE_OFFSET.y + (SCALE / 2))
 
 const PLAYER_MAP_START = Vector2i(10, 10)
 const PLAYER_MAP_END = Vector2i(19, 19)
@@ -26,7 +27,7 @@ func updateMechanisms() -> void:
 					object[FOREGROUND].pushed = false
 	
 	currentCycle += 1
-	if (currentCycle % 5 == 0):
+	if (currentCycle % 2 == 0):
 		$IOHandler.spawnInput(self)
 	for mechPos in mechQueue:
 		var mech: Mechanism = getBackgroundVector(mechPos)
@@ -122,8 +123,7 @@ func _ready():
 		var column: Array = Array()
 		column.resize(GRID_HEIGHT)
 		map[x] = column
-	#addMechanism(Box.new(self, 0, 0), FOREGROUND)
-	#addMechanism(Pusher.new(self, 0, 0, Util.Direction.DOWN), BACKGROUND)
+	
 	addMechanism(Pusher.new(self, 11, 10, Util.Direction.UP))
 	addMechanism(Pusher.new(self, 12, 10, Util.Direction.RIGHT))
 	addMechanism(Box.new(self, 11, 10))
@@ -146,19 +146,14 @@ func _ready():
 	addMechanism(Box.new(self, 14, 14))
 	
 	
-	for x in 10: addMechanism(Pusher.new(self, x, 15, Util.Direction.RIGHT, true))
+	for x in 10: addMechanism(Pusher.new(self, x, 15, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
 	addMechanism(Box.new(self, 1, 15))
 	addMechanism(Box.new(self, 2, 15))
 	getForegroundMechanism(2, 15).connectMech(Util.Direction.LEFT)
-	addMechanism(Pusher.new(self, 10, 15, Util.Direction.UP))
+	addMechanism(Pusher.new(self, 19, 15, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
 	
 
 	addMechanism(Painter.new(self, 17, 10, Box.BoxColor.YELLOW))
-
-	#addMechanism(Box.new(self, 3, 3), FOREGROUND)
-	#addMechanism(Box.new(self, 4, 3), FOREGROUND)
-	#addMechanism(Box.new(self, 5, 3), FOREGROUND)
-	#addMechanism(Pusher.new(self, 3, 3, Util.Direction.DOWN), BACKGROUND)
 
 	$MechanismClock.start()
 

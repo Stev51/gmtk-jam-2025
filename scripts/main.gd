@@ -66,7 +66,7 @@ func place_new_mechanism():
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y)) #For now it is box
 
 func delete_top_mechanism():
-	world_node.deleteMechanism(place_marker.get_top_mechanism())
+	world_node.deleteMechanism(world_node.getForegroundVector(cell_pos))
 
 func collect_top_mechanism():
 	player_inventory.insert(place_marker.get_top_mechanism().item)
