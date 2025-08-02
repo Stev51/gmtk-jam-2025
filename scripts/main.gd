@@ -25,14 +25,14 @@ func _input(event):
 	if event is InputEventKey and event.is_pressed(): #Key presses
 
 		if event.keycode == KEY_E: #E key pressed
-			if place_marker.check_distance_validity():
+			if place_marker.check_distance_validity() and place_marker.out_of_bounds == false:
 
 				var hovers = place_marker.get_hovered_mechanisms()
 				if len(hovers) > 0: #If hovering over a mechanism, delete it and give the player the item
 
 					if gui_node.is_player_inv_free(): #If there's no room, don't do anything
 						collect_top_mechanism()
-						#delete_top_mechanism()
+						delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
 
@@ -67,7 +67,8 @@ func place_new_mechanism():
 	world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y)) #For now it is box
 
 func delete_top_mechanism():
-	world_node.deleteMechanism(world_node.getForegroundVector(cell_pos))
+	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
+	world_node.deleteMechanism(mek_obj)
 
 func collect_top_mechanism():
 	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
