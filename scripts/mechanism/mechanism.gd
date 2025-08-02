@@ -162,3 +162,8 @@ func getNode() -> Node2D:
 func getCoordinateVector() -> Vector2i:
 	return Vector2i(x, y)
 # Consider moving anything to custom resources
+
+func rotate_dir():
+	if "dir" in self:
+		self.dir = Util.rotate(self.dir)
+		self.node.rotate(PI/2)
