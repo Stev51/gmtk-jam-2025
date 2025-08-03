@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://6eaf6tl17aio" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://jaq7puo13gso" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://hsl6f3topqru" path="res://scenes/world.tscn" id="2_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://bjjltdour8ix2" path="res://scenes/background.tscn" id="2_tefeu"]
+[ext_resource type="PackedScene" uid="uid://c3bqggdkkfjdn" path="res://scenes/background.tscn" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cvv8r7xpjmgp6" path="res://scripts/place_marker.gd" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cbhrw4c2sta6d" path="res://scenes/gui.tscn" id="5_tbgi4"]
 
@@ -14,6 +14,10 @@ size = Vector2(64, 64)
 script = ExtResource("1_sugp2")
 
 [node name="Background" parent="." instance=ExtResource("2_tefeu")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="World" parent="." instance=ExtResource("2_0wfyh")]
 position = Vector2(-320, -320)
