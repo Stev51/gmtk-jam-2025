@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwuwgqmodxnm8"]
+[gd_scene load_steps=7 format=3 uid="uid://bwuwgqmodxnm8"]
 
 [ext_resource type="Theme" uid="uid://cvffwg5kiqetx" path="res://title_button_theme.tres" id="1_gchx3"]
 [ext_resource type="Script" uid="uid://pusqv8yeifxe" path="res://scripts/pause_screen.gd" id="1_qeunj"]
@@ -8,6 +8,13 @@
 [sub_resource type="Theme" id="Theme_qeunj"]
 RichTextLabel/constants/outline_size = 22
 RichTextLabel/font_sizes/bold_font_size = 88
+
+[sub_resource type="Theme" id="Theme_27awe"]
+RichTextLabel/font_sizes/bold_font_size = 24
+RichTextLabel/font_sizes/bold_italics_font_size = 24
+RichTextLabel/font_sizes/italics_font_size = 24
+RichTextLabel/font_sizes/mono_font_size = 24
+RichTextLabel/font_sizes/normal_font_size = 24
 
 [node name="PauseScreen" type="Control"]
 process_mode = 3
@@ -25,38 +32,43 @@ offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.117647, 0.117647, 0.117647, 0.741176)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="MainScreen" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CenterContainer" type="CenterContainer" parent="MainScreen"]
 custom_minimum_size = Vector2(1280, 0)
 layout_mode = 0
 offset_top = 400.0
 offset_right = 1280.0
 offset_bottom = 498.0
 
-[node name="ResumeButton" type="Button" parent="CenterContainer"]
+[node name="ResumeButton" type="Button" parent="MainScreen/CenterContainer"]
 layout_mode = 2
 theme = ExtResource("1_gchx3")
 text = "RESUME GAME"
 
-[node name="CenterContainer2" type="CenterContainer" parent="."]
+[node name="CenterContainer2" type="CenterContainer" parent="MainScreen"]
 custom_minimum_size = Vector2(1280, 0)
 layout_mode = 0
 offset_top = 550.0
 offset_right = 1280.0
 offset_bottom = 648.0
 
-[node name="TitleButton" type="Button" parent="CenterContainer2"]
+[node name="TitleButton" type="Button" parent="MainScreen/CenterContainer2"]
 layout_mode = 2
 theme = ExtResource("1_gchx3")
 text = "EXIT TO TITLE"
 
-[node name="CenterContainer3" type="CenterContainer" parent="."]
+[node name="CenterContainer3" type="CenterContainer" parent="MainScreen"]
 custom_minimum_size = Vector2(1280, 0)
 layout_mode = 2
 offset_top = 100.0
 offset_right = 1280.0
-offset_bottom = 100.0
+offset_bottom = 240.0
 
-[node name="PauseText" type="RichTextLabel" parent="CenterContainer3"]
+[node name="PauseText" type="RichTextLabel" parent="MainScreen/CenterContainer3"]
 custom_minimum_size = Vector2(1280, 140)
 layout_mode = 2
 theme = SubResource("Theme_qeunj")
@@ -64,13 +76,46 @@ bbcode_enabled = true
 text = "[b]PAUSED[/b]"
 horizontal_alignment = 1
 
+[node name="TutorialScreen" type="Control" parent="."]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+offset_left = 640.0
+offset_top = 170.0
+offset_right = 640.0
+offset_bottom = 170.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialScreen"]
+layout_mode = 0
+offset_left = -600.0
+offset_top = -130.0
+offset_right = 600.0
+offset_bottom = 510.0
+theme = SubResource("Theme_27awe")
+bbcode_enabled = true
+text = "[center][font_size=32][b]TUTORIAL[/b][/font_size][/center]
+
+Text goes here!!"
+
+[node name="TutorialButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1130.0
+offset_top = 11.0
+offset_right = 1255.0
+offset_bottom = 55.0
+theme = ExtResource("1_gchx3")
+theme_override_font_sizes/font_size = 24
+text = "TUTORIAL"
+
 [node name="button" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_27awe")
 
 [node name="hover" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_duq8p")
 
-[connection signal="mouse_entered" from="CenterContainer/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
-[connection signal="pressed" from="CenterContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="mouse_entered" from="CenterContainer2/TitleButton" to="." method="_on_title_button_mouse_entered"]
-[connection signal="pressed" from="CenterContainer2/TitleButton" to="." method="_on_title_button_pressed"]
+[connection signal="mouse_entered" from="MainScreen/CenterContainer/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
+[connection signal="pressed" from="MainScreen/CenterContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="mouse_entered" from="MainScreen/CenterContainer2/TitleButton" to="." method="_on_title_button_mouse_entered"]
+[connection signal="pressed" from="MainScreen/CenterContainer2/TitleButton" to="." method="_on_title_button_pressed"]
+[connection signal="mouse_entered" from="TutorialButton" to="." method="_on_tutorial_button_mouse_entered"]
+[connection signal="pressed" from="TutorialButton" to="." method="_on_tutorial_button_pressed"]
