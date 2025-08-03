@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6llql12pybs"]
+
+[ext_resource type="Script" uid="uid://dqfpnhjg83qbw" path="res://scripts/title_screen.gd" id="1_fgkus"]
+[ext_resource type="PackedScene" uid="uid://bjjltdour8ix2" path="res://scenes/background.tscn" id="2_sa3yf"]
+[ext_resource type="Theme" uid="uid://cvffwg5kiqetx" path="res://title_button_theme.tres" id="3_s4lrb"]
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_fgkus")
+
+[node name="Background" parent="." instance=ExtResource("2_sa3yf")]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+offset_top = 400.0
+offset_right = 1280.0
+offset_bottom = 498.0
+
+[node name="StartButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme = ExtResource("3_s4lrb")
+text = "START GAME"
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+offset_top = 550.0
+offset_right = 1280.0
+offset_bottom = 648.0
+
+[node name="QuitButton" type="Button" parent="CenterContainer2"]
+layout_mode = 2
+theme = ExtResource("3_s4lrb")
+text = "QUIT GAME"
+
+[connection signal="pressed" from="CenterContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer2/QuitButton" to="." method="_on_quit_button_pressed"]

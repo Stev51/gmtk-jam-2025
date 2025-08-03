@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjjltdour8ix2"]
+
+[ext_resource type="Texture2D" uid="uid://ddkbi66aesx6t" path="res://assets/img/background.png" id="1_bkp1e"]
+
+[node name="Background" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+show_behind_parent = true
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(1024, 512)
+autoscroll = Vector2(6, 3)
+repeat_times = 3
+follow_viewport = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_bkp1e")
