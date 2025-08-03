@@ -47,9 +47,31 @@ func change_selection(index: int):
 	update_slots()
 	inventory.check_selection_state()
 
+func scroll(mod):
+	
+	inventory.selected = true
+	
+	if inventory.selection_index == null:
+		inventory.selection_index = 0
+	else:
+		inventory.slots[inventory.selection_index].selected = false
+		inventory.selection_index = (inventory.selection_index + mod) % 9
+	
+	inventory.slots[inventory.selection_index].selected = true
+	
+	update_slots()
+	inventory.check_selection_state()
+
 func _input(event):
 	
-	if event.is_action_pressed("inv_toggle"):
+	if event is InputEventMouseButton and event.is_pressed():
+		
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			scroll(-1)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			scroll(1)
+	
+	elif event.is_action_pressed("inv_toggle"):
 		
 		if is_open == true:
 			close()
