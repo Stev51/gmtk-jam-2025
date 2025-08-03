@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6llql12pybs"]
+[gd_scene load_steps=8 format=3 uid="uid://c6llql12pybs"]
 
 [ext_resource type="Script" uid="uid://dqfpnhjg83qbw" path="res://scripts/title_screen.gd" id="1_fgkus"]
 [ext_resource type="PackedScene" uid="uid://c3bqggdkkfjdn" path="res://scenes/background.tscn" id="2_sa3yf"]
 [ext_resource type="Theme" uid="uid://cvffwg5kiqetx" path="res://title_button_theme.tres" id="3_s4lrb"]
+[ext_resource type="AudioStream" uid="uid://dxebb3lkuculh" path="res://assets/sfx/button.mp3" id="4_dc4i4"]
 [ext_resource type="AudioStream" uid="uid://bejl2x1kjxd6g" path="res://assets/music/+ (loopable).mp3" id="4_mgrm8"]
+[ext_resource type="AudioStream" uid="uid://bbfw510kvsdt2" path="res://assets/sfx/door-click.mp3" id="5_3yumr"]
+[ext_resource type="AudioStream" uid="uid://c8fp7udenb2s6" path="res://assets/sfx/hover.mp3" id="7_cs5ya"]
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_fgkus")
@@ -25,6 +28,9 @@ layout_mode = 2
 theme = ExtResource("3_s4lrb")
 text = "START GAME"
 
+[node name="button" type="AudioStreamPlayer" parent="CenterContainer"]
+stream = ExtResource("4_dc4i4")
+
 [node name="CenterContainer2" type="CenterContainer" parent="."]
 custom_minimum_size = Vector2(1280, 0)
 offset_top = 550.0
@@ -36,11 +42,20 @@ layout_mode = 2
 theme = ExtResource("3_s4lrb")
 text = "QUIT GAME"
 
+[node name="door click" type="AudioStreamPlayer" parent="CenterContainer2"]
+stream = ExtResource("5_3yumr")
+
 [node name="+(loopable)" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("4_mgrm8")
 volume_db = -10.0
 autoplay = true
+parameters/looping = true
 
+[node name="hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_cs5ya")
+
+[connection signal="mouse_entered" from="CenterContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="CenterContainer2/QuitButton" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="CenterContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
