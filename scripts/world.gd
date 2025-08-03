@@ -37,7 +37,7 @@ func updateMechanisms() -> void:
 					object[BACKGROUND].pushed = false
 
 	currentCycle += 1
-	if (currentCycle % 6 == 0):
+	if (currentCycle % 8 == 0):
 		$IOHandler.spawnInput(self)
 	for y in 5: 
 		var mech: Mechanism = getForegroundMechanism(45, 19+y)

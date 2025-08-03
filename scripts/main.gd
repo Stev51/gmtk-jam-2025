@@ -102,11 +102,13 @@ func place_new_floor_mechanism():
 
 func delete_top_mechanism():
 	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
+	if mek_obj is Box: return
 	world_node.deleteMechanism(mek_obj)
 
 func collect_top_mechanism():
 	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
 	if mek_obj != null:
+		if mek_obj is Box: return
 		gui_node.add_to_player_inv(mek_obj.item)
 
 func rotate_top_mechanism():
