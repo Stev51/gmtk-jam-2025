@@ -100,7 +100,7 @@ Every few seconds, a new box will be pushed in from the left. You must then perf
 You have a decent number of tools to help you with this. Each of these can be selected from your inventory by pressing 1-9, and can be placed/picked up with E. Pushers will constantly attempt to push any box on top of them forward. If that box has other boxes in front of it, then they will all be pushed, provided that they don't leave the play area. You can rotate them with Q.
 Painters will constantly switch the box on top of them to the configured type (press Q to change that type).
 Combiners and cutters will remove/add connections between any boxes on top of them, and can be rotated to determine what connection is formed.
-There are also blockers, which simply stop blocks from being pushed.
+There are also blockers, which simply stop boxes from being pushed.
 You are also able to push and pull mechanisms by pressing left or right click, respectively.
 Despite this limited toolset, there are many operations which you can perform. Do not be afraid to build buffers into your system, or even to forego making one output all together to wait for an easier one."
 
