@@ -2,10 +2,7 @@ extends CharacterBody2D
 
 @export var SPEED = 400
 
-@onready var anim = $AnimatedSprite2D
-
-func _ready():
-	anim.play("idle")
+@onready var anim: Sprite2D = $Sprite2D
 
 func _physics_process(delta):
 	player_movement()
@@ -25,8 +22,3 @@ func player_movement():
 
 	velocity = vec.normalized() * SPEED
 	move_and_slide()
-	
-	if vec.is_zero_approx():
-		anim.play("idle")
-	else:
-		anim.play("running")
