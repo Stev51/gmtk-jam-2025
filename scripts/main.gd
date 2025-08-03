@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var gui_node = $Player/GUI
+@onready var gui_node = $GUI
 @onready var world_node = $World
 @onready var main_tile_map_layer = $World/MainTileMapLayer
 @onready var mechanisms_parent_node = $World/Mechanisms
@@ -9,6 +9,9 @@ extends Node2D
 
 var mouse_pos = Vector2.ZERO
 var cell_pos = Vector2.ZERO
+
+const PLAYER_MAX_VEC = Vector2(432, 480)
+const CAMERA_MAX_VEC = Vector2(160, 328)
 
 func _process(delta):
 
@@ -19,6 +22,8 @@ func _process(delta):
 	place_marker.pos_dist_x = float(place_marker.position.x) - float(player_node.position.x)
 	place_marker.pos_dist_y = float(place_marker.position.y) - float(player_node.position.y)
 	cell_pos -= world_node.TILE_OFFSET
+	
+	gui_node.position = (player_node.position / PLAYER_MAX_VEC) * CAMERA_MAX_VEC
 
 func _input(event):
 
