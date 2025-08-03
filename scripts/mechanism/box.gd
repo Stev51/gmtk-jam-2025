@@ -11,10 +11,12 @@ enum BoxColor {PURPLE, RED, ORANGE, YELLOW, GREEN, BLUE}
 const NODE = preload("res://scenes/box.tscn")
 const ITEM = preload("res://inventory/items/box_item.tres")
 
+const GROUND = Field.FOREGROUND
+
 var color = BoxColor.PURPLE
 
 func _init(field: Field, x: int, y: int):
-	super(field, x, y, NODE.instantiate(), Field.FOREGROUND, ITEM)
+	super(field, x, y, NODE.instantiate(), GROUND, ITEM)
 	field.deferBackgroundMechanismUpdate(Vector2i(x, y))
 
 func updateColor(color: BoxColor):

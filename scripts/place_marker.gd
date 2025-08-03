@@ -105,7 +105,7 @@ func check_validity():
 	elif overlapping_mechanism == true:
 		placer_state = Global.PlacerStates.HARD_INVALID
 	elif overlapping_player == true:
-		placer_state = Global.PlacerStates.SOFT_INVALID
+		placer_state = Global.PlacerStates.OVERLAPPING
 	elif not check_distance_validity():
 		placer_state = Global.PlacerStates.SOFT_INVALID
 	elif overlapping_player == true:
@@ -126,6 +126,8 @@ func state_to_color():
 					Global.PlacerStates.VALID:
 						return GREEN
 					Global.PlacerStates.SOFT_INVALID:
+						return YELLOW
+					Global.PlacerStates.OVERLAPPING:
 						return YELLOW
 					Global.PlacerStates.HARD_INVALID:
 						return RED

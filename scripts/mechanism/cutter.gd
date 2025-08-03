@@ -3,10 +3,12 @@ class_name Cutter extends Mechanism
 const NODE = preload("res://scenes/cutter.tscn")
 const ITEM = preload("res://inventory/items/cutter_item.tres")
 
+const GROUND = Field.BACKGROUND
+
 var dir: Util.Direction
 
 func _init(field: Field, x: int, y:int, direction: Util.Direction = Global.DEFAULT_DIRECTION):
-	super(field, x, y, NODE.instantiate(), Field.BACKGROUND, ITEM)
+	super(field, x, y, NODE.instantiate(), GROUND, ITEM)
 	dir = direction
 	self.node.rotate(PI * dir / 2)
 
