@@ -17,6 +17,10 @@ func _init(field: Field, x: int, y:int, direction: Util.Direction = Global.DEFAU
 	if privileged == PushType.OUTPUT: self.node.modulate = Color(1, 0.5, 0)
 	if privileged == PushType.INPUT: self.node.modulate = Color(0, 0, 4)
 
+func playerPush(directionToMove: Util.Direction) -> void:
+	if privileged == Mechanism.PushType.OUTPUT: return
+	super(directionToMove)
+
 func update(currentCycle: int):
 	var object: Mechanism = field.getForegroundMechanism(self.x, self.y)
 	if (object != null):

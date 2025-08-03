@@ -54,6 +54,20 @@ volume_db = -10.0
 autoplay = true
 parameters/looping = true
 
+[node name="Output1 Label" type="Label" parent="."]
+offset_left = 644.0
+offset_top = 340.0
+offset_right = 768.0
+offset_bottom = 363.0
+text = "Desired Output:"
+
+[node name="Output1-Next Label" type="Label" parent="."]
+offset_left = 644.0
+offset_top = 655.0
+offset_right = 768.0
+offset_bottom = 678.0
+text = "Next Output:"
+
 [connection signal="area_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_body_entered"]

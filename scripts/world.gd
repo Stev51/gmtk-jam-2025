@@ -10,6 +10,7 @@ const GRID_HEIGHT: int = 47
 const SCALE: int = 64
 const TILE_OFFSET: Vector2i = Vector2i(-16, -16)
 const OFFSET: Vector2 = Vector2(SCALE*TILE_OFFSET.x + (SCALE / 2), SCALE*TILE_OFFSET.y + (SCALE / 2))
+const NEXT_OUTPUT_POS: Vector2i = PLAYER_MAP_END + Vector2i(3, -4)
 
 const PLAYER_MAP_START = Vector2i(16, 16)
 const PLAYER_MAP_END = Vector2i(30, 30)
@@ -24,6 +25,7 @@ var toRenderMechs: Array = Array()
 @export var starting_item: InventoryItem
 
 func updateMechanisms() -> void:
+	$IOHandler.setOutput(self)
 	# Reset push state of all boxes
 	for x in map:
 		for object in x:
@@ -162,6 +164,7 @@ func _ready():
 	$MechanismClock.start()
 
 func addMechanism(mech: Mechanism):
+	deleteMechanismAtPos(Vector2i(mech.x, mech.y), mech.ground)
 	if mech.ground == BACKGROUND:
 		self.setBackgroundMechanism(mech.x, mech.y, mech)
 	else:
@@ -176,6 +179,9 @@ func deleteMechanismAtPos(pos: Vector2i, ground: int):
 	if object == null: return
 
 	var mech = getMechanismVector(pos, ground)
+	# super scuffed method to stop player from removing output pushers
+	if mech is Pusher:
+		if mech.privileged == Mechanism.PushType.OUTPUT: return
 	if mech:
 		mech.onRemove()
 		mech.queue_free()
