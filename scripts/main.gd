@@ -96,4 +96,5 @@ func collect_top_mechanism():
 
 func rotate_top_mechanism():
 	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
-	mek_obj.rotate_dir()
+	if mek_obj != null:
+		mek_obj.rotate_dir()
