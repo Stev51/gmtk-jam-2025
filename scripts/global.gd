@@ -27,3 +27,7 @@ func pause():
 func resume():
 	game_state = GameStates.RUNNING
 	get_tree().paused = false
+
+func lose_game():
+	game_state = GameStates.TITLE
+	get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")

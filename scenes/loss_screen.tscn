@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7rov37uem43e"]
+
+[ext_resource type="Script" uid="uid://bcj1ljc0p7geo" path="res://scripts/loss_screen.gd" id="1_bc3b8"]
+[ext_resource type="Theme" uid="uid://cvffwg5kiqetx" path="res://title_button_theme.tres" id="2_bc3b8"]
+[ext_resource type="PackedScene" uid="uid://c3bqggdkkfjdn" path="res://scenes/background.tscn" id="2_cyd0m"]
+[ext_resource type="AudioStream" uid="uid://dxebb3lkuculh" path="res://assets/sfx/button.mp3" id="3_cyd0m"]
+[ext_resource type="AudioStream" uid="uid://c8fp7udenb2s6" path="res://assets/sfx/hover.mp3" id="4_ig7pu"]
+[ext_resource type="AudioStream" uid="uid://bejl2x1kjxd6g" path="res://assets/music/+ (loopable).mp3" id="6_cyd0m"]
+
+[sub_resource type="Theme" id="Theme_qeunj"]
+RichTextLabel/colors/default_color = Color(1, 0, 0, 1)
+RichTextLabel/colors/font_outline_color = Color(1, 1, 1, 1)
+RichTextLabel/constants/outline_size = 22
+RichTextLabel/font_sizes/bold_font_size = 88
+
+[node name="LossScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bc3b8")
+
+[node name="Background" parent="." instance=ExtResource("2_cyd0m")]
+layout_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 0
+offset_top = 400.0
+offset_right = 1280.0
+offset_bottom = 498.0
+
+[node name="StartButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme = ExtResource("2_bc3b8")
+text = "NEW GAME"
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 0
+offset_top = 550.0
+offset_right = 1280.0
+offset_bottom = 648.0
+
+[node name="TitleButton" type="Button" parent="CenterContainer2"]
+layout_mode = 2
+theme = ExtResource("2_bc3b8")
+text = "EXIT TO TITLE"
+
+[node name="CenterContainer3" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 2
+offset_top = 100.0
+offset_right = 1280.0
+offset_bottom = 100.0
+
+[node name="LossText" type="RichTextLabel" parent="CenterContainer3"]
+custom_minimum_size = Vector2(1280, 140)
+layout_mode = 2
+theme = SubResource("Theme_qeunj")
+bbcode_enabled = true
+text = "[b]GAME OVER[/b]"
+horizontal_alignment = 1
+
+[node name="button" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_cyd0m")
+
+[node name="hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ig7pu")
+
+[node name="+(loopable)" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_cyd0m")
+volume_db = -10.0
+autoplay = true
+parameters/looping = true
+
+[connection signal="mouse_entered" from="CenterContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="pressed" from="CenterContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="CenterContainer2/TitleButton" to="." method="_on_title_button_mouse_entered"]
+[connection signal="pressed" from="CenterContainer2/TitleButton" to="." method="_on_title_button_pressed"]
