@@ -133,11 +133,11 @@ func generatePossibleOutputs(field: Field) -> void:
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
 		field.addMechanism(Box.new(field, xOffset, yOffset))
 		field.addMechanism(Box.new(field, xOffset+1, yOffset))
-		field.addMechanism(Box.new(field, xOffset+1, yOffset+1))
-		field.addMechanism(Box.new(field, xOffset+1, yOffset+2))
+		field.addMechanism(Box.new(field, xOffset, yOffset+1))
+		field.addMechanism(Box.new(field, xOffset, yOffset+2))
 		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
-		field.getForegroundMechanism(xOffset+1, yOffset).connectMech(Util.Direction.DOWN)
-		field.getForegroundMechanism(xOffset+1, yOffset+1).connectMech(Util.Direction.DOWN)
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.DOWN)
+		field.getForegroundMechanism(xOffset, yOffset+1).connectMech(Util.Direction.DOWN)
 	)
 	templateYOffsets.append(0)
 	
