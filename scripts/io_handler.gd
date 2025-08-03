@@ -12,14 +12,16 @@ var templateYOffsets: Array = Array()
 var nextOutput: int
 var curOutput: int
 
+@onready var world_node = get_parent()
+
 func spawnInput(field: Field) -> void:
 	if currentSpawnPath == 1: 
 		if field.getForegroundMechanism(1, 21) != null:
-			Global.lose_game()
+			Global.lose_game(world_node.totalBoxesOutput)
 		field.addMechanism(Box.new(field, 1, 21))
 	else: 
 		if field.getForegroundMechanism(1, 25) != null:
-			Global.lose_game()
+			Global.lose_game(world_node.totalBoxesOutput)
 		field.addMechanism(Box.new(field, 1, 25))
 	currentSpawnPath *= -1
 

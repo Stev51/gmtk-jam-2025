@@ -1,5 +1,8 @@
 extends Control
 
+func _ready():
+	$CenterContainer4/ScoreText.text = "You output [b]" + Global.score + "[/b] boxes!"
+
 func _on_start_button_pressed():
 	
 	$button.play()
