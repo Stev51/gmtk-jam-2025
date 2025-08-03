@@ -28,5 +28,9 @@ func player_movement():
 	
 	if vec.is_zero_approx():
 		anim.play("idle")
+		if $"cinderblock-across-concrete".is_playing():
+			$"cinderblock-across-concrete".stop()
 	else:
 		anim.play("running")
+		if !$"cinderblock-across-concrete".is_playing():
+			$"cinderblock-across-concrete".play()
