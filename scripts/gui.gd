@@ -2,6 +2,18 @@ extends Control
 
 @export var player_inventory: Inventory
 
+@onready var pause_screen_node = $PauseScreen
+
+func _ready():
+	Global.pause_game.connect(pause)
+	Global.resume_game.connect(resume)
+
+func pause():
+	pause_screen_node.visible = true
+
+func resume():
+	pause_screen_node.visible = false
+
 func add_to_player_inv(item: InventoryItem):
 	player_inventory.insert(item)
 
