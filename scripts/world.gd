@@ -203,6 +203,10 @@ func deleteMechanism(mech: Mechanism):
 			var object = map[x][y]
 			if object != null:
 				if object[FOREGROUND] == mech:
+					mech.disconnectMech(Util.Direction.UP)
+					mech.disconnectMech(Util.Direction.LEFT)
+					mech.disconnectMech(Util.Direction.RIGHT)
+					mech.disconnectMech(Util.Direction.DOWN)
 					setForegroundMechanism(x, y, null)
 				if object[BACKGROUND] == mech:
 					# super scuffed method to stop player from removing output pushers
