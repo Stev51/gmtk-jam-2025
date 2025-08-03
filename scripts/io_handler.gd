@@ -74,9 +74,10 @@ func changeOutput(field: Field) -> void:
 	currentDifficulty += 1
 	clearOutput(field)
 	curOutput = nextOutput
+	curOutput = 4
 	while nextOutput == curOutput: 
 		var maxPosOutput = min(currentDifficulty + 3, possibleOutputs.size() - 1)
-		var minPosOutput = max(currentDifficulty - 5, 0)
+		var minPosOutput = max(currentDifficulty - 4, 0)
 		nextOutput = (randi() % (1 + maxPosOutput - minPosOutput)) + minPosOutput
 	
 	templateYOffset = templateYOffsets[curOutput]
@@ -111,20 +112,20 @@ func generatePossibleOutputs(field: Field) -> void:
 		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
 		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.UP)
 	)
-	templateYOffsets.append(1)
+	templateYOffsets.append(0)
 	
 	# 2x2 box
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
 		field.addMechanism(Box.new(field, xOffset, yOffset))
 		field.addMechanism(Box.new(field, xOffset+1, yOffset))
-		field.addMechanism(Box.new(field, xOffset, yOffset-1))
-		field.addMechanism(Box.new(field, xOffset+1, yOffset-1))
+		field.addMechanism(Box.new(field, xOffset, yOffset+1))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset+1))
 		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
-		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.UP)
-		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.DOWN)
-		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.LEFT)
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.DOWN)
+		field.getForegroundMechanism(xOffset+1, yOffset+1).connectMech(Util.Direction.UP)
+		field.getForegroundMechanism(xOffset+1, yOffset+1).connectMech(Util.Direction.LEFT)
 	)
-	templateYOffsets.append(1)
+	templateYOffsets.append(0)
 	
 	# 4-L shape
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
@@ -136,6 +137,29 @@ func generatePossibleOutputs(field: Field) -> void:
 		field.getForegroundMechanism(xOffset+1, yOffset).connectMech(Util.Direction.UP)
 		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.UP)
 	)
-	templateYOffsets.append(1)
+	templateYOffsets.append(0)
 	
+	# Red and blue stick
+	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
+		field.addMechanism(Box.new(field, xOffset, yOffset, Box.BoxColor.RED))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset, Box.BoxColor.RED))
+		field.addMechanism(Box.new(field, xOffset, yOffset+1, Box.BoxColor.BLUE))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset+1, Box.BoxColor.BLUE))
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.DOWN)
+		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.LEFT)
+	)
+	templateYOffsets.append(0)
 	
+	# Ring
+	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
+		field.addMechanism(Box.new(field, xOffset, yOffset))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset))
+		field.addMechanism(Box.new(field, xOffset, yOffset-1))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset-1))
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.UP)
+		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.DOWN)
+		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.LEFT)
+	)
+	templateYOffsets.append(0)
