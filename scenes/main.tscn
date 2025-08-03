@@ -68,6 +68,15 @@ offset_right = 610.0
 offset_bottom = 522.0
 text = "Next Output:"
 
+[node name="Output1 Timer" type="Label" parent="."]
+offset_left = 488.0
+offset_top = 211.0
+offset_right = 591.0
+offset_bottom = 286.0
+text = "Time Until
+Change:
+"
+
 [connection signal="area_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_body_entered"]

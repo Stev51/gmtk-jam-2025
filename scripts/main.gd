@@ -19,6 +19,9 @@ func _process(delta):
 	place_marker.pos_dist_x = float(place_marker.position.x) - float(player_node.position.x)
 	place_marker.pos_dist_y = float(place_marker.position.y) - float(player_node.position.y)
 	cell_pos -= world_node.TILE_OFFSET
+	
+	# Update text timer
+	$"Output1 Timer".text = "Time Until\nChange:\n" + str(int($World/OutputClock.time_left)) + "s"
 
 func _input(event):
 
