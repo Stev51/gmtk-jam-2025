@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://be68vhiulircs"]
+[gd_scene load_steps=9 format=3 uid="uid://be68vhiulircs"]
 
 [ext_resource type="PackedScene" uid="uid://6eaf6tl17aio" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://jaq7puo13gso" path="res://scripts/main.gd" id="1_sugp2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c3bqggdkkfjdn" path="res://scenes/background.tscn" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cvv8r7xpjmgp6" path="res://scripts/place_marker.gd" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cbhrw4c2sta6d" path="res://scenes/gui.tscn" id="5_tbgi4"]
+[ext_resource type="AudioStream" uid="uid://d38vv6llw8rya" path="res://assets/music/Bus on Snow (loopable).mp3" id="7_o6xl0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(64, 64)
@@ -40,6 +41,12 @@ z_index = 2
 z_index = 9
 
 [node name="Main Clock" type="Timer" parent="."]
+
+[node name="BusOnSnow(loopable)" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("7_o6xl0")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="area_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_exited"]
