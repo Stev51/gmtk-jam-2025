@@ -5,14 +5,14 @@ enum QueuePos {PRE, POST}
 var currentCycle: int = 0
 var map: Array = Array()
 
-const GRID_WIDTH: int = 32
-const GRID_HEIGHT: int = 32
+const GRID_WIDTH: int = 47
+const GRID_HEIGHT: int = 47
 const SCALE: int = 64
-const TILE_OFFSET: Vector2i = Vector2i(-10, -10)
+const TILE_OFFSET: Vector2i = Vector2i(-16, -16)
 const OFFSET: Vector2 = Vector2(SCALE*TILE_OFFSET.x + (SCALE / 2), SCALE*TILE_OFFSET.y + (SCALE / 2))
 
-const PLAYER_MAP_START = Vector2i(10, 10)
-const PLAYER_MAP_END = Vector2i(19, 19)
+const PLAYER_MAP_START = Vector2i(16, 16)
+const PLAYER_MAP_END = Vector2i(25, 25)
 
 var mechQueue: Array = Array()
 var futureMechQueue: Array = Array()
@@ -40,6 +40,7 @@ func updateMechanisms() -> void:
 	for y in 5: deleteMechanismAtPos(Vector2i(25, 13 + y), FOREGROUND)
 
 	if currentCycle % 2 == 0:
+		$IOHandler.checkOutput(self)
 		for mechPos in mechQueue:
 			var mech: Mechanism = getBackgroundVector(mechPos)
 			if mech != null && mech.queuePosition == QueuePos.PRE:
@@ -150,8 +151,13 @@ func _ready():
 		column.resize(GRID_HEIGHT)
 		map[x] = column
 
-	for x in 10: addMechanism(Pusher.new(self, x, 15, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
-	for x in 10: addMechanism(Pusher.new(self, x + 19, 15, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
+	for x in 16: addMechanism(Pusher.new(self, x, 21, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
+	for x in 16: addMechanism(Pusher.new(self, x + PLAYER_MAP_END.x, 21, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
+	for y in 7: addMechanism(Pusher.new(self, PLAYER_MAP_END.x + 4, 18-y, Util.Direction.UP, Mechanism.PushType.OUTPUT))
+	for x in 19: addMechanism(Pusher.new(self, PLAYER_MAP_END.x + 4 - x, 11, Util.Direction.LEFT, Mechanism.PushType.OUTPUT))
+	for y in 10: addMechanism(Pusher.new(self, 10, 11 + y, Util.Direction.DOWN, Mechanism.PushType.OUTPUT))
+	addMechanism(Blocker.new(self, PLAYER_MAP_END.x + 1, 18))
+	addMechanism(Blocker.new(self, PLAYER_MAP_END.x + 1, 24))
 
 	$MechanismClock.start()
 	
@@ -186,6 +192,9 @@ func deleteMechanism(mech: Mechanism):
 				if object[FOREGROUND] == mech:
 					setForegroundMechanism(x, y, null)
 				if object[BACKGROUND] == mech:
+					# super scuffed method to stop player from removing output pushers
+					if mech is Pusher:
+						if mech.privileged == Mechanism.PushType.OUTPUT: return
 					setBackgroundMechanism(x, y, null)
 
 	if mech:

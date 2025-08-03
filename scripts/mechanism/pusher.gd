@@ -14,6 +14,8 @@ func _init(field: Field, x: int, y:int, direction: Util.Direction = Global.DEFAU
 	dir = direction
 	self.node.rotate(PI * dir / 2)
 	self.privileged = privileged
+	if privileged == PushType.OUTPUT: self.node.modulate = Color(1, 0.5, 0)
+	if privileged == PushType.INPUT: self.node.modulate = Color(0, 0, 4)
 
 func update(currentCycle: int):
 	var object: Mechanism = field.getForegroundMechanism(self.x, self.y)

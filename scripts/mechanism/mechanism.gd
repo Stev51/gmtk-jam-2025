@@ -74,6 +74,10 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 		simulationResult = false
 		return simulationResult
 	var objectInWay: Mechanism = field.getMechanismVector(newPosition, ground)
+	# Output pushers will not have boxes push each other
+	if pushType == PushType.OUTPUT && objectInWay != null && !connectedMechs[directionToMove]:
+		simulationResult = false
+		return simulationResult
 	if objectInWay != null && !objectInWay.simulatePush(directionToMove, pushType):
 		simulationResult = false
 		return simulationResult
