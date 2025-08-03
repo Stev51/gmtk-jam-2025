@@ -95,7 +95,14 @@ theme = SubResource("Theme_27awe")
 bbcode_enabled = true
 text = "[center][font_size=32][b]TUTORIAL[/b][/font_size][/center]
 
-Text goes here!!"
+You have one goal. Do not let the input block up.
+Every few seconds, a new box will be pushed in from the left. You must then perform certain operations in order to output it onto the orange pushers, with the desired output being shown in the bottom right corner. If you attempt to output something invalid, then it will be looped back into your input stream.
+You have a decent number of tools to help you with this. Each of these can be selected from your inventory by pressing 1-9, and can be placed/picked up with E. Pushers will constantly attempt to push any box on top of them forward. If that box has other boxes in front of it, then they will all be pushed, provided that they don't leave the play area. You can rotate them with Q.
+Painters will constantly switch the box on top of them to the configured type (press Q to change that type).
+Combiners and cutters will remove/add connections between any boxes on top of them, and can be rotated to determine what connection is formed.
+There are also blockers, which simply stop blocks from being pushed.
+You are also able to push and pull mechanisms by pressing left or right click, respectively.
+Despite this limited toolset, there are many operations which you can perform. Do not be afraid to build buffers into your system, or even to forego making one output all together to wait for an easier one."
 
 [node name="TutorialButton" type="Button" parent="."]
 layout_mode = 0
