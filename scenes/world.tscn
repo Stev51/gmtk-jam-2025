@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://hsl6f3topqru"]
+[gd_scene load_steps=13 format=4 uid="uid://hsl6f3topqru"]
 
 [ext_resource type="Texture2D" uid="uid://cjocknw0gcrmi" path="res://assets/img/tile_bg_floor.png" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://dw0bs4wkgqd2" path="res://scripts/world.gd" id="1_rwgxs"]
+[ext_resource type="Resource" uid="uid://4mmmjg0jaf0i" path="res://inventory/items/box_item.tres" id="2_qfnet"]
 [ext_resource type="Texture2D" uid="uid://bvrws2yksbnbd" path="res://assets/img/tile.png" id="3_4wyf3"]
 [ext_resource type="Script" path="res://scripts/io_handler.gd" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://p0po0n2gkgvb" path="res://scenes/output_indicator.tscn" id="5_71j4m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnsk1"]
 texture = ExtResource("1_nnsk1")
@@ -54,6 +56,7 @@ size = Vector2(624, 624)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_rwgxs")
+starting_item = ExtResource("2_qfnet")
 
 [node name="BackgroundTileMapLayer" type="TileMapLayer" parent="."]
 scale = Vector2(2, 2)
@@ -84,5 +87,8 @@ wait_time = 0.5
 
 [node name="IOHandler" type="Node2D" parent="."]
 script = ExtResource("4_k0juu")
+
+[node name="OutputIndicator" parent="." instance=ExtResource("5_71j4m")]
+position = Vector2(745, 240)
 
 [connection signal="timeout" from="MechanismClock" to="." method="_on_mechanism_clock_timeout"]
