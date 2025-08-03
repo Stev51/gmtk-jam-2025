@@ -53,9 +53,9 @@ text = "EXIT TO TITLE"
 [node name="CenterContainer3" type="CenterContainer" parent="."]
 custom_minimum_size = Vector2(1280, 0)
 layout_mode = 2
-offset_top = 100.0
+offset_top = 50.0
 offset_right = 1280.0
-offset_bottom = 100.0
+offset_bottom = 190.0
 
 [node name="LossText" type="RichTextLabel" parent="CenterContainer3"]
 custom_minimum_size = Vector2(1280, 140)
@@ -63,6 +63,23 @@ layout_mode = 2
 theme = SubResource("Theme_qeunj")
 bbcode_enabled = true
 text = "[b]GAME OVER[/b]"
+horizontal_alignment = 1
+
+[node name="CenterContainer4" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+offset_top = 230.0
+offset_right = 1280.0
+offset_bottom = 370.0
+
+[node name="ScoreText" type="RichTextLabel" parent="CenterContainer4"]
+custom_minimum_size = Vector2(1280, 140)
+layout_mode = 2
+theme = SubResource("Theme_qeunj")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+bbcode_enabled = true
 horizontal_alignment = 1
 
 [node name="button" type="AudioStreamPlayer" parent="."]

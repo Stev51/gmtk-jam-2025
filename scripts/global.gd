@@ -15,6 +15,7 @@ enum MovableStates {NONE, CANPUSHNORTH, CANPUSHEAST, CANPUSHSOUTH, CANPUSHWEST, 
 const DEFAULT_DIRECTION = Util.Direction.UP
 
 var game_state = GameStates.TITLE
+var score = 0
 
 func _ready():
 	pause_game.connect(pause)
@@ -28,6 +29,7 @@ func resume():
 	game_state = GameStates.RUNNING
 	get_tree().paused = false
 
-func lose_game():
+func lose_game(cur_score):
+	score = cur_score
 	game_state = GameStates.TITLE
 	get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")
