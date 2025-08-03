@@ -22,6 +22,8 @@ func _ready():
 
 func pause():
 	game_state = GameStates.PAUSED
+	get_tree().paused = true
 
 func resume():
 	game_state = GameStates.RUNNING
+	get_tree().paused = false

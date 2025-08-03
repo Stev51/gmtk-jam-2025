@@ -8,6 +8,7 @@ RichTextLabel/constants/outline_size = 22
 RichTextLabel/font_sizes/bold_font_size = 88
 
 [node name="PauseScreen" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

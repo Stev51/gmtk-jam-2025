@@ -9,10 +9,10 @@ func _ready():
 	Global.resume_game.connect(resume)
 
 func pause():
-	pause_screen_node.visible = true
+	pause_screen_node.show()
 
 func resume():
-	pause_screen_node.visible = false
+	pause_screen_node.hide()
 
 func add_to_player_inv(item: InventoryItem):
 	player_inventory.insert(item)
