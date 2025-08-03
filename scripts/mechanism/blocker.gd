@@ -51,8 +51,6 @@ func updateConnectedTextures():
 		corners[3] = self.field.getForegroundMechanism(self.x + xs[7], self.y + ys[7]) is Blocker
 	else:
 		corners[3] = false
-	print(cardinals)
-	print(corners)
 
 	var cardCount: int = 0
 	for cardinal in cardinals:
