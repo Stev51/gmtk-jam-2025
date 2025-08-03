@@ -36,10 +36,11 @@ func _input(event):
 						delete_top_mechanism()
 
 				else: #If not hovering, and inv item selected, place it
-
-					if place_marker.cursor_state == Global.CursorStates.SELECTED and place_marker.placer_state == Global.PlacerStates.VALID:
-						place_new_mechanism()
-
+					if place_marker.cursor_state == Global.CursorStates.SELECTED:
+						if place_marker.placer_state == Global.PlacerStates.VALID:
+							place_new_mechanism()
+						elif place_marker.placer_state == Global.PlacerStates.OVERLAPPING:
+							place_new_floor_mechanism()
 		elif event.keycode == KEY_Q: #Q key pressed (rotation)
 
 			if place_marker.check_distance_validity() and place_marker.out_of_bounds == false:
@@ -83,7 +84,18 @@ func place_new_mechanism():
 
 		gui_node.remove_selected_item()
 
-	#world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y))
+func place_new_floor_mechanism():
+
+	var selected_item = gui_node.get_selected_item()
+	if selected_item != null:
+
+		var mek_type = selected_item.placed_mech
+		if mek_type.GROUND == Field.BACKGROUND:
+
+			var created_mek = mek_type.new(world_node, cell_pos.x, cell_pos.y)
+			world_node.addMechanism(created_mek)
+
+			gui_node.remove_selected_item()
 
 func delete_top_mechanism():
 	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
@@ -96,4 +108,5 @@ func collect_top_mechanism():
 
 func rotate_top_mechanism():
 	var mek_obj = world_node.get_mech_from_node(place_marker.get_top_mechanism())
-	mek_obj.rotate_dir()
+	if mek_obj != null:
+		mek_obj.rotate_dir()

@@ -2,8 +2,20 @@ extends CharacterBody2D
 
 @export var SPEED = 400
 
+@onready var anim = $AnimatedSprite2D
+
+func _ready():
+	anim.play("idle")
+
 func _physics_process(delta):
 	player_movement()
+
+func _input(event):
+	if event is InputEventKey and event.is_pressed():
+		if event.keycode == KEY_A or event.keycode == KEY_LEFT:
+			anim.flip_h = true
+		elif event.keycode == KEY_D or event.keycode == KEY_RIGHT:
+			anim.flip_h = false
 
 func player_movement():
 
@@ -13,3 +25,8 @@ func player_movement():
 
 	velocity = vec.normalized() * SPEED
 	move_and_slide()
+	
+	if vec.is_zero_approx():
+		anim.play("idle")
+	else:
+		anim.play("running")

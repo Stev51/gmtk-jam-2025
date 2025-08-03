@@ -19,6 +19,10 @@ var futureMechQueue: Array = Array()
 var toRenderMechs: Array = Array()
 
 @onready var main_tile_map_layer = $MainTileMapLayer
+@onready var output_indicator = $OutputIndicator
+
+# TEMP #
+@export var starting_item: InventoryItem
 
 func updateMechanisms() -> void:
 	# Reset push state of all boxes
@@ -150,6 +154,9 @@ func _ready():
 	for x in 10: addMechanism(Pusher.new(self, x + 19, 15, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
 
 	$MechanismClock.start()
+	
+	# TEMP #
+	output_indicator.set_new_item(starting_item)
 
 func addMechanism(mech: Mechanism):
 	if mech.ground == BACKGROUND:

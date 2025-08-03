@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://c42mbpne8e7la" path="res://inventory/items/cutter_item.tres" id="5_05iwv"]
 [ext_resource type="Resource" uid="uid://dkql14l3a3obm" path="res://inventory/items/painter_item.tres" id="6_vow7e"]
 [ext_resource type="Resource" uid="uid://dj14u68m5ir8u" path="res://inventory/items/pusher_item.tres" id="7_4vi8i"]
-[ext_resource type="Resource" path="res://inventory/items/blocker_item.tres" id="8_g4t3a"]
+[ext_resource type="Resource" uid="uid://dlx841sn8778a" path="res://inventory/items/blocker_item.tres" id="8_g4t3a"]
 
 [sub_resource type="Resource" id="Resource_8rf0j"]
 script = ExtResource("2_8rf0j")

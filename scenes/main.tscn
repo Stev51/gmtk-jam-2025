@@ -3,15 +3,17 @@
 [ext_resource type="PackedScene" uid="uid://6eaf6tl17aio" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://jaq7puo13gso" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://hsl6f3topqru" path="res://scenes/world.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://bjjltdour8ix2" path="res://scenes/background.tscn" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cvv8r7xpjmgp6" path="res://scripts/place_marker.gd" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cbhrw4c2sta6d" path="res://scenes/gui.tscn" id="5_tbgi4"]
-[ext_resource type="Texture2D" uid="uid://ddkbi66aesx6t" path="res://assets/img/background.png" id="6_tefeu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(64, 64)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_sugp2")
+
+[node name="Background" parent="." instance=ExtResource("2_tefeu")]
 
 [node name="World" parent="." instance=ExtResource("2_0wfyh")]
 position = Vector2(-320, -320)
@@ -28,23 +30,12 @@ shape = SubResource("RectangleShape2D_jyhfs")
 polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
+z_index = 2
 
 [node name="GUI" parent="Player" instance=ExtResource("5_tbgi4")]
 z_index = 9
 
 [node name="Main Clock" type="Timer" parent="."]
-
-[node name="Parallax2D" type="Parallax2D" parent="."]
-show_behind_parent = true
-scroll_scale = Vector2(0.1, 0.1)
-repeat_size = Vector2(1024, 512)
-autoscroll = Vector2(6, 3)
-repeat_times = 3
-follow_viewport = false
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-scale = Vector2(2, 2)
-texture = ExtResource("6_tefeu")
 
 [connection signal="area_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_exited"]

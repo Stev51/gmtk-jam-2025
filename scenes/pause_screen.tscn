@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwuwgqmodxnm8"]
+
+[ext_resource type="Theme" uid="uid://cvffwg5kiqetx" path="res://title_button_theme.tres" id="1_gchx3"]
+[ext_resource type="Script" uid="uid://pusqv8yeifxe" path="res://scripts/pause_screen.gd" id="1_qeunj"]
+
+[sub_resource type="Theme" id="Theme_qeunj"]
+RichTextLabel/constants/outline_size = 22
+RichTextLabel/font_sizes/bold_font_size = 88
+
+[node name="PauseScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qeunj")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.117647, 0.117647, 0.117647, 0.741176)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 0
+offset_top = 400.0
+offset_right = 1280.0
+offset_bottom = 498.0
+
+[node name="ResumeButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme = ExtResource("1_gchx3")
+text = "RESUME GAME"
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 0
+offset_top = 550.0
+offset_right = 1280.0
+offset_bottom = 648.0
+
+[node name="TitleButton" type="Button" parent="CenterContainer2"]
+layout_mode = 2
+theme = ExtResource("1_gchx3")
+text = "EXIT TO TITLE"
+
+[node name="CenterContainer3" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(1280, 0)
+layout_mode = 2
+offset_top = 100.0
+offset_right = 1280.0
+offset_bottom = 100.0
+
+[node name="PauseText" type="RichTextLabel" parent="CenterContainer3"]
+custom_minimum_size = Vector2(1280, 140)
+layout_mode = 2
+theme = SubResource("Theme_qeunj")
+bbcode_enabled = true
+text = "[b]PAUSED[/b]"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CenterContainer2/TitleButton" to="." method="_on_title_button_pressed"]

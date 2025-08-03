@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbhrw4c2sta6d"]
+[gd_scene load_steps=5 format=3 uid="uid://cbhrw4c2sta6d"]
 
 [ext_resource type="Script" uid="uid://gp5n6rxl05m5" path="res://scripts/gui.gd" id="1_efmwq"]
 [ext_resource type="Resource" uid="uid://bbsiqxqyr53rv" path="res://inventory/inventories/player_inventory.tres" id="2_mfius"]
 [ext_resource type="PackedScene" uid="uid://bcklqkc1fkj3f" path="res://scenes/inventory_ui.tscn" id="3_ynd5l"]
+[ext_resource type="PackedScene" uid="uid://bwuwgqmodxnm8" path="res://scenes/pause_screen.tscn" id="4_b8iy7"]
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -21,9 +22,17 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -605.0
-offset_top = -317.0
-offset_right = -605.0
-offset_bottom = -317.0
+offset_left = -620.0
+offset_top = -336.0
+offset_right = -478.0
+offset_bottom = 299.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="PauseScreen" parent="." instance=ExtResource("4_b8iy7")]
+visible = false
+layout_mode = 1
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -640.0
+offset_bottom = -360.0
