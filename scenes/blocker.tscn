@@ -1,17 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://1hr4qjbsq3lw"]
+[gd_scene load_steps=10 format=3 uid="uid://1hr4qjbsq3lw"]
 
 [ext_resource type="Texture2D" uid="uid://b8gq6rfvoufmt" path="res://assets/img/blocker.png" id="1_8r6n6"]
+[ext_resource type="Texture2D" uid="uid://u6fdh37ytt8" path="res://assets/img/blocker_overlay/004.png" id="2_4u43a"]
+[ext_resource type="Texture2D" uid="uid://bijyvysbk5hi" path="res://assets/img/blocker_overlay/001.png" id="2_p8xn8"]
+[ext_resource type="Texture2D" uid="uid://ij8o8cw4b1me" path="res://assets/img/blocker_overlay/003.png" id="3_6vrue"]
+[ext_resource type="Texture2D" uid="uid://cait6e51cjfgt" path="res://assets/img/blocker_overlay/000.png" id="3_upkef"]
+[ext_resource type="Texture2D" uid="uid://deghahnuegouo" path="res://assets/img/blocker_overlay/002.png" id="4_4u43a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgrg5"]
-size = Vector2(62, 62)
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_q5qim"]
+frames = 8
+frame_0/texture = ExtResource("2_4u43a")
+frame_1/texture = ExtResource("3_6vrue")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("4_4u43a")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("2_p8xn8")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("3_upkef")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("2_p8xn8")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("4_4u43a")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("3_6vrue")
+frame_7/duration = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hamcu"]
+atlas = SubResource("AnimatedTexture_q5qim")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hamcu"]
+size = Vector2(32, 32)
 
 [node name="Blocker" type="Area2D"]
+scale = Vector2(2, 2)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8r6n6")
 
+[node name="Overlay" type="Sprite2D" parent="Sprite2D"]
+texture = SubResource("AtlasTexture_hamcu")
+hframes = 4
+vframes = 4
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_cgrg5")
+shape = SubResource("RectangleShape2D_hamcu")

@@ -25,7 +25,7 @@ func _input(event):
 	if event is InputEventKey and event.is_pressed(): #Key presses
 
 		if event.keycode == KEY_E: #E key pressed (mech place/destroy)
-			
+
 			if place_marker.check_distance_validity() and place_marker.out_of_bounds == false:
 
 				var hovers = place_marker.get_hovered_mechanisms()
@@ -39,9 +39,9 @@ func _input(event):
 
 					if place_marker.cursor_state == Global.CursorStates.SELECTED and place_marker.placer_state == Global.PlacerStates.VALID:
 						place_new_mechanism()
-		
+
 		elif event.keycode == KEY_Q: #Q key pressed (rotation)
-			
+
 			if place_marker.check_distance_validity() and place_marker.out_of_bounds == false:
 				if len(place_marker.get_hovered_mechanisms()) > 0:
 					rotate_top_mechanism()
@@ -73,16 +73,16 @@ func _input(event):
 					hovered.playerPush(Util.Direction.RIGHT) #PLACEHOLDER, push selected mech one tile right
 
 func place_new_mechanism():
-	
+
 	var selected_item = gui_node.get_selected_item()
 	if selected_item != null:
-		
+
 		var mek_type = selected_item.placed_mech
 		var created_mek = mek_type.new(world_node, cell_pos.x, cell_pos.y)
 		world_node.addMechanism(created_mek)
-		
+
 		gui_node.remove_selected_item()
-	
+
 	#world_node.addMechanism(Box.new(world_node, cell_pos.x, cell_pos.y))
 
 func delete_top_mechanism():

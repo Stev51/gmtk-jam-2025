@@ -62,7 +62,7 @@ func simulatePush(directionToMove: Util.Direction, pushType: PushType) -> bool:
 	# If something tries to refer back to this mid simulation,
 	# we assume that this would succeed
 	simulationResult = true
-	
+
 	var newPosition: Vector2i = Util.offset(Vector2i(x, y), directionToMove)
 	if newPosition.x < 0 || newPosition.x >= Field.GRID_WIDTH || newPosition.y < 0 || newPosition.y >= Field.GRID_HEIGHT:
 		simulationResult = false
@@ -106,7 +106,7 @@ func push(directionToMove: Util.Direction) -> void:
 	field.setMechanismVector(newPosition, self, ground)
 	field.setMechanism(self.x, self.y, null, ground)
 	if ground == Field.FOREGROUND: field.deferBackgroundMechanismUpdate(newPosition)
-	self.oldPos = Field.toSceneCoord(self.x, self.y)
+	self.oldPos = self.node.position
 	self.x = newPosition.x
 	self.y = newPosition.y
 	self.newPos = Field.toSceneCoord(self.x, self.y)
@@ -155,6 +155,13 @@ func update(currentCycle: int) -> void:
 
 func render(delta: float) -> void:
 	self.node.position = self.oldPos.lerp(self.newPos, delta)
+
+
+func onCreation():
+	pass
+func onRemove():
+	for dir in Util.Direction.size(): self.disconnectMech(dir)
+	self.getNode().queue_free()
 
 func getNode() -> Node2D:
 	return node

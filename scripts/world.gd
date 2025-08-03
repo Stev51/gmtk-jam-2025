@@ -157,17 +157,17 @@ func addMechanism(mech: Mechanism):
 	else:
 		self.setForegroundMechanism(mech.x, mech.y, mech)
 	self.add_child(mech.getNode())
+	mech.onCreation()
 
 func deleteMechanismAtPos(pos: Vector2i, ground: int):
 	var container = map[pos.x][pos.y]
 	if container == null: return
 	var object = container[ground]
 	if object == null: return
-	
+
 	var mech = getMechanismVector(pos, ground)
 	if mech:
-		for dir in Util.Direction.size(): mech.disconnectMech(dir)
-		mech.getNode().queue_free()
+		mech.onRemove()
 		mech.queue_free()
 	setMechanismVector(pos, null, ground)
 
@@ -182,8 +182,7 @@ func deleteMechanism(mech: Mechanism):
 					setBackgroundMechanism(x, y, null)
 
 	if mech:
-		for dir in Util.Direction.size(): mech.disconnectMech(dir)
-		mech.getNode().queue_free()
+		mech.onRemove()
 		mech.queue_free()
 
 
