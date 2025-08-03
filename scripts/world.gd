@@ -19,6 +19,8 @@ var mechQueue: Array = Array()
 var futureMechQueue: Array = Array()
 var toRenderMechs: Array = Array()
 
+var totalBoxesOutput = 0
+
 @onready var main_tile_map_layer = $MainTileMapLayer
 
 # TEMP #
@@ -37,7 +39,11 @@ func updateMechanisms() -> void:
 	currentCycle += 1
 	if (currentCycle % 6 == 0):
 		$IOHandler.spawnInput(self)
-	for y in 5: deleteMechanismAtPos(Vector2i(25, 13 + y), FOREGROUND)
+	for y in 5: 
+		var mech: Mechanism = getForegroundMechanism(45, 19+y)
+		if mech != null:
+			totalBoxesOutput += 1
+			deleteMechanismAtPos(Vector2i(45, 19 + y), FOREGROUND)
 
 	if currentCycle % 2 == 0:
 		$IOHandler.checkOutput(self)

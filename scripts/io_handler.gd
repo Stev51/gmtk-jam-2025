@@ -85,12 +85,15 @@ func changeOutput(field: Field) -> void:
 
 func generatePossibleOutputs(field: Field) -> void:
 	nextOutput = 0
+	# 2-stick
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
 		field.addMechanism(Box.new(field, xOffset, yOffset))
 		field.addMechanism(Box.new(field, xOffset+1, yOffset))
 		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
 	)
 	templateYOffsets.append(0)
+	
+	# Rainbow 3-stick
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
 		field.addMechanism(Box.new(field, xOffset, yOffset, Box.BoxColor.RED))
 		field.addMechanism(Box.new(field, xOffset+1, yOffset))
@@ -99,6 +102,8 @@ func generatePossibleOutputs(field: Field) -> void:
 		field.getForegroundMechanism(xOffset+1, yOffset).connectMech(Util.Direction.RIGHT)
 	)
 	templateYOffsets.append(0)
+	
+	# tromino-shape
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
 		field.addMechanism(Box.new(field, xOffset, yOffset))
 		field.addMechanism(Box.new(field, xOffset+1, yOffset))
@@ -107,6 +112,8 @@ func generatePossibleOutputs(field: Field) -> void:
 		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.UP)
 	)
 	templateYOffsets.append(1)
+	
+	# 2x2 box
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
 		field.addMechanism(Box.new(field, xOffset, yOffset))
 		field.addMechanism(Box.new(field, xOffset+1, yOffset))
@@ -118,6 +125,8 @@ func generatePossibleOutputs(field: Field) -> void:
 		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.LEFT)
 	)
 	templateYOffsets.append(1)
+	
+	# 4-L shape
 	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
 		field.addMechanism(Box.new(field, xOffset, yOffset))
 		field.addMechanism(Box.new(field, xOffset+1, yOffset))
@@ -128,3 +137,5 @@ func generatePossibleOutputs(field: Field) -> void:
 		field.getForegroundMechanism(xOffset+1, yOffset-1).connectMech(Util.Direction.UP)
 	)
 	templateYOffsets.append(1)
+	
+	
