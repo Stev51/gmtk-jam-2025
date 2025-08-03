@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3bqggdkkfjdn"]
 
 [ext_resource type="Texture2D" uid="uid://ddkbi66aesx6t" path="res://assets/img/background.png" id="1_bkp1e"]
-[ext_resource type="Script" uid="uid://di0o3bmkleipf" path="res://scenes/parallax_2d.gd" id="1_y0upk"]
+[ext_resource type="Script" path="res://scenes/parallax_2d.gd" id="1_y0upk"]
 
 [node name="Background" type="Control"]
 layout_mode = 3
