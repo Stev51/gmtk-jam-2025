@@ -129,6 +129,7 @@ func updateConnectedTextures():
 	elif cardCount == 4:
 		if cornerCount == 0:
 			overlay.frame = 1
+			overlay.rotation = 0 * PI / 2
 		elif cornerCount == 1:
 			overlay.frame = 5
 			if corners[0]:
@@ -163,7 +164,7 @@ func updateConnectedTextures():
 				overlay.rotation = 0 * PI / 2
 			elif !corners[2]:
 				overlay.rotation = 1 * PI / 2
-			elif corners[3]:
+			elif !corners[3]:
 				overlay.rotation = 2 * PI / 2
 		elif cornerCount == 4:
 			overlay.frame = 15
