@@ -76,7 +76,6 @@ func changeOutput(field: Field) -> void:
 	currentDifficulty += 1
 	clearOutput(field)
 	curOutput = nextOutput
-	curOutput = 4
 	while nextOutput == curOutput: 
 		var maxPosOutput = min(currentDifficulty + 3, possibleOutputs.size() - 1)
 		var minPosOutput = max(currentDifficulty - 4, 0)
