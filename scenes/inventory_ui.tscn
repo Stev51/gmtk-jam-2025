@@ -19,7 +19,7 @@ script = ExtResource("1_tahbm")
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 0
 offset_right = 141.0
-offset_bottom = 639.0
+offset_bottom = 669.0
 texture = ExtResource("2_ylkvr")
 patch_margin_left = 64
 patch_margin_top = 64
@@ -35,13 +35,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = -289.5
-offset_right = 31.0
-offset_bottom = 289.5
+offset_left = -30.5
+offset_top = -304.5
+offset_right = 31.5
+offset_bottom = 300.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/v_separation = 64
+theme_override_constants/v_separation = 68
 
 [node name="InventorySlot0" parent="NinePatchRect/GridContainer" instance=ExtResource("3_mdwe3")]
 layout_mode = 2
