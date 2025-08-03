@@ -47,6 +47,7 @@ process_mode = 3
 stream = ExtResource("7_o6xl0")
 volume_db = -10.0
 autoplay = true
+parameters/looping = true
 
 [connection signal="area_entered" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="PlaceMarker/Area2D" to="PlaceMarker" method="_on_area_2d_area_exited"]
