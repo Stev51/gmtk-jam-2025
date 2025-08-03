@@ -38,12 +38,12 @@ polygon = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 z_index = 2
 
+[node name="GUI" parent="Player" instance=ExtResource("5_tbgi4")]
+z_index = 9
+
 [node name="cinderblock-across-concrete" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("7_tipki")
 parameters/looping = true
-
-[node name="GUI" parent="." instance=ExtResource("5_tbgi4")]
-z_index = 9
 
 [node name="Main Clock" type="Timer" parent="."]
 
