@@ -25,7 +25,6 @@ var toRenderMechs: Array = Array()
 @export var starting_item: InventoryItem
 
 func updateMechanisms() -> void:
-	$IOHandler.setOutput(self)
 	# Reset push state of all boxes
 	for x in map:
 		for object in x:
@@ -36,7 +35,7 @@ func updateMechanisms() -> void:
 					object[BACKGROUND].pushed = false
 
 	currentCycle += 1
-	if (currentCycle % 10 == 0):
+	if (currentCycle % 6 == 0):
 		$IOHandler.spawnInput(self)
 	for y in 5: deleteMechanismAtPos(Vector2i(25, 13 + y), FOREGROUND)
 
@@ -153,6 +152,7 @@ func _ready():
 		map[x] = column
 
 	for x in 16: addMechanism(Pusher.new(self, x, 21, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
+	for x in 16: addMechanism(Pusher.new(self, x, 25, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
 	for x in 4: addMechanism(Pusher.new(self, x + PLAYER_MAP_END.x, 21, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
 	for x in 8: addMechanism(Pusher.new(self, x + PLAYER_MAP_END.x + 9, 21, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
 	for y in 7: addMechanism(Pusher.new(self, PLAYER_MAP_END.x + 4, 18-y, Util.Direction.UP, Mechanism.PushType.OUTPUT))
@@ -161,7 +161,11 @@ func _ready():
 	addMechanism(Blocker.new(self, PLAYER_MAP_END.x + 1, 18))
 	addMechanism(Blocker.new(self, PLAYER_MAP_END.x + 1, 24))
 
+	$IOHandler.generatePossibleOutputs(self)
+	$IOHandler.changeOutput(self)
 	$MechanismClock.start()
+	
+	$OutputClock.start()
 
 func addMechanism(mech: Mechanism):
 	deleteMechanismAtPos(Vector2i(mech.x, mech.y), mech.ground)
@@ -207,6 +211,9 @@ func deleteMechanism(mech: Mechanism):
 
 func _on_mechanism_clock_timeout() -> void:
 	updateMechanisms()
+
+func _on_output_clock_timeout() -> void:
+	$IOHandler.changeOutput(self)
 
 static func toSceneCoord(x: int, y: int) -> Vector2:
 	return Vector2(x, y) * SCALE + OFFSET

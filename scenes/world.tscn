@@ -90,4 +90,8 @@ wait_time = 0.5
 [node name="IOHandler" type="Node2D" parent="."]
 script = ExtResource("4_k0juu")
 
+[node name="OutputClock" type="Timer" parent="."]
+wait_time = 300.0
+
 [connection signal="timeout" from="MechanismClock" to="." method="_on_mechanism_clock_timeout"]
+[connection signal="timeout" from="OutputClock" to="." method="_on_output_clock_timeout"]

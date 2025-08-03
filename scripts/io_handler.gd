@@ -4,8 +4,23 @@ enum CheckState {NONE, FAIL, SUCCEED}
 
 var templateYOffset: int = 0
 
+var currentSpawnPath = 1
+var currentDifficulty = 0
+
+var possibleOutputs: Array = Array()
+var nextOutput: int
+var curOutput: int
+
 func spawnInput(field: Field) -> void:
-	field.addMechanism(Box.new(field, 1, 21))
+	if currentSpawnPath == 1: 
+		if field.getForegroundMechanism(1, 21) != null:
+			Global.lose_game()
+		field.addMechanism(Box.new(field, 1, 21))
+	else: 
+		if field.getForegroundMechanism(1, 25) != null:
+			Global.lose_game()
+		field.addMechanism(Box.new(field, 1, 25))
+	currentSpawnPath *= -1
 
 func checkOutput(field: Field) -> void:
 	for x in 5:
@@ -49,16 +64,44 @@ func checkOnTile(field: Field, x: int, y: int) -> CheckState:
 				push_error("templateMech or outputMech not a Box")
 	return CheckState.SUCCEED
 
-func setOutput(field: Field) -> void:
-	field.addMechanism(Box.new(field, Field.NEXT_OUTPUT_POS.x, Field.NEXT_OUTPUT_POS.y))
-	field.addMechanism(Box.new(field, Field.NEXT_OUTPUT_POS.x+1, Field.NEXT_OUTPUT_POS.y))
-	field.getForegroundMechanism(Field.NEXT_OUTPUT_POS.x, Field.NEXT_OUTPUT_POS.y).connectMech(Util.Direction.RIGHT)
+func clearOutput(field: Field) -> void:
+	for x in 5:
+		for y in 10:
+			field.deleteMechanismAtPos(Field.NEXT_OUTPUT_POS + Vector2i(x, y - 2), Field.FOREGROUND)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func changeOutput(field: Field) -> void:
+	currentDifficulty += 1
+	clearOutput(field)
+	curOutput = nextOutput
+	while nextOutput == curOutput: 
+		var maxPosOutput = min(currentDifficulty + 3, possibleOutputs.size() - 1)
+		var minPosOutput = max(currentDifficulty - 5, 0)
+		nextOutput = (randi() % (1 + maxPosOutput - minPosOutput)) + minPosOutput
+	
+	possibleOutputs[curOutput].call(field, Field.NEXT_OUTPUT_POS.x, Field.NEXT_OUTPUT_POS.y)
+	possibleOutputs[nextOutput].call(field, Field.NEXT_OUTPUT_POS.x, Field.NEXT_OUTPUT_POS.y + 5)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func generatePossibleOutputs(field: Field) -> void:
+	nextOutput = 0
+	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
+		field.addMechanism(Box.new(field, xOffset, yOffset))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset))
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
+		templateYOffset = 0
+	)
+	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
+		field.addMechanism(Box.new(field, xOffset, yOffset, Box.BoxColor.RED))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset))
+		field.addMechanism(Box.new(field, xOffset+2, yOffset, Box.BoxColor.BLUE))
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
+		field.getForegroundMechanism(xOffset+1, yOffset).connectMech(Util.Direction.RIGHT)
+		templateYOffset = 0
+	)
+	possibleOutputs.append(func (field: Field, xOffset: int, yOffset: int):
+		field.addMechanism(Box.new(field, xOffset, yOffset))
+		field.addMechanism(Box.new(field, xOffset+1, yOffset))
+		field.addMechanism(Box.new(field, xOffset, yOffset-1))
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.RIGHT)
+		field.getForegroundMechanism(xOffset, yOffset).connectMech(Util.Direction.UP)
+		templateYOffset = 1
+	)
