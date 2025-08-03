@@ -152,7 +152,8 @@ func _ready():
 		map[x] = column
 
 	for x in 16: addMechanism(Pusher.new(self, x, 21, Util.Direction.RIGHT, Mechanism.PushType.INPUT))
-	for x in 16: addMechanism(Pusher.new(self, x + PLAYER_MAP_END.x, 21, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
+	for x in 4: addMechanism(Pusher.new(self, x + PLAYER_MAP_END.x, 21, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
+	for x in 8: addMechanism(Pusher.new(self, x + PLAYER_MAP_END.x + 9, 21, Util.Direction.RIGHT, Mechanism.PushType.OUTPUT))
 	for y in 7: addMechanism(Pusher.new(self, PLAYER_MAP_END.x + 4, 18-y, Util.Direction.UP, Mechanism.PushType.OUTPUT))
 	for x in 19: addMechanism(Pusher.new(self, PLAYER_MAP_END.x + 4 - x, 11, Util.Direction.LEFT, Mechanism.PushType.OUTPUT))
 	for y in 10: addMechanism(Pusher.new(self, 10, 11 + y, Util.Direction.DOWN, Mechanism.PushType.OUTPUT))
